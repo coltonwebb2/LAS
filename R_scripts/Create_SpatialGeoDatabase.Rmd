@@ -1,0 +1,29 @@
+---
+title: "Creat Spatial GeoDatabase"
+output:
+  
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
+---
+
+```{js logo-js, echo=FALSE}
+$(document).ready(function() {
+  $('#header').parent().prepend('<div id=\"logo\"><img src=\"images/logo.jpg\" style=\"position:absolute; top:0; right:0; padding:0px; height:160px\"></div>');
+  $('#header').css('margin-right', '100px')
+});
+```
+
+```{=html}
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+```

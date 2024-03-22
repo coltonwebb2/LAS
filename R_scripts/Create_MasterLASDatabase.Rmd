@@ -1,0 +1,225 @@
+---
+title: "Create Master LAS Database"
+output:
+  
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+
+---
+
+```{js logo-js, echo=FALSE}
+$(document).ready(function() {
+  $('#header').parent().prepend('<div id=\"logo\"><img src=\"images/logo.jpg\" style=\"position:absolute; top:0; right:0; padding:0px; height:160px\"></div>');
+  $('#header').css('margin-right', '100px')
+});
+```
+
+```{=html}
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+```
+
+Laramie Angler Survey
+Last updadted: 3/22/2024
+Colt Webb
+
+Goal: Load the Raw or Cleaned data into R and look through the data to better understand what I am working with. Once cleaned and I have added any fields that I might need, write this to a geodatabase. 
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#==============================================================================#
+#      Load Packages, working path, and EPSG codes ####
+#==============================================================================#
+require(sf)
+require(mapview)
+require(maptools)
+require(kableExtra)
+require(tidyverse)
+
+# My working path
+myPath <- "C:/Users/colwebb/Documents/LaramieAnglerSurvey"
+
+#Transform coordinates to Albers 
+albers.usa <- 5070
+```
+
+
+
+## Read in data and clean
+
+-  Any blanks or periods become NA (NA = Did Not SEE Question)
+
+-  Keep -99 as they saw the question but did not answer
+
+-  Assign a unique id to each row (1:4400) named SurveyID
+
+-  Create state, county, and zip columns to use for mapping later. State is from the residence address State. County is from IT. Zip code is from the "ZipCode_Final" that Stephen manually pick the best Zip code to use. Using the zip code they entered if possible, but using the residence zip code as a replacement when necessary. He will also fix the 4 digit zip codes and trim the extra -#### from the end so that we have one column with the best reliable zip codes. 
+
+-  Reorganize the columns so that Customer Info like name, email, address, Fee and License type come before the answers to questions
+
+```{r echo=FALSE}
+#==============================================================================#
+#      Read and Clean  Data ####
+#==============================================================================#
+# Read in the data and fix NA
+orginal <- data.frame(read.csv(paste0(myPath,"/Data/AnglerSurvey2023CleanedFile.csv"),                
+                         na.strings = c(""," ",".")))  %>% # Any blanks or periods become NA (NA = Did Not SEE Question)
+     # Assign a unique id to each row
+     mutate(SurveyID = 1:4400) %>%   # add unique survey id number to each row 
+  
+     # Create the Final state and zip that I will use (I used Residence...not mail)
+     mutate(state = residencestate,
+            zipcode = residencezip) %>%  # Use ZipCode_Final (Stephen is going to manually pick the best Zip code to use)
+  
+     # Fix data types for each column
+     mutate(SurveyID = as.character(SurveyID),
+            customerid = as.character(customerid),
+            mailzip = as.character(mailzip),
+            residencezip = as.character(residencezip),
+            licensetype = as.character(licensetype)) %>% 
+     # Reorder the columns
+     select(SurveyID,customerid, RecipientLastName:ExternalReference, mailcity:residencezip, 
+            ZipCode_Entered, ZipCode_Final, state, county, zipcode, feetype, licensetype, Section1Q1:GenFacilities2)
+
+d <- orginal
+
+
+d %>% 
+  select(SurveyID:licensetype) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+  scroll_box(width = "100%", height = "300px")
+```
+
+<br>
+
+<br>
+
+## Determine how many surveys reponses are missing Customer Info
+
+- 18 rows of missing info. How did this happen? 
+
+- Might be able to State and County to those you did provide a zip code
+
+```{r echo=FALSE}
+missingInfo <- d %>% filter(is.na(customerid))
+
+missingInfo %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+  scroll_box(width = "100%", height = "300px")
+
+
+
+```
+
+<br>
+
+<br>
+
+## Add state and county to 16/18 "missing people" that provided their zipcode
+
+```{r echo=FALSE}
+# test <- missingInfo %>% 
+#             mutate(zipcode = ifelse(is.na(zipcode), ZipCode_Entered, zipcode)) %>% 
+#             mutate(state = case_when())
+```
+
+
+## Determine if same person took the survey multiple times
+
+- First remove the 18 rows of missing info. Now way to tell if these were duplicated or not
+
+- Find customerID that were listed more than once
+
+- This list consists of 39 unique people that duplicated the survey (38 took it twice, 1 took it three times). This equals 79 survey reponses. Once I pick the first response from each person then I will be left with a table of 39 reponses (one per person). 
+
+- I need to go manually look through this table below and pick out each persons first survey response. Add record which SurveyIDs to keep and which to toss out. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Find the people that took it more than once
+dup <- d %>%  
+          drop_na(customerid) %>%  # remove the 18 rows of missing info
+          mutate(duplicate = duplicated(customerid)) %>%  # add column of TRUE or FALSE whether customerID is a duplicated 
+          filter(duplicate == TRUE) %>% # pick only the customerID that were indicated being duplicated
+          arrange(RecipientLastName) # arrange rows by alphabetical order of Last Name
+
+#length(unique(dup$customerid)) # Number of unique people that took survey 
+# table(dup$customerid) # One person took it 3 times, 38 took it twice
+
+
+
+# Make dataframe of only the people that took it more than once (expect 79 rows)
+# unique(dup$customerid)
+dup <- d %>% 
+          filter(customerid %in% c(
+                   "418333",  "1349069", "11791",  "113130",  "418100",  "981794", "1678981", "1719911",
+                   "633667",  "382588",  "466059",  "253024",  "595007",  "932627",  "823563",  "1080687",
+                   "26017",   "601625",  "220593",  "590472",  "2467926", "1813362", "629384",  "13456",  
+                   "304229",  "1427740", "160233",  "2598127", "54706",   "601067",  "853886",  "229220", 
+                   "819062",  "1322892", "422200",  "524786",  "351070",  "1399009", "2616485")) %>% 
+          arrange(customerid) # arrange rows by alphabetical order of Last Name
+
+
+dup %>% 
+  select(SurveyID:licensetype) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+  scroll_box(width = "100%", height = "300px")
+
+write.csv(dup, paste0(myPath,"/Data/duplicates_toAVG.csv" ))
+
+#unique(dup$SurveyID)
+```
+
+<br> 
+
+<br>
+
+## Remove the 79 Surveys that were on of the 39 people that took survey muliple times
+
+```{r}
+d <- d %>% 
+          filter(!customerid %in% c(
+                   "418333",  "1349069", "11791",  "113130",  "418100",  "981794", "1678981", "1719911",
+                   "633667",  "382588",  "466059",  "253024",  "595007",  "932627",  "823563",  "1080687",
+                   "26017",   "601625",  "220593",  "590472",  "2467926", "1813362", "629384",  "13456",  
+                   "304229",  "1427740", "160233",  "2598127", "54706",   "601067",  "853886",  "229220", 
+                   "819062",  "1322892", "422200",  "524786",  "351070",  "1399009", "2616485"))
+```
+
+
+
+## Read in the the average survey scores and rbind them to the rest of the dataframe.
+
+```{r}
+
+# avg_duplicates <- read.csv()
+
+# test <- rbind(d, avg_duplicates)
+```
+
+
+
+## Summmarys of License Type not matching the Residence State Info
+
+
+
+
+
+
+
+
+
+
+
+
+

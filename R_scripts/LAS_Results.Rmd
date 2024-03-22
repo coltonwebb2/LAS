@@ -1,0 +1,503 @@
+---
+title: "Document Title"
+output:
+  
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
+---
+
+```{js logo-js, echo=FALSE}
+$(document).ready(function() {
+  $('#header').parent().prepend('<div id=\"logo\"><img src=\"images/logo.jpg\" style=\"position:absolute; top:0; right:0; padding:0px; height:160px\"></div>');
+  $('#header').css('margin-right', '100px')
+});
+```
+
+```{=html}
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+```
+
+<br>
+
+#  {.tabset}
+
+<br>
+
+
+
+
+
+
+
+
+
+## About
+
+<br>
+
+#### **Longer More Detailed Title**
+
+<br>
+
+**Name**
+
+email:
+
+Wyoming Game and Fish Department
+
+Date:
+
+
+
+<br>
+
+<br>
+
+**How to navigate this document:**
+
+- insert description of document
+
+- insert photo 
+
+- Zip Code Data Downloaded From: https://catalog.data.gov/dataset/tiger-line-shapefile-2019-2010-nation-u-s-2010-census-5-digit-zip-code-tabulation-area-zcta5-na
+
+- County and Equivalent divisions Data Downloaded From: https://catalog.data.gov/dataset/tiger-line-shapefile-2019-nation-u-s-current-county-and-equivalent-national-shapefile
+
+<br>
+
+<br>
+
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Main Tab 1
+
+<br>
+
+### [**Main Tab 1**]{.underline} 
+
+<br>
+
+- insert description 
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+
+### Heading 1 {.tabset}
+
+<br>
+
+#### Sub heading 1
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+#### Sub heading 2
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+### Heading 2 {.tabset}
+
+<br>
+
+#### Sub heading 1
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+#### Sub heading 2
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+#### Sub heading 3
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+### Heading 3 
+
+<br>
+
+-   example of a heading without using tabs
+
+<br>
+
+<br>
+
+
+#### Sub heading 1
+
+-   insert
+
+<br>
+
+<br>
+
+#### Sub heading 2
+
+-   insert
+
+<br>
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Main Tab 2
+
+<br>
+
+### [**Main Tab 2**]{.underline}
+
+<br>
+
+- insert description 
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+### Heading 1
+
+-   example of a heading without using tabs
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+
+
+
+
+### Heading 2 {.tabset}
+
+#### Sub heading  (Pick Spp)
+
+<br>
+
+-   **Pick a Species**
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+
+
+#### Sub heading 1 / Spp 1
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+#### Sub heading 2 / Spp 2
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+#### Sub heading 3 / Spp 3
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+
+
+
+
+### Heading 3 {.tabset}
+
+#### Sub heading  (Pick Variable)
+
+<br>
+
+-   **Pick a Variable**
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+
+
+#### Sub heading 1 / Spp 1
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+
+
+#### Sub heading 2 / Spp 2
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+
+
+#### Sub heading 3 / Spp 3
+
+<br>
+
+**Caption/Title**
+
+<br>
+
+-   insert
+
+<br>
+
+<br>
+
+------------------------------------------------------------------------
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
