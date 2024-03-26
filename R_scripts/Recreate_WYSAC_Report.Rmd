@@ -1,0 +1,910 @@
+---
+title: "Re-Create WYSAC Survey Results"
+output:
+  
+  html_document:
+    theme: paper
+    highlight: tango
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
+
+---
+
+```{js logo-js, echo=FALSE}
+$(document).ready(function() {
+  $('#header').parent().prepend('<div id=\"logo\"><img src=\"images/logo.jpg\" style=\"position:absolute; top:0; right:0; padding:0px; height:160px\"></div>');
+  $('#header').css('margin-right', '100px')
+});
+```
+
+```{=html}
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+```
+
+<br>
+
+#  {.tabset}
+
+## About
+
+**Laramie Angler Survey - Recreate WYSAC Report**
+
+Last updadted: 3/26/2024
+
+Colt Webb
+
+**Goals**: 
+
+- 1) Use the original (unaltered) data that WYSAC used to make their report and recreate the report they did for us to check numbers. The purpose of using the original (unaltered data) is so that I can compare the numbers of my analysis to theirs. The numbers should line up since its the same data. That will allow me to feel confident in my code and then I can copy my code to the final markdown file but run it with the finalized cleaned data that I wrote to the geodatabase in part one of this script. 
+
+- **This is using original data before it was cleaned and fixed in section one so that I can compare it directly to the on Jessica did.**
+
+<br>
+
+<br>
+
+
+### Introduction
+
+The Wyoming Survey & Analysis Center (WYSAC) at the University of Wyoming (UW) 
+was commissioned by the Wyoming Game and Fish Department (WGFD) to conduct a 
+survey to gather opinions of anglers in the Laramie region. This survey allowed anglers a 
+chance to have their voices heard on a variety of topics related to general preferences as an
+angler as well as experiences with Diamond Lake, Wheatland Reservoir #3, and channel 
+catfish in southeastern Wyoming. Results from this survey will be utilized to guide future 
+fisheries management decisions in the Laramie Fish Management Region. 
+
+- Start and End Dates: Nov 2023 - Jan 2024
+
+<br>
+
+### Methods
+
+#### Questionnaire Development
+
+The survey instrument was developed in coordination with WGFD. Once questions were 
+decided upon, the questionnaire was programmed for web administration with Qualtrics, a 
+leading platform for creating and distributing web-based surveys.
+
+<br>
+
+#### Sampling Frame, Sample Design, and Sample Size
+
+The population of interest for this survey was defined as all resident angers with a resident 
+fishing license (daily, annual, or lifetime) active between January 1st, 2023, and October 11th, 
+2023, with a home address listed in Albany, Carbon, Goshen, Laramie, or Platte counties 
+with an email address on file. Lifetime license holders included only those license holders 
+that carried fishing privileges and had a birth date listed after January 1st, 1944. The 
+population also included all nonresident anglers holding an annual nonresident fishing 
+license active between January 1st, 2023, and October 11th, 2023, with an email address on 
+file. After the full list of license holders and applicants was supplied by WGFD, it was 
+“cleaned” for valid email addresses and de-duplicated. The total population resulting from 
+these efforts included 39,903 individual hunters, of which 39,893 had valid email addresses.
+
+<br>
+
+#### Mode of Data Collection
+
+The online (or web) mode was the only option for completing the survey. Each potential 
+respondent was assigned a unique passcode for accessing the survey. The passcode was 
+entered manually upon reaching the login page of the survey, or automatically by clicking a 
+link directly from an email invitation.
+
+<br>
+
+#### Survey Administration
+
+Data collection began in November 2023 and closed in January of 2024. 
+
+The survey administration protocols included the following steps:
+
+- First, an invite was emailed to all individuals who had a valid email address. These 
+email invitations explained the purpose and importance of the survey and solicited 
+participation via a personal link. These individuals received email invitations only
+with the first email invite sent in November 2023. A second reminder email was 
+sent one week after the first invite in November 2023, followed by a third email 
+reminder at the end of November 2023, and a final reminder email was sent in 
+December 2023.
+
+<br>
+
+#### Response Rates
+
+By the close of data collection, a total of 6,652 “raw” survey responses were recorded. During data 
+cleaning, a total of 4,400 useable surveys were obtained with a valid response rate of 11.0%. 
+Frequency tables in the next section of the report include only the 4,400 usable responses. Raw 
+survey responses were considered unusable for a number of possible reasons, such that 1,484 
+indicated they did not want to continue with the survey, 21 individuals viewed the entirety of the 
+survey but did not respond to any questions, and 747 individuals dropped off from completing the 
+survey early enough to render the survey data unusable. 
+
+<br>
+
+#### Data Compilation and Analysis
+
+I used R to obtain frequencies. The final version of this "LAS_Results" will also have maps and figures in conjuction to the tables.  
+
+<br>
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#==============================================================================#
+#      Load Packages, working path, and EPSG codes ####
+#==============================================================================#
+require(sf)
+require(mapview)
+require(maptools)
+require(kableExtra)
+require(tidyverse)
+
+# My working path
+myPath <- "C:/Users/colwebb/Documents/LaramieAnglerSurvey"
+
+#Transform coordinates to Albers 
+albers.usa <- 5070
+```
+
+
+
+```{r echo=FALSE}
+#==============================================================================#
+#      Read and Clean  Data ####
+#==============================================================================#
+# Read in the data and fix NA
+original <- data.frame(read.csv(paste0(myPath,"/Data/AnglerSurvey2023CleanedFile.csv"),                
+                         na.strings = c(""," ",".")))  %>% # Any blanks or periods become NA 
+     # Assign a unique id to each row
+     mutate(SurveyID = 1:4400) %>%   # add unique survey id number to each row 
+  
+     # Create the Final state and zip that I will use (I used Residence...not mail)
+     mutate(state = residencestate,
+            zipcode = residencezip) %>%  # Use ZipCode_Final (Stephen is going to manually pick the best Zip code to use)
+  
+     # Fix data types for each column
+     mutate(SurveyID = as.character(SurveyID),
+            customerid = as.character(customerid),
+            mailzip = as.character(mailzip),
+            residencezip = as.character(residencezip),
+            licensetype = as.character(licensetype)) %>% 
+     # Reorder the columns
+     select(SurveyID,customerid, RecipientLastName:ExternalReference, mailcity:residencezip, 
+            ZipCode_Entered, ZipCode_Final, state, county, zipcode, feetype, licensetype, Section1Q1:GenFacilities2)
+
+d <- original
+
+
+
+```
+
+
+
+
+
+
+
+## Section 0 - Background & Demographics {.tabset}
+
+<br>
+
+**Frequencies**
+
+In the following tables, the percentage distributions and raw frequency counts of responses to all 
+questions on the survey are presented. Questionnaire items are presented in the order they appeared 
+on the survey; question text is presented verbatim. For all questions, No answer/Refused and Don’t 
+know/Not sure responses are excluded from the valid percent calculations (where applicable).
+Questions excluded from the frequency table listing are all open-ended text responses and a question 
+asking individuals if they would like to continue with the survey (see the supplemental open-end 
+response report 2401a for a listing of all text entries).
+
+- -99 = Skipped/No Answer (Saw question but did not answer)
+
+- NA = Did Not See/ Missing (Never saw the question)
+
+<br>
+
+### Fee Type
+
+Total sample size is `r nrow(d)`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$feetype, useNA = "always")
+
+valid <- d %>% filter(!feetype == "-99" , !is.na(feetype))
+other <- d %>% filter(feetype == "-99" | is.na(feetype))
+
+
+valid <- valid %>% 
+          group_by(feetype) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("feetype" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = round(sum(valid$'Valid Percent'), digits = 0))
+
+other <- other %>% 
+          group_by(feetype) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(feetype = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+tbl <- rbind(valid, other) %>% 
+        rename(" " = feetype)
+
+
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table 1: Fee Type") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T) 
+```
+
+<br>
+
+<br>
+
+<br>
+
+
+### State
+
+Total sample size is `r nrow(d)`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$feetype, useNA = "always")
+
+valid <- d %>% filter(!state == "-99" , !is.na(state))
+other <- d %>% filter(state == "-99" | is.na(state))
+
+
+valid <- valid %>% 
+          group_by(state) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("state" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = round(sum(valid$'Valid Percent'), digits = 0))
+
+other <- other %>% 
+          group_by(state) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(state = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+tbl <- rbind(valid, other) %>% 
+        rename(" " = state)
+
+
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table 2: State") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)  
+```
+
+<br>
+
+<br>
+
+<br>
+
+### County
+
+Total sample size is `r nrow(d)`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$feetype, useNA = "always")
+
+valid <- d %>% filter(!county == "-99" , !is.na(county))
+other <- d %>% filter(county == "-99" | is.na(county))
+
+
+valid <- valid %>% 
+          group_by(county) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("county" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = round(sum(valid$'Valid Percent'), digits = 0))
+
+other <- other %>% 
+          group_by(county) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(county = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+tbl <- rbind(valid, other) %>% 
+        rename(" " = county)
+
+
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table 3: County in Wyoming") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T) 
+
+valid <- d %>% filter(!county == "-99" , !is.na(county))
+other <- d %>% filter(county == "-99" | is.na(county))
+
+
+```
+
+<br>
+
+<br>
+
+<br>
+
+## Section 1 - General Questions and Preferences {.tabset}
+
+**Frequencies**
+
+In the following tables, the percentage distributions and raw frequency counts of responses to all 
+questions on the survey are presented. Questionnaire items are presented in the order they appeared 
+on the survey; question text is presented verbatim. For all questions, No answer/Refused and Don’t 
+know/Not sure responses are excluded from the valid percent calculations (where applicable).
+Questions excluded from the frequency table listing are all open-ended text responses and a question 
+asking individuals if they would like to continue with the survey (see the supplemental open-end 
+response report 2401a for a listing of all text entries).
+
+- -99 = Skipped/No Answer (Saw question but did not answer)
+
+- NA = Did Not See/ Missing (Never saw the question)
+
+### License Type
+
+<br>
+
+##### **In 2023, did you fish with a resident (1) or non-resident license (2)?**
+
+Total sample size is `r nrow(d)`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$licensetype, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(licensetype = case_when(licensetype == 1 ~ "Resident",
+                                    licensetype == 2 ~ "Non-resident", 
+                                    .default = as.character(licensetype)))
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!licensetype == "-99" , !is.na(licensetype))
+other <- d %>% filter(licensetype == "-99" | is.na(licensetype))
+
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(licensetype) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("licensetype" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(licensetype) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(licensetype = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = licensetype)
+
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q1: In 2023, did you fish with a resident or non-resident license?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+<br>
+
+<br>
+
+<br>
+
+
+### Question 1
+
+<br>
+
+##### **Have you fished in the Laramie Region within the last five years?**
+
+```{r message=FALSE, warning=FALSE}
+#table(d$Section1Q1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q1 = case_when(Section1Q1 == 1 ~ "Yes",
+                                    Section1Q1 == 2 ~ "No", 
+                                    Section1Q1 == 3 ~ "Don't know/ Not Sure",
+                                    .default = as.character(Section1Q1)))
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
+other <- d %>% filter(Section1Q1 == "-99" | is.na(Section1Q1))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section1Q1" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section1Q1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section1Q1 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section1Q1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Have you fished in the Laramie Region within the last five years?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+### Question 2
+
+<br>
+
+##### **Would you like to continue this survey about fishing in the Laramie Region?**
+
+```{r message=FALSE, warning=FALSE}
+#table(d$Section1Q2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q2 = case_when(Section1Q2 == 1 ~ "Yes",
+                                    Section1Q2 == 2 ~ "No", 
+                                    .default = as.character(Section1Q2)))
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q2 == "-99" , !is.na(Section1Q2))
+other <- d %>% filter(Section1Q2 == "-99" | is.na(Section1Q2))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section1Q2" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section1Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section1Q2 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section1Q2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q2: Would you like to continue this survey about fishing in the Laramie Region?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+**Of the 6,652 "raw" survey responses:**
+
+- 1,484 indicated they did not want to continue with the survey
+
+- 21 viewed the entirety of the survey but did not respond to any questions
+
+- 747 individuals dropped off from completing the survey early enough to render the survey data unusable.
+
+
+### Question 3
+
+<br>
+
+##### **To the best of your knowledge, approximately how many days did you fish in the Laramie Region in 2023? **
+
+```{r message=FALSE, warning=FALSE}
+#table(d$Section1Q3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                    Section1Q3 == 2 ~ "1-5 days", 
+                                    Section1Q3 == 3 ~ "6-20 days",
+                                    Section1Q3 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section1Q3))) 
+# Order 
+d$Section1Q3 <- factor(d$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q3 == "-99" , !is.na(Section1Q3))
+other <- d %>% filter(Section1Q3 == "-99" | is.na(Section1Q3))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section1Q3" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section1Q3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section1Q3 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section1Q3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q3: How many days did you fish in the Laramie Region in 2023?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+### Question 4 {.tabset}
+
+<br>
+
+##### **Please indicate how important each of the following is to you when choosing a place to fish in the Laramie Region.** 
+
+<br>
+
+#### 1 - Fishing for trout
+
+##### **Fishing for trout species **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 2 - Fishing for non-trout species 
+
+##### **Fishing for non-trout species (e.g., bass, crappie, perch, walleye, catfish)**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 3 - Fishing waters that have regulations
+
+##### **Fishing waters that have regulations restricting harvest, length, and or use of bait/tackle  **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 4 - Fishing, including ice fishing, using bait other than live minnows 
+
+##### **Fishing, including ice fishing, using bait other than live minnows (e.g., worms, grubs, maggots, dead fish, Power Bait, etc.) **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+#### 5 - Fishing with live minnows 
+
+##### **Fishing with live  minnows  **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 6 - Harvesting a limit of fish 
+
+##### **Harvesting a limit of fish**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 7 - Harvesting enough fish for a meal 
+
+##### **Harvesting enough fish for a meal**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+#### 8 - Playing and landing a large fish 
+
+##### **Playing and landing a large fish**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+#### 9 - Releasing all or most of the fish caught 
+
+##### **Releasing all or most of the fish caught**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+
+
+
+
+
+
+
+### Question 5 {.tabset}
+
+<br>
+
+##### **In general, how often do you fish the following types of waters in the Laramie Region?** 
+
+<br>
+
+
+#### 1 - Mountian Lakes in Snowy Range and Sierra Madres
+
+##### **Mountain lakes in the Snowy Range and Sierra Madres (including Hog Park Reservoir, Lake Owen, Rob Roy Reservoir, Mirror Lake, Lake Marie and other waters)**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+#### 2 - Lakes and Reservoirs for trout
+
+##### **Lakes and reservoirs for trout (including Lake Hattie, Twin Buttes, Meeboer, Gelatt, Diamond Lake, Saratoga Lake, Wheatland Reservoir #3, Crystal, Granite and North Crow reservoirs, and other waters) **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+#### 3 - Lakes and Reservoirs for warmwater fish
+
+##### **Lakes and reservoirs for species like bass, walleye, yellow perch, crappie and catfish (including Wheatland Reservoirs #1 and #3, Grayrocks, Hawk Springs, Packers Lake, Sloans Lake and other waters) **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 4 - Rivers and streams
+
+##### **Rivers and streams (including the North Platte, Encampment, Laramie River, Douglas Creek, French Creek and other flowing waters) **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+#### 5 - Pole Mountain beaver ponds
+
+##### **Pole Mountain beaver ponds**
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+
+
+
+
+
+### Question 6 {.tabset}
+
+<br>
+
+##### **The Wyoming Game and Fish Department manages fishing in waters throughout the Laramie Region for a variety of purposes. Please indicate your level of agreement with the following possible future management strategies.** 
+
+<br>
+
+
+#### 1 - Manage more waters for general fishing regulations 
+
+##### **Manage more waters for general fishing regulations with fewer restrictions on size of fish, tackle, and number of fish. (Click here for regulations, Statewide Creel limits are on pg. 3.) **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+#### 2 - Manage more waters for "trophy" or larger fish
+
+##### **Manage more waters for "trophy" or larger fish even if most fish must be released  **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+
+#### 3 -  Manage more waters for artificial flies and lures only 
+
+##### **Manage more waters for artificial flies and lures only  **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+
+#### 4 -  Manage more waters as “no kill” 
+
+##### **Manage more waters as “no kill” (catch and release only)  **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+
+#### 5 -  Manage more waters for non-trout species
+
+##### **Manage more waters for non-trout species, even if trout stocking is eliminated  **
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+
+
+
+### Question 7
+
+<br>
+
+##### **Please indicate your level of agreement with this statement: “The Wyoming Game and Fish Department does a good job of listening to members of the public and incorporating feedback into fisheries-related decisions in the Laramie Region.” **
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Section 2 - Diamond Lake {.tabset}
+
+**Frequencies**
+
+In the following tables, the percentage distributions and raw frequency counts of responses to all 
+questions on the survey are presented. Questionnaire items are presented in the order they appeared 
+on the survey; question text is presented verbatim. For all questions, No answer/Refused and Don’t 
+know/Not sure responses are excluded from the valid percent calculations (where applicable).
+Questions excluded from the frequency table listing are all open-ended text responses and a question 
+asking individuals if they would like to continue with the survey (see the supplemental open-end 
+response report 2401a for a listing of all text entries).
+
+- -99 = Skipped/No Answer (Saw question but did not answer)
+
+- NA = Did Not See/ Missing (Never saw the question)
+
+
+## Section 3 - Wheatland Reservoir 3 {.tabset}
+
+**Frequencies**
+
+In the following tables, the percentage distributions and raw frequency counts of responses to all 
+questions on the survey are presented. Questionnaire items are presented in the order they appeared 
+on the survey; question text is presented verbatim. For all questions, No answer/Refused and Don’t 
+know/Not sure responses are excluded from the valid percent calculations (where applicable).
+Questions excluded from the frequency table listing are all open-ended text responses and a question 
+asking individuals if they would like to continue with the survey (see the supplemental open-end 
+response report 2401a for a listing of all text entries).
+
+- -99 = Skipped/No Answer (Saw question but did not answer)
+
+- NA = Did Not See/ Missing (Never saw the question)
+
+## Section 4 - Catfish {.tabset}
+
+**Frequencies**
+
+In the following tables, the percentage distributions and raw frequency counts of responses to all 
+questions on the survey are presented. Questionnaire items are presented in the order they appeared 
+on the survey; question text is presented verbatim. For all questions, No answer/Refused and Don’t 
+know/Not sure responses are excluded from the valid percent calculations (where applicable).
+Questions excluded from the frequency table listing are all open-ended text responses and a question 
+asking individuals if they would like to continue with the survey (see the supplemental open-end 
+response report 2401a for a listing of all text entries).
+
+- -99 = Skipped/No Answer (Saw question but did not answer)
+
+- NA = Did Not See/ Missing (Never saw the question)
+
+## Section 5 - Like's & Dislike's {.tabset}
+
+
+
+
+
+
+
+
+
