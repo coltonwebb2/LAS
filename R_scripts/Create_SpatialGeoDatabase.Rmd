@@ -27,3 +27,273 @@ div.main-container {
 }
 </style>
 ```
+
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#==============================================================================#
+#      Load Packages, working path, and functions ####
+#==============================================================================#
+require(sf)
+require(mapview)
+require(ggplot2)
+require(ggmap)
+require(basemapR) # https://github.com/Chrisjb/basemapR?tab=readme-ov-file
+require(ggthemes)
+require(tidyverse)
+
+# My working path
+myPath <- "C:/Users/colwebb/Documents/LaramieAnglerSurvey/Data"  
+ 
+#Transform coordinates to Albers 
+albers.usa <- 5070
+
+```
+
+
+
+
+# State
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Create
+st_layers(paste0(myPath, "/Spatial_Data")) # look at layers
+state48 <- st_read(dsn = paste0(myPath, "/Spatial_Data"), # read in points
+                    layer = "tl_2017_us_state") %>% 
+         st_transform(albers.usa) %>% 
+         filter(!REGION == "9") %>% 
+         filter(!NAME %in% c("Hawaii", "Alaska"))
+alaska <- st_read(dsn = paste0(myPath, "/Spatial_Data"), # read in points
+                    layer = "tl_2017_us_state") %>% 
+         st_transform(albers.usa) %>% 
+         filter(NAME %in% c("Alaska"))
+hawaii <- st_read(dsn = paste0(myPath, "/Spatial_Data"), # read in points
+                    layer = "tl_2017_us_state") %>% 
+         st_transform(albers.usa) %>% 
+         filter(NAME %in% c("Hawaii"))
+
+# View it
+ggplot(state48) +
+  geom_sf(fill = "bisque4",
+          color = "black",
+          alpha = 0.2,
+          linewidth = 1.5) +
+  ggthemes::theme_map()
+
+ggplot(alaska) +
+  geom_sf(fill = "bisque4",
+          color = "black",
+          alpha = 0.2,
+          linewidth = 1.5) +
+  ggthemes::theme_map()
+
+ggplot(hawaii) +
+  geom_sf(fill = "bisque4",
+          color = "black",
+          alpha = 0.2,
+          linewidth = 1.5) +
+  ggthemes::theme_map()
+
+# Write to GeoDatabase
+st_write(state48, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "state",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+st_write(alaska, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "alaska",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+st_write(hawaii, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "hawaii",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+```
+
+
+
+
+
+# County
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Create
+st_layers(paste0(myPath, "/Spatial_Data")) # look at layers
+county <- st_read(dsn = paste0(myPath, "/Spatial_Data"), # read in points
+                    layer = "tl_2019_us_county") %>% 
+         st_transform(albers.usa) 
+
+
+# View it
+ggplot(county) +
+  geom_sf(fill = "bisque4",
+          color = "black",
+          alpha = 0.2,
+          linewidth = 0.5) +
+  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) +
+  ggthemes::theme_map()
+
+# Write to GeoDatabase
+st_write(county, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "county",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+```
+
+
+
+
+
+
+# Zip Code
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Create
+st_layers(paste0(myPath, "/Spatial_Data")) # look at layers
+zip <- st_read(dsn = paste0(myPath, "/Spatial_Data"), # read in points
+                    layer = "tl_2019_us_zcta510") %>% 
+         st_transform(albers.usa)
+
+# View it
+ggplot(zip) +
+  geom_sf(fill = "bisque4",
+          color = "black",
+          alpha = 0.2,
+          linewidth = 0.1) +
+  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) +
+  ggthemes::theme_map()
+
+# Write to GeoDatabase
+st_write(zip, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "zipcode",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+st_layers(paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg")) # look at layers
+```
+
+
+
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# #------------------------------------------------#
+# # Set the basemap for all the interactive maps 
+# #------------------------------------------------#
+# # Chose 5 basemaps options
+# mapviewOptions(basemaps = c("CartoDB.Positron",
+#                             #"CartoDB.DarkMatter",
+#   
+#                             "Esri.WorldShadedRelief", # 1
+#                             #"Esri.WorldImagery",
+#                             "Esri.WorldPhysical",
+#                             "Esri.WorldTopoMap",
+#   
+#                             #"OpenTopoMap",
+#                             #"OpenStreetMap",
+#                             
+#                             #"Stadia.Outdoors"
+#                             "Stadia.StamenTerrain"
+#                             
+#                            ),
+#                layers.control.pos = "topleft")
+# 
+# 
+# 
+# 
+# map_state <- mapview(state,
+#                           # Borders
+#                           color = "black",
+#                           lwd = 3,
+#                           # Fill
+#                           col.regions = "white",
+#                           alpha.regions = 0,
+#                           # Other
+#                           label = "NAME") 
+# 
+# map_county <- mapview(county,
+#                           # Borders
+#                           color = "black",
+#                           lwd = 1,
+#                           # Fill
+#                           col.regions = "white",
+#                           alpha.regions = 0,
+#                           # Other
+#                           label = "NAME") 
+# 
+# map_zip <- mapview(zip,
+#                         # Borders
+#                         color = "black",
+#                         lwd = 2,
+#                         alpha = 0.7,
+#                         # Other
+#                         label = "gnis_name") 
+# 
+# 
+# map_base <- map_statelines + map_stdyarea + map_zip
+```
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+# UrbanInstitute Shapefiles
+
+```{r}
+# Install devtools if needed
+#install.packages("devtools")
+#devtools::install_github("UrbanInstitute/urbnmapr")
+
+library(urbnmapr)
+
+
+states_sf <- get_urbn_map(map = "states", sf = TRUE) %>% 
+         st_transform(albers.usa)
+
+counties_sf <- get_urbn_map(map = "counties", sf = TRUE) %>% 
+         st_transform(albers.usa)
+
+ggplot() +
+  geom_sf(data = counties_sf) +
+  geom_sf(data = states_sf, linewidth = 1, alpha = 0)
+
+
+# Write to GeoDatabase
+st_write(states_sf, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "urbnmapr_states",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+st_write(counties_sf, 
+         dsn = paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+         layer = "urbnmapr_counties",  
+         driver = "GPKG",     
+         delete_layer = TRUE) 
+st_layers(paste0(myPath, "/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg")) # look at layers
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
