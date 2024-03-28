@@ -244,7 +244,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Table 1: Fee Type") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T) 
@@ -293,7 +293,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Table 2: State") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)  
@@ -341,7 +341,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Table 3: County in Wyoming") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T) 
@@ -428,7 +428,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q1: In 2023, did you fish with a resident or non-resident license?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -490,7 +490,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Table : Have you fished in the Laramie Region within the last five years?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -544,7 +544,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q2: Would you like to continue this survey about fishing in the Laramie Region?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -612,7 +612,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q3: How many days did you fish in the Laramie Region in 2023?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -681,7 +681,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-1: Importance of fishing for trout.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -743,7 +743,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-2: Importance of fishing for non-trout.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -805,7 +805,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-3: Importance of fishing waters that have regulations restricting harvest, length, and or use of bait/tackle.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -867,7 +867,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-4: Importance of fishing, including ice fishing, using bait other than live minnows.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -928,7 +928,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-5: Importance of fishing with live minnows") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -990,7 +990,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-6: Importance of harvesting a limit of fish") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1052,7 +1052,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-7: Importance of harvesting enough fish for a meal") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1113,7 +1113,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-8: Importance of playing and landing a large fish") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1174,7 +1174,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q4-9: Importance of releasing all or most of the fish caught") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1248,7 +1248,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q5-1: How often do you fish  Mountian Lakes in Snowy Range and Sierra Madres?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1305,7 +1305,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q5-2: Lakes and reservoirs for trout?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1362,7 +1362,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q5-3: How often do you fish  Lakes and reservoirs for species like bass, walleye, yellow perch, crappie and catfish?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1420,7 +1420,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q5-4: How often do you fish  rivers and streams?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1477,7 +1477,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q5-5: How often do you fish  Pole Mountain beaver ponds?") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1553,7 +1553,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q6-1: Level of agreement to manage more waters for general fishing regulations with fewer restrictions on size of fish, tackle, and number of fish.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1615,7 +1615,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q6-2: Level of agreement to manage more waters for trophy or larger fish even if most fish must be released.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1678,7 +1678,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q6-3: Level of agreement to manage more waters for artificial flies and lures only") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1741,7 +1741,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q6-4: Level of agreement to manage more waters as no kill (catch and release only)") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1804,7 +1804,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q6-5: Level of agreement to manage more waters for non-trout species, even if trout stocking is eliminated.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1870,7 +1870,7 @@ tbl <- rbind(valid, other) %>%
 tbl %>% 
   kbl(align= c("l","c","c"),
       caption = "Q7: Level of agreement that The Wyoming Game and Fish Department does a good job of listening to members of the public and incorporating feedback into fisheries-related decisions in the Laramie Region.") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F) %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
@@ -1907,6 +1907,646 @@ response report 2401a for a listing of all text entries).
 
 - NA = Did Not See/ Missing (Never saw the question)
 
+<br>
+
+**Map to Diamond Lake**: https://wgfd.wyo.gov/Public-Access/Public-Access-Areas/Diamond-Lake 
+
+<br>
+
+### Question 1
+
+<br>
+
+##### **To the best of your knowledge, how many days per year have you fished at Diamond Lake in the last five years?  **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                    Section2Q1 == 2 ~ "1-5 days", 
+                                    Section2Q1 == 3 ~ "6-20 days",
+                                    Section2Q1 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section2Q1))) 
+# Order 
+d$Section2Q1 <- factor(d$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q1 == "-99" , !is.na(Section2Q1))
+other <- d %>% filter(Section2Q1 == "-99" | is.na(Section2Q1))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q1" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q1 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q1: How many days per year have you fished at Diamond Lake in the last five years?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 2
+
+<br>
+
+##### **How satisfied were you with your overall angling experience at Diamond Lake in the last five years? **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q2 = case_when(Section2Q2 == 1 ~ "Very dissatisfied",
+                                      Section2Q2 == 2 ~ "Dissatisfied", 
+                                      Section2Q2 == 3 ~ "Neutral",
+                                      Section2Q2 == 4 ~ "Satisfied",
+                                      Section2Q2 == 5 ~ "Very satisfied",
+                                      .default = as.character(Section2Q2))) 
+# Order 
+d$Section2Q2 <- factor(d$Section2Q2, 
+                         levels = c("Very dissatisfied", "Dissatisfied", 
+                                    "Neutral", "Satisfied", "Very satisfied",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q2 == "-99" , !is.na(Section2Q2))
+other <- d %>% filter(Section2Q2 == "-99" | is.na(Section2Q2))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q2" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q2 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q2: How satisfied were you with your overall angling experience at Diamond Lake in the last five years?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 3
+
+<br>
+
+##### **How many fish do you typically harvest (keep) per day at Diamond Lake? **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q3 = case_when(Section2Q3 == 1 ~ "0 fish",
+                                      Section2Q3 == 2 ~ "1 - 2 fish", 
+                                      Section2Q3 == 3 ~ "3 - 5 fish",
+                                      Section2Q3 == 4 ~ "6 fish (daily creel limit)",
+                                      .default = as.character(Section2Q3))) 
+# Order 
+d$Section2Q3 <- factor(d$Section2Q3, 
+                         levels = c("0 fish", "1 - 2 fish", 
+                                    "3 - 5 fish", "6 fish (daily creel limit)",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q3 == "-99" , !is.na(Section2Q3))
+other <- d %>% filter(Section2Q3 == "-99" | is.na(Section2Q3))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q3" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q3 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q3: How many fish do you typically harvest (keep) per day at Diamond Lake?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 4
+
+<br>
+
+##### **The current regulation for trout at Diamond Lake allows for harvest of 6 trout per day. In your opinion, this limit is: **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q4, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q4 = case_when(Section2Q4 == 1 ~ "Too restrictive",
+                                      Section2Q4 == 2 ~ "About right", 
+                                      Section2Q4 == 3 ~ "Not restrictive enough",
+                                      Section2Q4 == 4 ~ "No opinion",
+                                      .default = as.character(Section2Q4))) 
+# Order 
+d$Section2Q4 <- factor(d$Section2Q4, 
+                         levels = c("Too restrictive", "About right", 
+                                    "Not restrictive enough", "No opinion",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q4 == "-99" , !is.na(Section2Q4), !Section2Q4 == "No opinion")
+other <- d %>% filter(Section2Q4 == "-99" | is.na(Section2Q4) | Section2Q4 == "No opinion")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q4" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q4 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q4)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q4: The current regulation for trout at Diamond Lake allows for harvest of 6 trout per day. In your opinion, this limit is: ") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 5 {.tabset}
+
+<br>
+
+##### **Please indicate your level of agreement with the following possible future management strategies at Diamond Lake. ** 
+
+<br>
+
+
+#### 1 - No Change
+
+##### **No Change**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_1 = case_when(Section2Q5_1 == 1 ~ "Strongly disagree",
+                                      Section2Q5_1 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_1 == 3 ~ "Neutral",
+                                      Section2Q5_1 == 4 ~ "Somewhat agree",
+                                      Section2Q5_1 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_1))) 
+# Order 
+d$Section2Q5_1 <- factor(d$Section2Q5_1, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_1 == "-99" , !is.na(Section2Q5_1))
+other <- d %>% filter(Section2Q5_1 == "-99" | is.na(Section2Q5_1))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q5_1" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q5_1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q5_1 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q5_1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_1: Level of agreement for no change of future management strategies at Diamond Lake.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+#### 2 - Reduce the daily creel limit 
+
+##### **Reduce the daily creel limit to a number less than six fish **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_2 = case_when(Section2Q5_2 == 1 ~ "Strongly disagree",
+                                      Section2Q5_2 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_2 == 3 ~ "Neutral",
+                                      Section2Q5_2 == 4 ~ "Somewhat agree",
+                                      Section2Q5_2 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_2))) 
+# Order 
+d$Section2Q5_2 <- factor(d$Section2Q5_2, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_2 == "-99" , !is.na(Section2Q5_2))
+other <- d %>% filter(Section2Q5_2 == "-99" | is.na(Section2Q5_2))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q5_2" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q5_2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q5_2 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q5_2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_2: Level of agreement to reduce the daily creel limit to a number less than six fish at Diamond Lake.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+
+#### 3 - Manage Diamond Lake for “trophy” fish
+
+##### **Manage Diamond Lake for “trophy” or larger fish even if most of the largest fish caught must be released **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_3 = case_when(Section2Q5_3 == 1 ~ "Strongly disagree",
+                                      Section2Q5_3 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_3 == 3 ~ "Neutral",
+                                      Section2Q5_3 == 4 ~ "Somewhat agree",
+                                      Section2Q5_3 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_3))) 
+# Order 
+d$Section2Q5_3 <- factor(d$Section2Q5_3, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_3 == "-99" , !is.na(Section2Q5_3))
+other <- d %>% filter(Section2Q5_3 == "-99" | is.na(Section2Q5_3))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q5_3" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q5_3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q5_3 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q5_3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_3: Level of agreement to manage Diamond Lake for “trophy” or larger fish even if most of the largest fish caught must be released.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+
+#### 4 - Manage Diamond Lake as artificial flies and lure only
+
+##### **Manage Diamond Lake with a tackle restriction that requires artificial flies and lures only (bait is prohibited during the open water and ice fishing seasons)**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_4, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_4 = case_when(Section2Q5_4 == 1 ~ "Strongly disagree",
+                                      Section2Q5_4 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_4 == 3 ~ "Neutral",
+                                      Section2Q5_4 == 4 ~ "Somewhat agree",
+                                      Section2Q5_4 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_4))) 
+# Order 
+d$Section2Q5_4 <- factor(d$Section2Q5_4, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_4 == "-99" , !is.na(Section2Q5_4))
+other <- d %>% filter(Section2Q5_4 == "-99" | is.na(Section2Q5_4))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q5_4" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q5_4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q5_4 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q5_4)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_4: Level of agreement to manage Diamond Lake as artificial flies and lure only.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+#### 5 - Manage Diamond Lake as catch and release only
+
+##### **Manage Diamond Lake as a “no kill” fishery (catch and release only)**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_5, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_5 = case_when(Section2Q5_5 == 1 ~ "Strongly disagree",
+                                      Section2Q5_5 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_5 == 3 ~ "Neutral",
+                                      Section2Q5_5 == 4 ~ "Somewhat agree",
+                                      Section2Q5_5 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_5))) 
+# Order 
+d$Section2Q5_5 <- factor(d$Section2Q5_5, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_5 == "-99" , !is.na(Section2Q5_5))
+other <- d %>% filter(Section2Q5_5 == "-99" | is.na(Section2Q5_5))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_5) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section2Q5_5" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q5_5) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section2Q5_5 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section2Q5_5)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_5: Level of agreement to manage Diamond Lake as catch and release only.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+
+
+
+
+### Question 6
+
+<br>
+
+##### **Is there anything that you would like the Department to do that would improve your level of satisfaction at Diamond Lake? **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q6 == "-99" , !is.na(Section2Q6))
+other <- d %>% filter(Section2Q6 == "-99" | is.na(Section2Q6))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q6) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 3983).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, Section2Q6) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, Section2Q6) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(Section2Q6 = iconv(Section2Q6, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 225).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(Section2Q6 = iconv(Section2Q6, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 225).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+
 
 ## Section 3 - Wheatland Reservoir 3 {.tabset}
 
@@ -1924,6 +2564,715 @@ response report 2401a for a listing of all text entries).
 
 - NA = Did Not See/ Missing (Never saw the question)
 
+<br>
+
+**Map to Wheatland Reservoir 3**: https://wgfd.wyo.gov/Public-Access/Public-Access-Areas/Wheatland-Reservoir-3
+
+<br>
+
+### Question 1
+
+<br>
+
+##### **To the best of your knowledge, how many days per year have you fished at Wheatland Reservoir #3 in the last five years?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Q11, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Q11 = case_when(Q11 == 1 ~ "None (0 days)",
+                                    Q11 == 2 ~ "1-5 days", 
+                                    Q11 == 3 ~ "6-20 days",
+                                    Q11 == 4 ~ "More than 20 days",
+                                    .default = as.character(Q11))) 
+# Order 
+d$Q11 <- factor(d$Q11, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Q11 == "-99" , !is.na(Q11))
+other <- d %>% filter(Q11 == "-99" | is.na(Q11))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Q11) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Q11" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Q11) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Q11 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Q11)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q1: How many days per year have you fished at Wheatland Reservoir 3 in the last five years?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 2
+
+<br>
+
+##### **Which fish do you prefer to catch at Wheatland Reservoir #3?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q2 = case_when(Section3Q2 == 1 ~ "Trout",
+                                    Section3Q2 == 2 ~ "Walleye", 
+                                    Section3Q2 == 3 ~ "Both trout and walleye equally",
+                                    .default = as.character(Section3Q2))) 
+# Order 
+d$Section3Q2 <- factor(d$Section3Q2, levels = c("Trout", "Walleye", "Both trout and walleye equally", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q2 == "-99" , !is.na(Section3Q2))
+other <- d %>% filter(Section3Q2 == "-99" | is.na(Section3Q2))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q2" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q2 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q2: Which fish do you prefer to catch at Wheatland Reservoir #3?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+
+
+
+### Question 3
+
+<br>
+
+##### **How satisfied were you with your overall angling experience at Wheatland Reservoir 3 in the last five years?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q3 = case_when(Section3Q3 == 1 ~ "Very dissatisfied",
+                                      Section3Q3 == 2 ~ "Dissatisfied", 
+                                      Section3Q3 == 3 ~ "Neutral",
+                                      Section3Q3 == 4 ~ "Satisfied",
+                                      Section3Q3 == 5 ~ "Very satisfied",
+                                      .default = as.character(Section3Q3))) 
+# Order 
+d$Section3Q3 <- factor(d$Section3Q3, 
+                         levels = c("Very dissatisfied", "Dissatisfied", 
+                                    "Neutral", "Satisfied", "Very satisfied",
+                                    "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q3 == "-99" , !is.na(Section3Q3))
+other <- d %>% filter(Section3Q3 == "-99" | is.na(Section3Q3))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q3" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q3 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q3: How satisfied were you with your overall angling experience at Wheatland Reservoir #3 in the last five years?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 4
+
+<br>
+
+##### **How many trout do you typically harvest (keep) per day at Wheatland Reservoir 3?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q4, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q4 = case_when(Section3Q4 == 1 ~ "0 trout",
+                                      Section3Q4 == 2 ~ "1 - 2 trout", 
+                                      Section3Q4 == 3 ~ "3 - 5 trout",
+                                      Section3Q4 == 4 ~ "6 trout (daily creel limit)",
+                                      .default = as.character(Section3Q4))) 
+# Order 
+d$Section3Q4 <- factor(d$Section3Q4, 
+                         levels = c("0 trout", "1 - 2 trout", 
+                                    "3 - 5 trout", "6 trout (daily creel limit)", 
+                                    "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q4 == "-99" , !is.na(Section3Q4))
+other <- d %>% filter(Section3Q4 == "-99" | is.na(Section3Q4))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q4" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q4 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q4)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q4: How many trout do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 5
+
+<br>
+
+##### **The current regulation for trout at Wheatland Reservoir 3 allows for harvest of 6 trout per day. In your opinion, this limit is:**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q5, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q5 = case_when(Section3Q5 == 1 ~ "Too restrictive",
+                                      Section3Q5 == 2 ~ "About right", 
+                                      Section3Q5 == 3 ~ "Not restrictive enough",
+                                      Section3Q5 == 4 ~ "No opinion",
+                                      .default = as.character(Section3Q5))) 
+# Order 
+d$Section3Q5 <- factor(d$Section3Q5, 
+                         levels = c("Too restrictive", "About right", 
+                                    "Not restrictive enough", "No opinion", 
+                                    "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q5 == "-99" , !is.na(Section3Q5), !Section3Q5 == "No opinion")
+other <- d %>% filter(Section3Q5 == "-99" | is.na(Section3Q5) | Section3Q5 == "No opinion")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q5) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q5" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q5) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q5 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q5)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5: Opinion that the current regulation for trout (6 trout per day) is: ") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 6
+
+<br>
+
+##### **How many walleye do you typically harvest (keep) per day at Wheatland Reservoir 3?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q6, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q6 = case_when(Section3Q6 == 1 ~ "0 walleye",
+                                      Section3Q6 == 2 ~ "1 - 2 walleye", 
+                                      Section3Q6 == 3 ~ "3 - 5 walleye",
+                                      Section3Q6 == 4 ~ "6 walleye (daily creel limit)",
+                                      .default = as.character(Section3Q6))) 
+# Order 
+d$Section3Q6 <- factor(d$Section3Q6, 
+                         levels = c("0 walleye", "1 - 2 walleye", 
+                                    "3 - 5 walleye", "6 walleye (daily creel limit)", 
+                                    "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q6 == "-99" , !is.na(Section3Q6))
+other <- d %>% filter(Section3Q6 == "-99" | is.na(Section3Q6))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q6) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q6" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q6) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q6 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q6)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: How many walleye do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 7
+
+<br>
+
+##### **The current regulation for walleye at Wheatland Reservoir #3 allows for harvest of 6 walleye per day. In your opinion, this limit is:**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q7, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q7 = case_when(Section3Q7 == 1 ~ "Too restrictive",
+                                      Section3Q7 == 2 ~ "About right", 
+                                      Section3Q7 == 3 ~ "Not restrictive enough",
+                                      Section3Q7 == 4 ~ "No opinion",
+                                      .default = as.character(Section3Q7))) 
+# Order 
+d$Section3Q7 <- factor(d$Section3Q7, 
+                         levels = c("Too restrictive", "About right", 
+                                    "Not restrictive enough", "No opinion", 
+                                    "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q7 == "-99" , !is.na(Section3Q7), !Section3Q7 == "No opinion")
+other <- d %>% filter(Section3Q7 == "-99" | is.na(Section3Q7) | Section3Q7 == "No opinion")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q7) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q7" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q7) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q7 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q7)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q7: Opinion that the current regulation for walleye (6 walleye per day) is: ") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 8 {.tabset}
+
+<br>
+
+##### **The walleye population has increased in Wheatland Reservoir #3.  Walleye are not stocked in the reservoir.  However, more than 500,000 trout have been stocked in the reservoir in the last five years (more than 100,000 each year).  Please indicate your level of agreement with the following three statements. ** 
+
+<br>
+
+
+#### 1 - Walleye have negatively impacted the trout fishery (Reduce Walleye)
+
+##### **Walleye have negatively impacted the trout fishery.  Something should be done to reduce the number of walleye. **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q8_1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q8_1 = case_when(Section3Q8_1 == 1 ~ "Strongly disagree",
+                                      Section3Q8_1 == 2 ~ "Somewhat disagree", 
+                                      Section3Q8_1 == 3 ~ "Neutral",
+                                      Section3Q8_1 == 4 ~ "Somewhat agree",
+                                      Section3Q8_1 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section3Q8_1))) 
+# Order 
+d$Section3Q8_1 <- factor(d$Section3Q8_1, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q8_1 == "-99" , !is.na(Section3Q8_1))
+other <- d %>% filter(Section3Q8_1 == "-99" | is.na(Section3Q8_1))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q8_1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q8_1" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q8_1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q8_1 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q8_1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_1: Level of agreement that walleye have negatively impacted the trout fishery (Reduce Walleye)") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+#### 2 - Manage WR3 primarily as a walleye fishery 
+
+##### **I like fishing for walleye. The reservoir should be managed primarily as a walleye fishery. **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q8_2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q8_2 = case_when(Section3Q8_2 == 1 ~ "Strongly disagree",
+                                      Section3Q8_2 == 2 ~ "Somewhat disagree", 
+                                      Section3Q8_2 == 3 ~ "Neutral",
+                                      Section3Q8_2 == 4 ~ "Somewhat agree",
+                                      Section3Q8_2 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section3Q8_2))) 
+# Order 
+d$Section3Q8_2 <- factor(d$Section3Q8_2, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q8_2 == "-99" , !is.na(Section3Q8_2))
+other <- d %>% filter(Section3Q8_2 == "-99" | is.na(Section3Q8_2))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q8_2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q8_2" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q8_2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q8_2 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q8_2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_2: Level of agreement to manage Wheatland Reservoir 3 as primarily a walleye fishery") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+#### 3 - Enjoy the fishery as is with walleye and trout 
+
+##### **I enjoy the existing fishery with walleye and trout. **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section3Q8_3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section3Q8_3 = case_when(Section3Q8_3 == 1 ~ "Strongly disagree",
+                                      Section3Q8_3 == 2 ~ "Somewhat disagree", 
+                                      Section3Q8_3 == 3 ~ "Neutral",
+                                      Section3Q8_3 == 4 ~ "Somewhat agree",
+                                      Section3Q8_3 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section3Q8_3))) 
+# Order 
+d$Section3Q8_3 <- factor(d$Section3Q8_3, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q8_3 == "-99" , !is.na(Section3Q8_3))
+other <- d %>% filter(Section3Q8_3 == "-99" | is.na(Section3Q8_3))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section3Q8_3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section3Q8_3" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q8_3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section3Q8_3 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section3Q8_3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q5_2: Level of agreement that they enjoy the existing fishery with walleye and trout.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+
+### Question 9
+
+<br>
+
+##### **Is there anything that you would like the Wyoming Game and Fish Department to do that would improve your level of satisfaction at Wheatland Reservoir #3?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section3Q9 == "-99" , !is.na(Section3Q9))
+other <- d %>% filter(Section3Q9 == "-99" | is.na(Section3Q9))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q9) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 3983).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, Section3Q9) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, Section3Q9) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(Section3Q9 = iconv(Section3Q9, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 393).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(Section3Q9 = iconv(Section3Q9, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 171).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Section 4 - Catfish {.tabset}
 
 **Frequencies**
@@ -1940,13 +3289,655 @@ response report 2401a for a listing of all text entries).
 
 - NA = Did Not See/ Missing (Never saw the question)
 
+<br>
+
+**The Channel Catfish fisheries in the Laramie Region are maintained through stocking. Little is known about angler catch or angler desire to have the opportunity to catch catfish.**
+
+<br>
+
+### Question 1
+
+<br>
+
+##### **To the best of your knowledge, approximately how many days (total) have you fished for catfish in the Laramie Region in the last five years?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section4Q2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section4Q2 = case_when(Section4Q2 == 1 ~ "None (0 days)",
+                                    Section4Q2 == 2 ~ "1-5 days", 
+                                    Section4Q2 == 3 ~ "6-20 days",
+                                    Section4Q2 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section4Q2))) 
+# Order 
+d$Section4Q2 <- factor(d$Section4Q2, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section4Q2 == "-99" , !is.na(Section4Q2))
+other <- d %>% filter(Section4Q2 == "-99" | is.na(Section4Q2))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section4Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section4Q2" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section4Q2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section4Q2 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section4Q2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q1: How many days per year have you fished for catfish in the Laramie Region in the last five years?") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+### Question 2
+
+<br>
+
+##### **Where have you fished specifically for catfish in the past 5 years? (Check all that apply.)?**
+
+- Removed response from people that indicated they did not fish for catfish in last 5 years from the previous question
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section4Q3_1, useNA = "always")
+
+# Remove the People that did not fish for catfish in last 5 years and NA (Did not see question)
+test <- d %>% 
+        filter(!Section4Q2 == "None (0 days)" , !is.na(Section4Q2), !Section4Q2 == "-99") 
+
+# table(test$Section4Q2, useNA = "always") # 300 1-5day + 120 6-20 day + 69 more than 20day =489 catfisherman total
+
+
+
+# Change numbers to words
+test <- test %>% 
+      mutate(Section4Q3_1 = case_when(Section4Q3_1 == 1 ~ "Grayrocks Reservoir",
+                                                          .default = as.character(Section4Q3_1)),
+             Section4Q3_2 = case_when(Section4Q3_2 == 1 ~ "Hawk Springs Reservoir",
+                                                          .default = as.character(Section4Q3_2)),
+             Section4Q3_3 = case_when(Section4Q3_3 == 1 ~ "Packers Lake",
+                                                          .default = as.character(Section4Q3_3)),
+             Section4Q3_4 = case_when(Section4Q3_4 == 1 ~ "Rock Lake",
+                                                          .default = as.character(Section4Q3_4)),
+             Section4Q3_5 = case_when(Section4Q3_5 == 1 ~ "Sloans Lake",
+                                                          .default = as.character(Section4Q3_5)),
+             Section4Q3_6 = case_when(Section4Q3_6 == 1 ~ "Wheatland Reservoir 1",
+                                                          .default = as.character(Section4Q3_6)),
+             Section4Q3_7 = case_when(Section4Q3_7 == 1 ~ "Don't know/Not sure",
+                                                          .default = as.character(Section4Q3_7)),
+             Section4Q3_8 = case_when(Section4Q3_8 == 1 ~ "Other",
+                                                          .default = as.character(Section4Q3_8))
+             ) 
+              
+                                     
+
+# Filter the valid from the -99 and NA's 
+grayrocks <- test %>% filter(!Section4Q3_1 == "-99" , !is.na(Section4Q3_1))
+hawk      <- test %>% filter(!Section4Q3_2 == "-99" , !is.na(Section4Q3_2))
+packers   <- test %>% filter(!Section4Q3_3 == "-99" , !is.na(Section4Q3_3))
+rock      <- test %>% filter(!Section4Q3_4 == "-99" , !is.na(Section4Q3_4))
+sloans    <- test %>% filter(!Section4Q3_5 == "-99" , !is.na(Section4Q3_5))
+wr1       <- test %>% filter(!Section4Q3_6 == "-99" , !is.na(Section4Q3_6))
+idk       <- test %>% filter(!Section4Q3_7 == "-99" , !is.na(Section4Q3_7))
+other     <- test %>% filter(!Section4Q3_8 == "-99" , !is.na(Section4Q3_8))
+
+
+
+ 
+
+# Make summary
+grayrocks <- grayrocks %>% 
+          group_by(Section4Q3_1) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_1)
+hawk <- hawk %>% 
+          group_by(Section4Q3_2) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_2)
+packers <- packers %>% 
+          group_by(Section4Q3_3) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_3)
+rock <- rock %>% 
+          group_by(Section4Q3_4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_4)
+sloans <- sloans %>% 
+          group_by(Section4Q3_5) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_5)
+wr1 <- wr1 %>% 
+          group_by(Section4Q3_6) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_6)
+idk <- idk %>% 
+          group_by(Section4Q3_7) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_7)
+other <- other %>% 
+          group_by(Section4Q3_8) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(test)*100), digits = 1)) %>% 
+        rename(" " = Section4Q3_8)
+
+# Combine into one table
+all <- rbind(grayrocks, hawk, packers, rock, sloans, wr1, idk, other)
+
+
+# Plot
+all %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q2: Where have you fished specifically for catfish in the past 5 years? (Check all that apply). The valid percent is the freq / the number of people that fished 1 or more days for catfish in the last 5 years (n = 489)") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+
+- 40 people answered None ("0" days) for fishing for catfish in the Laramie Region in last five years but still checked Greyrocks as have fished for catfish in past 5 years. I am sure this is the case for the other waterbodies.
+
+- We did not include these peoples response in the analysis for Section4Q3_1 to _8. 
+
+
+
+
+<br>
+
+##### **Answers for those that answered "Other" for places fished for catfish in last 5 years**
+
+- Removed response from people that indicated they did not fish for catfish in last 5 years from the question before last
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Remove the People that did not fish for catfish in last 5 years and NA (Did not see question)
+test <- d %>% 
+        filter(!Section4Q2 == "None (0 days)" , !is.na(Section4Q2), !Section4Q2 == "-99") 
+
+# Filter the valid from the -99 and NA's
+valid <- test %>% filter(!Section4Q3_8_TEXT == "-99" , !is.na(Section4Q3_8_TEXT))
+other <- test %>% filter(Section4Q3_8_TEXT == "-99" | is.na(Section4Q3_8_TEXT))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section4Q3_8_TEXT) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q2: Number of skips for those that fished 1 or more days for catfish in last 5 years (n=420).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, Section4Q3_8_TEXT) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, Section4Q3_8_TEXT) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(Section4Q3_8_TEXT = iconv(Section4Q3_8_TEXT, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that put another water body (Total: 53).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(Section4Q3_8_TEXT = iconv(Section4Q3_8_TEXT, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that put another water body (Total: 16).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+
+### Question 3
+
+<br>
+
+##### **Please indicate your level of agreement with this statement: “The opportunity to catch stocked catfish is an added benefit to specific waters in the Laramie Region.”**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section4Q4, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section4Q4 = case_when(Section4Q4 == 1 ~ "Strongly disagree",
+                                    Section4Q4 == 2 ~ "Somewhat disagree", 
+                                    Section4Q4 == 3 ~ "Neutral",
+                                    Section4Q4 == 4 ~ "Somewhat agree",
+                                    Section4Q4 == 5 ~ "Strongly agree",
+                                    .default = as.character(Section4Q4))) 
+# Order 
+d$Section4Q4 <- factor(d$Section4Q4, levels = c("Strongly disagree", "Somewhat disagree", 
+                                                "Neutral", "Somewhat agree", "Strongly agree",
+                                                "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section4Q4 == "-99" , !is.na(Section4Q4))
+other <- d %>% filter(Section4Q4 == "-99" | is.na(Section4Q4))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section4Q4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+valid <- valid %>% 
+          add_row("Section4Q4" = "Total", 
+                  Frequency = sum(valid$Frequency),
+                  'Valid Percent' = sum(valid$'Valid Percent'))
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section4Q4) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+other <- other %>% 
+          add_row(Section4Q4 = "Total", 
+                  Frequency = nrow(d),
+                  'Valid Percent' = " ")
+
+# Join
+tbl <- rbind(valid, other) %>% 
+        rename(" " = Section4Q4)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q3: indicate your level of agreement that the opportunity to catch stocked catfish is an added benefit to specific waters in the Laramie Region.") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+  row_spec(nrow(tbl), bold = T)
+```
+
+
+
+
+
+
+
 ## Section 5 - Like's & Dislike's {.tabset}
 
 
 
+### Like about Laramie Region 
+
+<br>
+
+##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you LIKE about fishing in the Laramie Region?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!LaramieRegionLike == "-99" , !is.na(LaramieRegionLike))
+other <- d %>% filter(LaramieRegionLike == "-99" | is.na(LaramieRegionLike))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(LaramieRegionLike) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 1891).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, LaramieRegionLike) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, LaramieRegionLike) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(LaramieRegionLike = iconv(LaramieRegionLike, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 1354).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(LaramieRegionLike = iconv(LaramieRegionLike, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 1155).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+```{r echo=FALSE}
+require(tm)
+library(RColorBrewer)
+library(wordcloud2)
+
+test <- d %>%
+          mutate(LaramieRegionLike = iconv(LaramieRegionLike, "latin1", "ASCII", sub="")) # Remove the unreadable characters (ex. It's -> Its)
+test <- tolower(test$LaramieRegionLike)
+test <- removePunctuation(test)
+test <- removeNumbers(test)
+#table(test)
+#unique(test)
+
+freq_test <- sort(table(unlist(strsplit(test, " "))),      # Create frequency table
+               decreasing = TRUE)
+freq_test <- as.data.frame(freq_test) %>% 
+                rename(Word = Var1)
+
+
+
+freq_test %>% 
+  filter(Freq > 50) %>% 
+  filter(!Word == "") %>% 
+  ggplot(aes(x=Word, y = Freq)) + 
+  geom_bar(stat = "identity") 
+
+wordcloud2(data=freq_test, size=1.6, color='random-dark')
+wordcloud2(data=freq_test, size = 0.7, shape = 'pentagon')
+
+freq_test %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+  scroll_box(width = "100%", height = "600px")
+```
+
+
+
+### Not Like about Laramie Region 
+
+<br>
+
+##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you NOT LIKE about fishing in the Laramie Region?**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!LaramieRegionNot == "-99" , !is.na(LaramieRegionNot))
+other <- d %>% filter(LaramieRegionNot == "-99" | is.na(LaramieRegionNot))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(LaramieRegionNot) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 2198).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, LaramieRegionNot) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, LaramieRegionNot) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(LaramieRegionNot = iconv(LaramieRegionNot, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 1260).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(LaramieRegionNot = iconv(LaramieRegionNot, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 942).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+```{r echo=FALSE}
+test <- d %>%
+          mutate(LaramieRegionNot = iconv(LaramieRegionNot, "latin1", "ASCII", sub="")) # Remove the unreadable characters (ex. It's -> Its)
+test <- tolower(test$LaramieRegionNot)
+test <- removePunctuation(test)
+test <- removeNumbers(test)
+#table(test)
+#unique(test)
+
+freq_test <- sort(table(unlist(strsplit(test, " "))),      # Create frequency table
+               decreasing = TRUE)
+freq_test <- as.data.frame(freq_test) %>% 
+                rename(Word = Var1)
+
+
+
+freq_test %>% 
+  filter(Freq > 50) %>% 
+  filter(!Word == "") %>% 
+  ggplot(aes(x=Word, y = Freq)) + 
+  geom_bar(stat = "identity") 
+
+wordcloud2(data=freq_test, size=1.6, color='random-dark')
+wordcloud2(data=freq_test, size = 0.7, shape = 'pentagon')
+
+freq_test %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>% 
+  scroll_box(width = "100%", height = "600px")
+```
 
 
 
 
+###  Like about provided facilities
+
+<br>
+
+##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you LIKE about Wyoming Game and Fish Department provided facilities at fishing areas? This includes boat docks, boat ramps, parking lots, and restrooms.**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!GenFacilities == "-99" , !is.na(GenFacilities))
+other <- d %>% filter(GenFacilities == "-99" | is.na(GenFacilities))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(GenFacilities) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 2031).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, GenFacilities) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, GenFacilities) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(GenFacilities = iconv(GenFacilities, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 1322).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(GenFacilities = iconv(GenFacilities, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 1047).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+```{r echo=FALSE}
+test <- d %>%
+          mutate(GenFacilities = iconv(GenFacilities, "latin1", "ASCII", sub="")) # Remove the unreadable characters (ex. It's -> Its)
+test <- tolower(test$GenFacilities)
+test <- removePunctuation(test)
+test <- removeNumbers(test)
+#table(test)
+#unique(test)
+
+freq_test <- sort(table(unlist(strsplit(test, " "))),      # Create frequency table
+               decreasing = TRUE)
+freq_test <- as.data.frame(freq_test) %>% 
+                rename(Word = Var1)
+
+
+
+freq_test %>% 
+  filter(Freq > 50) %>% 
+  filter(!Word == "") %>% 
+  ggplot(aes(x=Word, y = Freq)) + 
+  geom_bar(stat = "identity") 
+
+wordcloud2(data=freq_test, size=1.6, color='random-dark')
+wordcloud2(data=freq_test, size = 0.7, shape = 'pentagon')
+
+freq_test %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>% 
+  scroll_box(width = "100%", height = "600px")
+```
+
+
+
+
+###  Not Like about provided facilities
+
+<br>
+
+##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you NOT LIKE about Wyoming Game and Fish Department provided facilities at fishing areas? This includes boat docks, boat ramps, parking lots, and restrooms.**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!GenFacilities2 == "-99" , !is.na(GenFacilities2))
+other <- d %>% filter(GenFacilities2 == "-99" | is.na(GenFacilities2))
+
+
+# Make Other Table
+other <- other %>% 
+          group_by(GenFacilities2) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 2706).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+
+# Break Up by Residency 
+res <- valid %>% 
+          select(residencecity, state, GenFacilities2) %>% 
+          filter(state == "WY")
+nonres <- valid %>% 
+          select(residencecity, state, GenFacilities2) %>% 
+          filter(!state == "WY" | is.na(state))
+
+# Plot 
+res %>%
+  mutate(GenFacilities2 = iconv(GenFacilities2, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 968).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+nonres %>%
+  mutate(GenFacilities2 = iconv(GenFacilities2, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
+  kbl(align= c("l","l","l"),
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 726).") %>%
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+```{r echo=FALSE}
+test <- d %>%
+          mutate(GenFacilities2 = iconv(GenFacilities2, "latin1", "ASCII", sub="")) # Remove the unreadable characters (ex. It's -> Its)
+test <- tolower(test$GenFacilities2)
+test <- removePunctuation(test)
+test <- removeNumbers(test)
+#table(test)
+#unique(test)
+
+freq_test <- sort(table(unlist(strsplit(test, " "))),      # Create frequency table
+               decreasing = TRUE)
+freq_test <- as.data.frame(freq_test) %>% 
+                rename(Word = Var1)
+
+
+
+freq_test %>% 
+  filter(Freq > 50) %>% 
+  filter(!Word == "") %>% 
+  ggplot(aes(x=Word, y = Freq)) + 
+  geom_bar(stat = "identity") 
+
+wordcloud2(data=freq_test, size=1.6, color='random-dark')
+wordcloud2(data=freq_test, size = 0.7, shape = 'pentagon')
+
+freq_test %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>% 
+  scroll_box(width = "100%", height = "600px")
+```
 
 
