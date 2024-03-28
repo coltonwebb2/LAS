@@ -35,6 +35,22 @@ div.main-container {
 <br>
 
 
+```{r}
+# Formal Blue: 
+"#00374D"
+
+# Forest Green: 
+"#364010"
+
+# Sand Dunes: 
+"#D8CEBA"
+
+# Snowbank: 
+"#EBEBE5"
+
+# Meadowlark
+"#FFC80B"
+```
 
 
 
