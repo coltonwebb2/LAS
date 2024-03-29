@@ -36,7 +36,7 @@ div.main-container {
 
 **Laramie Angler Survey - Recreate WYSAC Report**
 
-Last updadted: 3/26/2024
+Last updated: 3/29/2024
 
 Colt Webb
 
@@ -260,6 +260,10 @@ tbl %>%
 ### State
 
 Total sample size is `r nrow(d)`
+
+- TS is Tasmania, Australia
+
+- Rhode Island and Vermont are the only states not represented
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$feetype, useNA = "always")
