@@ -33,7 +33,7 @@ div.main-container {
 
 **Laramie Angler Survey**
 
-Last updadted: 3/26/2024
+Last updadted: 3/29/2024
 
 Colt Webb
 
@@ -43,7 +43,6 @@ Colt Webb
 
 - 2) Combine this survey data with spatial files and roughly map them 
 
-- 3) Use the original (unaltered) data that WYSAC used to make their report and recreate the report they did for us to check numbers. The purpose of using the original (unaltered data) is so that I can compare the numbers of my analysis to theirs. The numbers should line up since its the same data. That will allow me to feel confident in my code and then I can copy my code to the final markdown file but run it with the finalized cleaned data that I wrote to the geodatabase in part one of this script. 
 
 <br>
 
@@ -78,7 +77,9 @@ albers.usa <- 5070
 
 -  Assign a unique id to each row (1:4400) named SurveyID
 
--  Create state, county, and zip columns to use for mapping later. State is from the residence address State. County is from IT. Zip code is from the "ZipCode_Final" that Stephen manually pick the best Zip code to use. Using the zip code they entered if possible, but using the residence zip code as a replacement when necessary. He will also fix the 4 digit zip codes and trim the extra -#### from the end so that we have one column with the best reliable zip codes. 
+-  Create state, county, and zip columns to use for mapping later. State is from the residence address State. County is from IT. Zip code is from the "ZipCode_Final" that Stephen manually pick the best Zip code to use. Using the zip code they entered unless: 1) they were fishing on a nonresident license (NFA) and provided a resident zip code. In that case, I pulled the residence zip code we had from the IT query, 2) typed the zip code in wrong and I was able to match it up with the residence zip code we had from IT (e.g., entered 4 digits, and I was able to get the 5th from the other column), 3) there was no entered zip code and I would default to the residence zip. A few issues Stephen noticed.. there many 4 digit zip codes that could not be corrected, resident licenses with non resident zip codes. I did not look up every single zip for every angler, so it isn't perfect, but the best that we have
+
+- Fix data types for multiple columns making them a character rather numeric
 
 -  Reorganize the columns so that Customer Info like name, email, address, Fee and License type come before the answers to questions
 
@@ -87,24 +88,28 @@ albers.usa <- 5070
 #      Read and Clean  Data ####
 #==============================================================================#
 # Read in the data and fix NA
-orginal <- data.frame(read.csv(paste0(myPath,"/Data/AnglerSurvey2023CleanedFile.csv"),                
+orginal <- data.frame(read.csv(paste0(myPath,"/Data/AnglerSurvey2023CleanedFile_SiddonsZipEdits.csv"),                
                          na.strings = c(""," ",".")))  %>% # Any blanks or periods become NA (NA = Did Not SEE Question)
      # Assign a unique id to each row
      mutate(SurveyID = 1:4400) %>%   # add unique survey id number to each row 
   
      # Create the Final state and zip that I will use (I used Residence...not mail)
      mutate(state = residencestate,
-            zipcode = residencezip) %>%  # Use ZipCode_Final (Stephen is going to manually pick the best Zip code to use)
+            zipcode = ZipCode_Final) %>%  # Use ZipCode_Final (Stephen is going to manually pick the best Zip code to use)
   
      # Fix data types for each column
      mutate(SurveyID = as.character(SurveyID),
             customerid = as.character(customerid),
             mailzip = as.character(mailzip),
             residencezip = as.character(residencezip),
+            ZipCode_Entered = as.character(ZipCode_Entered),
+            ZipCode_Final = as.character(ZipCode_Final),
+            zipcode = as.character(zipcode),
             licensetype = as.character(licensetype)) %>% 
      # Reorder the columns
      select(SurveyID,customerid, RecipientLastName:ExternalReference, mailcity:residencezip, 
-            ZipCode_Entered, ZipCode_Final, state, county, zipcode, feetype, licensetype, Section1Q1:GenFacilities2)
+            ZipCode_Entered, ZipCode_Final, state, county, zipcode, feetype, licensetype, 
+            Section1Q1:GenFacilities2) # remove cols (X, X.1, Diff)
 
 d <- orginal
 
@@ -122,9 +127,7 @@ d %>%
 
 ### Determine how many surveys reponses are missing Customer Info
 
-- 18 rows of missing info. How did this happen? 
-
-- Might be able to State and County to those you did provide a zip code
+- 18 rows of missing info. 
 
 ```{r echo=FALSE}
 missingInfo <- d %>% filter(is.na(customerid))
@@ -142,25 +145,15 @@ missingInfo %>%
 
 <br>
 
-### Add state and county to 16/18 "missing people" that provided their zipcode
+### Remove the 18 entrys with missing customer info 
 
-- Manually added state and county to the 16/18 "missing people" that provided the zipcode
+- These 18 entry ("SurveyID") were not valid responses. These were people testing the survey to see if it works.
 
-- I removed those survyes with missing data from the maindata frame. Then added the corrected ones back to it. 
+- I removed these surveyIDs from the dataset
 
 ```{r echo=FALSE}
-missingInfo_corrected <- missingInfo %>%
-            mutate(zipcode = ifelse(is.na(zipcode), ZipCode_Entered, zipcode)) %>%
-            mutate(state = case_when(zipcode %in% c("82009", "82073" , "82070", "82072", "82331","82007" ) ~ "WY",
-                                     zipcode %in% c("84655") ~ "UT")) %>% 
-            mutate(county = case_when(zipcode %in% c("82073" , "82070", "82072")  ~ "ALBANY",
-                                      zipcode %in% c("82009" , "82007") ~ "LARAMIE",
-                                      zipcode %in% c("82331") ~ "CARBON"))
-missingInfo_corrected %>% 
-  kbl() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
-  scroll_box(width = "100%", height = "300px")
-# unique(missingInfo_corrected$SurveyID)
+# the Survey ID that need to remove
+unique(missingInfo$SurveyID)
 
 
 # Remove the Surveys with missing Info
@@ -169,32 +162,28 @@ d <- d %>%
                                 "628",  "629",  "630",  "631",  "2142", "2143", "2144",
                                 "2145", "3883", "3884", "4390"))
 
-
-# Add them back to the bottom of the dataframe
-d <- rbind(d, missingInfo_corrected)
-                 
 ```
 
+<br>
+
+<br>
 
 ### Determine if same person took the survey multiple times
 
-- First remove the 18 rows of missing info. No way to tell if these were duplicated or not
-
 - Find customerID that were listed more than once
 
-- This list consists of 39 unique people that duplicated the survey (38 took it twice, 1 took it three times). This equals 79 survey reponses. Once I pick the first response from each person then I will be left with a table of 39 reponses (one per person). 
+- This list consists of 39 unique people that duplicated the survey (38 took it twice, 1 took it three times). This equals 79 survey reponses. 
 
-- Duplicates were write out to "/Data/duplicates_toAVG.csv" and sent to Chance K. He will go through and average the multiple response and send it back to me
+- Duplicates were writen out to "/Data/duplicates_toAVG.csv" and sent to Chance K. He will go through and average the multiple response and send it back to me
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Find the people that took it more than once
 dup <- d %>%  
-          drop_na(customerid) %>%  # remove the 18 rows of missing info
           mutate(duplicate = duplicated(customerid)) %>%  # add column of TRUE or FALSE whether customerID is a duplicated 
           filter(duplicate == TRUE) %>% # pick only the customerID that were indicated being duplicated
           arrange(RecipientLastName) # arrange rows by alphabetical order of Last Name
 
-#length(unique(dup$customerid)) # Number of unique people that took survey 
+#length(unique(dup$customerid)) # Number of unique people that took survey  (39 uniqiue people)
 # table(dup$customerid) # One person took it 3 times, 38 took it twice
 
 
@@ -219,16 +208,22 @@ dup %>%
 
 write.csv(dup, paste0(myPath,"/Data/duplicates_toAVG.csv" ))
 
-#unique(dup$SurveyID)
 ```
 
 <br> 
 
 <br>
 
-### Remove the 79 Surveys that were one of the 39 people that took survey muliple times
+###  Remove the all survey reponses from folks that took it more than once (seen in that previous table shown)
+
+- Remove the 79 Surveys that were one of the 39 people that took survey muliple times
 
 ```{r echo=FALSE}
+# the customerid that need I need to remove 
+unique(dup$customerid)
+
+
+# Remove the all survey reponses from folks that took it more than once
 d <- d %>% 
           filter(!customerid %in% c(
                    "418333",  "1349069", "11791",  "113130",  "418100",  "981794", "1678981", "1719911",
@@ -238,18 +233,77 @@ d <- d %>%
                    "819062",  "1322892", "422200",  "524786",  "351070",  "1399009", "2616485"))
 ```
 
+<br>
 
+<br>
 
 ### Read in the the average survey scores and rbind them to the rest of the dataframe.
 
 - I read in the file Chance K send me and the rbind it to the rest of data
 
+- Double check for duplicates again.....and no more duplicates exist!
+
 ```{r echo=FALSE}
 
-# avg_duplicates <- read.csv()
+# Read in data from Chance and fix data types
+avg_duplicates <- data.frame(read.csv(paste0(myPath,"/Data/duplicates_AVGandRounded_byCK.csv"))) %>% 
+                    
+                     # Fix data types for each column
+                    mutate(SurveyID = as.character(SurveyID),
+                            customerid = as.character(customerid),
+                            mailzip = as.character(mailzip),
+                            residencezip = as.character(residencezip),
+                            ZipCode_Entered = as.character(ZipCode_Entered),
+                            ZipCode_Final = as.character(ZipCode_Final),
+                            zipcode = as.character(zipcode),
+                            licensetype = as.character(licensetype)) 
+                                      
+# Add these data back to the main dataset
+d <- rbind(d , avg_duplicates)
 
-# test <- rbind(d, avg_duplicates)
+
+# Double check for duplicates again
+dup <- d %>%  
+          mutate(duplicate = duplicated(customerid)) %>%  # add column of TRUE or FALSE whether customerID is a duplicated 
+          filter(duplicate == TRUE) 
 ```
+
+<br>
+
+<br>
+
+
+### Add Residency column that is based on the FeeType Column
+
+- Make new col "residency" that is Resident or Non-Res by Fee Type (NFA is only non-res option). Comparing license type to fee type:
+
+  - Licensetype= 2370 Resident, 1938 Non Resident
+  - Feetype=  1999 NFA
+  - resideny = 2343 Resident, 1999 Non Resident
+  
+  - So this mean that the number of Non Resident reponses increased by 61 people when using fee type rather than their provided answer to licensetype. Maybe this means 61 people tried to lie and purposely put they were a resident in their response when they know they were not? Or maybe it was honest mistake? Regardless, using the residency based on the fee type metric seems to be a more accurate representation. 
+  
+
+```{r}
+# Create Res vs NonRes based on FeeType column  
+d <- d %>% 
+         mutate(residency = ifelse(feetype == "NFA", "Non Resident", "Resident")) %>% # Make new col of Resident or Non-Res by Fee Type (NFA is only non-res option)
+         relocate(residency, .after = licensetype)
+
+print("licensetype")
+table(d$licensetype, useNA = "always")
+
+print("feetype")
+table(d$feetype, useNA = "always")
+
+print("residency")
+table(d$residency, useNA = "always")
+```
+
+<br>
+
+<br>
+
 
 
 
@@ -259,17 +313,19 @@ d <- d %>%
 
 #### Resident License 
 
-- Of the the Resident License (licensetype = 1) there are 12 that have another State listed as their residence. 
-
-- 10/12 have a feetype as NFA, while 2 have RFA
+- Of the the Resident License (residency = Resident, feetype != NFA) there are 2 that have another State listed as their residence. 
 
 ```{r echo=FALSE}
+# Filter to Resident by the new residency column
 res <- d %>% 
-          filter(licensetype == "1")
+           filter(residency ==  "Resident")
+          #filter(licensetype == "1")
 
-unique(res$state)
+# Table to evaluate
 table(res$state, useNA = "always")
 
+
+# Filter to those that are resident by state is not WY
 resLic_stateNotWY <- res %>% filter(!state == "WY")
 
 resLic_stateNotWY %>% 
@@ -280,23 +336,49 @@ kbl() %>%
 
 ```
 
-- Table of those that listed having a resident license but do not have their residence state in WY
+These two folks have addresses and zipcodes in Cheyenne so I beleive that classifying them as "Resident" even though the state says otherwise is appropriate. I think the State is an error in the Custumer Info database provided by IT. Therefore, I am going to manually change these people state to WY.
+
+##### Change the two peoples state to WY
+
+- Now you can see that everyone that had a resident fishing license also has WY as their state
+
+```{r echo=FALSE}
+d <- d %>% 
+          mutate(state = case_when(RecipientEmail == "himesbrandon66@gmail.com" ~ "WY",
+                                   RecipientEmail == "flowerman91958@yahoo.com" ~ "WY",
+                                   .default = as.character(state)))
+
+# Filter to Resident by the new residency column
+res <- d %>% 
+           filter(residency ==  "Resident")
+          #filter(licensetype == "1")
+
+# Table to evaluate
+table(res$state, useNA = "always")
+
+```
+
+
 
 <br>
 
 #### Non-Resident License 
 
-- Of the the Non-Resident License (licensetype = 2) there are 73 that have WY as their residence state, but listed a non-resident license type
+- Of the the Non-Resident License (residency = Non Resident, feetype = NFA) there are 73 that have WY as their residence state, but listed a non-resident license type
 
 - 65/73 have a feetype as NFA, while the others are 1 PBSGF, 1RFA, 1RFA and RFD, 3 RFD, 2 NAs
 
 ```{r echo=FALSE}
+# Filter to Resident by the new residency column
 nonres <- d %>% 
-          filter(licensetype == "2")
+           filter(residency ==  "Non Resident")
+          #filter(licensetype == "2")
 
-unique(nonres$state)
-table(nonres$state, useNA = "always")
+# Table to evaluate
+table(nonres$state, useNA = "always")  # 107 "non resident" have WY as their state
 
+
+# Filter to those that are non resident but state is WY
 nonresLic_stateisWY <- nonres %>% filter(state == "WY")
 
 nonresLic_stateisWY %>% 
@@ -307,19 +389,18 @@ kbl() %>%
 
 ```
 
-- Table of the 73 people that have WY listed as their residence state but listed a non-resident licence type
+- Table of the 107 people that have WY listed as their residence state but had a fee type of NFA. 
+
+- Maybe these people moved to WY recently so they have Non-resident fishing license even though they have a WY address. (I would be in this group for 2024. My address is in Laramie but my fishing license type for 2024 is NFA)
+
+- Since these people are so new, we will count their survey response as Non Resident 
 
 
 
+<br>
 
+<br>
 
-
-
-### Make any final alterations to the data after talking with Chance and Stephen
-
-```{r}
-
-```
 
 
 
@@ -349,6 +430,25 @@ test <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAngl
 
 ```
 
+<br>
+
+<br>
+
+
+
+
+```{r include=FALSE}
+rm(list = ls(all.names = TRUE)) # Clear Environment 
+```
+
+
+
+
+
+
+
+
+
 
 
 
@@ -372,26 +472,68 @@ test <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAngl
 
 ## 2. Test making it spatial by State, County, and Zip
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+- Zipcodes from Alaksa, Hawaii, and others could not be attributed with State names and therefore NAs in the state column
 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# My working path
+myPath <- "C:/Users/colwebb/Documents/LaramieAnglerSurvey"
+
+#Transform coordinates to Albers 
+albers.usa <- 5070
+
+# Read Data
 st_layers(paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg")) # look at layers
 
 states <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
                     layer = "urbnmapr_states") %>% 
-          rename(state = state_abbv)
+          rename(state = state_abbv)  %>% 
+          filter(!state %in% c("AK", "HI")) # Remove AK and HI
+
 counties <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
                     layer = "urbnmapr_counties") %>% 
           rename(state = state_abbv, counties = county_name)
 
 zipcode <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
-                    layer = "zipcode") %>% 
-            rename(zipcode = ZCTA5CE10)
+                    layer = "zipcode")
+
+d <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), # read in points
+                    layer = "LaramieAnglerSurveyData_Final")
+
+uszip <- data.frame(read.csv(paste0(myPath,"/Data/uszip.csv"))) %>% 
+          rename(zipcode = zip) %>% 
+          mutate(zipcode = as.character(zipcode))
+
+wyzip <- uszip %>%
+            filter(state_id == "WY")
+
+wyCOzip <- uszip %>%
+            filter(state_id %in% c("WY","CO"))
+
+
+
+# I ran this to update the zipcode spatial file made from the "Create_SpatialGeoDatabaser.rmd"
+
+## Add state to zipcode Via Spatial Join and drop the duplicates
+# zipcode <- st_join(zipcode, states)
+# zipcode <- zipcode %>% 
+#               distinct(zipcode, .keep_all = TRUE)
+
+## Write to GeoDatabase
+# st_write(zipcode,
+#          dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"),
+#          layer = "zipcode",
+#          driver = "GPKG",
+#          delete_layer = TRUE)
+
 
 ```
 
 
 
 ### State
+
+- 107 folks live in WY and mapped in WY, but are "non-resident" based on having a NFA feetype. Just be aware that these folks will show up in WY on the map. 
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 # Summarize data I want to portray by number of response for each state. 
@@ -430,28 +572,17 @@ ggplot() +
   geom_sf(data = wy, fill = "grey", color = "white") +
   geom_sf_text(wy, mapping = aes(label = count), 
                color = "black", size = 4) +
-  ggthemes::theme_map()
+  ggthemes::theme_map() +
+  theme(legend.position="right")
 
 # mapview(map, zcol = "count") + mapview(co, col.region = "darkred")
- 
+
+
 ```
 
 
 
 ### County
-
-- all but two surveys with a county listed is from WY. The they both have zip codes in WY for both mailing and residence but the State say CO or AR. I feel like this is an error in the customer info database we were sent
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-question <- d %>% filter(!is.na(county))
-table(question$state, useNA = "always")
-question %>% 
-  filter(!state == "WY") %>% 
-  kbl() %>% 
-  kable_classic()
-```
-
-
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -480,7 +611,8 @@ ggplot() +
 ggplot() +
   geom_sf(data = spatial, aes(fill = count), alpha = .5, color = "white")  +
   scale_fill_viridis_c(option = "virdis") +
-  ggthemes::theme_map()
+  ggthemes::theme_map()+
+  theme(legend.position="right")
 
 # mapview(spatial, zcol = "count")
  
@@ -492,7 +624,9 @@ ggplot() +
 
 ### Zip Code
 
-- There were ones from Alaksa and Hawaii not shown
+- AK and HI did not state code from the spatial join so their state co is an NA. 
+
+- Therefore their data is not plotted
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -501,14 +635,15 @@ test <- d %>%
           group_by(zipcode) %>% 
           summarise(count = n())
 
-# Join it by state 
+# Join it by zip 
 spatial <- left_join(zipcode, test, by = "zipcode") %>% 
             drop_na(count)
 
 # Plot 
 ggplot() +
   geom_sf(data = spatial, aes(fill = count))  +
-  scale_fill_viridis_c(option = "virdis") 
+  scale_fill_viridis_c(option = "virdis") +
+  theme(legend.position="right")
 
 # Plot 
 ggplot() +
@@ -516,9 +651,23 @@ ggplot() +
   geom_sf(data = spatial, aes(fill = count), alpha = .5,)  +
   scale_fill_viridis_c(option = "virdis") + 
   ggthemes::theme_map() +
+  theme(legend.position="right") +
   coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) 
 
 
+
+
+
+# Remove the AK and HI zipcodes
+spatial2 <- spatial %>% filter(!is.na(state))
+
+# Plot 
+ggplot() +
+  geom_sf(data = states, alpha = 0) +
+  geom_sf(data = spatial2, aes(fill = count))  +
+  scale_fill_viridis_c(option = "virdis")  + 
+  ggthemes::theme_map()+
+  theme(legend.position="right")
 
 # mapview(spatial, zcol = "count") 
 
@@ -536,11 +685,14 @@ ggplot() +
 
 ### State and Zip
 
+- again zip code layer for AK and HI not plotted since it was dropped due to NA
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Summarize data I want to portray by number of response for each state. 
 test <- d %>% 
           group_by(state) %>% 
           summarise(count = n())
+
 # Join it by state 
 spatial_states <- left_join(states, test, by = "state")
 
@@ -550,25 +702,24 @@ test <- d %>%
           group_by(zipcode) %>% 
           summarise(count = n())
 
-# Join it by state 
+# Join it by zip 
 spatial_zip <- left_join(zipcode, test, by = "zipcode") %>% 
-            drop_na(count)
-
+            drop_na(count) %>% 
+            filter(!is.na(state))
 
 # Plot 
 ggplot() +
   geom_sf(data = spatial_states, alpha = .5, aes(fill = count)) +
   geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
-  scale_fill_viridis_c(option = "virdis") + 
-  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) 
-
+  scale_fill_viridis_c(option = "virdis") +
+  theme(legend.position="right")
 
 ggplot() +
   geom_sf(data = spatial_states, alpha = .5, aes(fill = count), color = "white") +
   geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
-  scale_fill_viridis_c(option = "virdis") + 
-  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) +
-  ggthemes::theme_map()
+  scale_fill_viridis_c(option = "virdis") +
+  ggthemes::theme_map() +
+  theme(legend.position="right")
 
 
 
@@ -601,7 +752,6 @@ wy <- spatial %>%
   geom_sf(data = co, fill = "grey", color = "white") +
   geom_sf(data = wy, fill = "grey", color = "white") +
   geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
-  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) +
   ggthemes::theme_map()
   
   
@@ -611,7 +761,6 @@ wy <- spatial %>%
   geom_sf(data = co, fill = "tomato2", color = "white") +
   geom_sf(data = wy, fill = "tomato4", color = "white") +
   geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
-  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) +
   ggthemes::theme_map()
   
   
@@ -619,8 +768,7 @@ wy <- spatial %>%
   geom_sf(data = map, aes(fill = count), alpha = .5, color = "white")  +
   scale_fill_viridis_c(option = "virdis") +
   geom_sf(data = co, fill = "tomato2", color = "white") +
-  geom_sf(data = wy, fill = "tomato4", color = "white") +
-  coord_sf(xlim = c(-2361582.3,2263786.2), ylim = c(259071.7,3177425.0), expand = FALSE) +
+  geom_sf(data = wy, fill = "tomato4", color = "white")  +
   ggthemes::theme_map()
 
 ```
@@ -634,7 +782,7 @@ wy <- spatial %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Summarize data I want to portray by number of response for each state. 
 test <- d %>% 
-          filter(state %in% c("WY", "CO")) %>% 
+          filter(zipcode %in% c(wyCOzip$zip)) %>%  # Only use zip codes from  WY
           group_by(zipcode) %>% 
           summarise(count = n())
 
@@ -642,18 +790,18 @@ test <- d %>%
 zip <- left_join(zipcode, test, by = "zipcode") %>% 
             drop_na(count)
 
-# Get just the CO and WY Statelines and counties
+# Get just the CO and WY Statelines and counties and zip
 state <- states %>% 
           filter(state %in% c("WY", "CO")) 
 counties <- counties %>% 
           filter(state %in% c("WY", "CO")) 
 
-
  ggplot() +
   geom_sf(data = state, fill = "grey", color = "white") +
   geom_sf(data = zip, aes(fill = count), alpha = .5, color = "white")  +
   scale_fill_viridis_c(option = "virdis")   +
-  ggthemes::theme_map()
+  ggthemes::theme_map()+
+  theme(legend.position="right")
 
 # mapview(map, col.region = "grey") + mapview(spatial, zcol = "count")
 ```
@@ -663,10 +811,12 @@ counties <- counties %>%
 
 ### WY  Zip 
 
+
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Summarize data I want to portray by number of response for each state. 
 test <- d %>% 
-          filter(state %in% c("WY")) %>% 
+          filter(zipcode %in% c(wyzip$zip)) %>%  # Only use zip codes from  WY
           group_by(zipcode) %>% 
           summarise(count = n())
 
@@ -680,13 +830,14 @@ state <- states %>%
 counties <- counties %>% 
           filter(state %in% c("WY")) 
 
-
  ggplot() +
   geom_sf(data = state, fill = "grey", color = "white") +
   geom_sf(data = counties, alpha = 0, color = "black") + 
   geom_sf(data = zip, aes(fill = count), alpha = .5, color = "white")  +
   scale_fill_viridis_c(option = "virdis")   +
-  ggthemes::theme_map()
+  ggthemes::theme_map() +
+  theme(legend.position="right")
+  
 
 # mapview(map, col.region = "grey") + mapview(spatial, zcol = "count")
 
@@ -695,17 +846,184 @@ mapview(counties, col.region = "grey", label = "counties") + mapview(zip, zcol =
 
 
 
-
+<br> 
 
 <br> 
 
+### Example with a speific question (Section2Q5_5: Level of agreement to manage Diamond Lake as catch and release only.)
+
+<br>
+
+#### State
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# remove NA and -99
+test <- d %>%
+          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
+
+dat <- test  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    mean = mean(Section2Q5_5))
+
+ # Join it by state
+ spatial <- left_join(states, dat, by = "state")
+
+ 
+ # Continuous
+ggplot() +
+  geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
+  scale_fill_viridis_c(option = "virdis") +
+  geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)", 
+          paste("Valid Reponses: ", nrow(test))) +
+  ggthemes::theme_map()
+
+ggplot() +
+  geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
+  scale_fill_viridis_c(option = "virdis") +
+  geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) +
+
+  ggthemes::theme_map()
 
 
 
 
 
 
+# Discret
+spatial <- spatial %>%
+  mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
+                                    mean < 3 ~ "Disagree",
+                                    mean == 3 ~ "Neutral"))
+ggplot() +
+  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+  scale_fill_manual("",
+                     values=c("Agree" = "#00374D",
+                              "Disagree" = "#FFC80B",
+                              "Neutral" =  "#D8CEBA")) +
+  geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) +
+  ggthemes::theme_map()
 
+ggplot() +
+  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+  scale_fill_manual("",
+                     values=c("Agree" = "#00374D",
+                              "Disagree" = "#FFC80B",
+                              "Neutral" =  "#D8CEBA")) +
+  geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) +
+  ggthemes::theme_map()
+```
+<br>
+
+
+#### Zip
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# remove NA and -99
+test <- d %>%
+          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
+
+dat <- test  %>% 
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    mean = mean(Section2Q5_5))
+
+
+ # Join it by state
+ spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
+            drop_na(count)
+ 
+ 
+  # Continuous
+ggplot() +
+  geom_sf(data = states, alpha = 0) +
+  geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
+  scale_fill_viridis_c(option = "virdis") +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) +
+  ggthemes::theme_map()
+
+
+
+
+
+
+# Discret
+spatial <- spatial %>%
+  mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
+                                    mean < 3 ~ "Disagree",
+                                    mean == 3 ~ "Neutral"))
+ggplot() +
+  geom_sf(data = states, alpha = 0) +
+  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+  scale_fill_manual("",
+                     values=c("Agree" = "#00374D",
+                              "Disagree" = "#FFC80B",
+                              "Neutral" =  "#D8CEBA")) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) + 
+  ggthemes::theme_map()
+```
+
+
+
+#### Zip CO and WY
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# remove NA and -99
+test <- d %>%
+          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
+
+
+
+
+# Summarize data I want to portray by number of response for each state. 
+dat <- test %>% 
+          filter(zipcode %in% c(wyCOzip$zip)) %>%  # Only use zip codes from  WY and CO
+          group_by(zipcode) %>% 
+          summarise(count = n(),
+                    mean = mean(Section2Q5_5))
+
+
+ # Join it by state
+ spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
+            drop_na(count)
+
+
+states <- states %>% filter(state %in% c("WY", "CO"))
+counties <- counties %>% filter(state %in% c("WY")) 
+
+
+# Discret
+spatial <- spatial %>%
+  mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
+                                    mean < 3 ~ "Disagree",
+                                    mean == 3 ~ "Neutral"))
+ggplot() +
+  geom_sf(data = states, alpha = 0) +
+  geom_sf(data = counties, alpha = 0, color = "black") + 
+  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+  scale_fill_manual("",
+                     values=c("Agree" = "#00374D",
+                              "Disagree" = "#FFC80B",
+                              "Neutral" =  "#D8CEBA")) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) + 
+  ggthemes::theme_map() +
+  theme(legend.position="right")
+
+mapview(states, alpha.regions = 0) +
+  mapview(counties, alpha.regions = 0) +
+  mapview(spatial, zcol = "AgreementLevel")
+```
 
 
 
