@@ -11,6 +11,12 @@ output:
       smooth_scroll: false
 ---
 
+
+Zip Code Data Downloaded From: https://catalog.data.gov/dataset/tiger-line-shapefile-2019-2010-nation-u-s-2010-census-5-digit-zip-code-tabulation-area-zcta5-na
+
+County and Equivalent divisions Data Downloaded From: https://catalog.data.gov/dataset/tiger-line-shapefile-2019-nation-u-s-current-county-and-equivalent-national-shapefile
+
+
 ```{js logo-js, echo=FALSE}
 $(document).ready(function() {
   $('#header').parent().prepend('<div id=\"logo\"><img src=\"images/logo.jpg\" style=\"position:absolute; top:0; right:0; padding:0px; height:160px\"></div>');
