@@ -55,6 +55,7 @@ require(sf)
 require(mapview)
 require(maptools)
 require(kableExtra)
+require(RColorBrewer)
 require(tidyverse)
 
 # My working path
@@ -284,7 +285,7 @@ dup <- d %>%
   - So this mean that the number of Non Resident reponses increased by 61 people when using fee type rather than their provided answer to licensetype. Maybe this means 61 people tried to lie and purposely put they were a resident in their response when they know they were not? Or maybe it was honest mistake? Regardless, using the residency based on the fee type metric seems to be a more accurate representation. 
   
 
-```{r}
+```{r echo=FALSE}
 # Create Res vs NonRes based on FeeType column  
 d <- d %>% 
          mutate(residency = ifelse(feetype == "NFA", "Non Resident", "Resident")) %>% # Make new col of Resident or Non-Res by Fee Type (NFA is only non-res option)
@@ -364,9 +365,9 @@ table(res$state, useNA = "always")
 
 #### Non-Resident License 
 
-- Of the the Non-Resident License (residency = Non Resident, feetype = NFA) there are 73 that have WY as their residence state, but listed a non-resident license type
+- Of the the Non-Resident License (residency = Non Resident, feetype = NFA) there are 107 that have WY as their residence state, but listed a non-resident residency
 
-- 65/73 have a feetype as NFA, while the others are 1 PBSGF, 1RFA, 1RFA and RFD, 3 RFD, 2 NAs
+
 
 ```{r echo=FALSE}
 # Filter to Resident by the new residency column
@@ -499,7 +500,7 @@ zipcode <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieA
 d <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), # read in points
                     layer = "LaramieAnglerSurveyData_Final")
 
-uszip <- data.frame(read.csv(paste0(myPath,"/Data/uszip.csv"))) %>% 
+uszip <- data.frame(read.csv(paste0(myPath,"/Data/uszip.csv"))) %>%  # https://simplemaps.com/data/us-zips
           rename(zipcode = zip) %>% 
           mutate(zipcode = as.character(zipcode))
 
@@ -525,6 +526,40 @@ wyCOzip <- uszip %>%
 #          driver = "GPKG",
 #          delete_layer = TRUE)
 
+
+```
+
+
+```{r include=FALSE}
+
+# Formal Blue: 
+"#00374D"
+
+# Forest Green: 
+"#364010"
+
+# Sand Dunes: 
+"#D8CEBA"
+
+# Snowbank: 
+"#EBEBE5"
+
+# Meadowlark
+"#FFC80B"
+
+
+
+group.colors_WGFD <- c(Strongly_disagree = "burlywood3", 
+                       Somewhat_disagree = "burlywood1",
+                                 Neutral = "gray",
+                          Somewhat_agree = "cadetblue3",
+                          Strongly_agree = "steelblue4")
+
+group.colors_RedGreen <- c(Strongly_disagree = "sienna4", 
+                           Somewhat_disagree = "sienna3",
+                                     Neutral = "gray",
+                              Somewhat_agree = "darkseagreen",
+                              Strongly_agree = "darkseagreen4")
 
 ```
 
@@ -578,6 +613,8 @@ ggplot() +
 # mapview(map, zcol = "count") + mapview(co, col.region = "darkred")
 
 
+
+  
 ```
 
 
@@ -922,6 +959,23 @@ ggplot() +
   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
           paste("Valid Reponses: ", nrow(test))) +
   ggthemes::theme_map()
+
+
+
+  # Diverging Color Palettes
+require(colorspace)
+
+ggplot() +
+  geom_sf(data = spatial, aes(fill = mean), alpha = .5) +
+  scale_fill_continuous_diverging(palette = "Blue-Red 3", l1 = 30, l2 = 100, p1 = .9, p2 = 1.2)
+  
+  
+  geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+          paste("Valid Reponses: ", nrow(test))) +
+  ggthemes::theme_map()
+
 ```
 <br>
 
