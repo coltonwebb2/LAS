@@ -42,7 +42,7 @@ div.main-container {
 
 ![](images/IntroPhoto.JPG)
 
-Last updated: 4/3/2024
+Last updated: 4/5/2024
 
 **Colton Webb**, Fisheries Biologist, Wyoming Game and Fish Department,
 1212 South Adams, Laramie, WY 80070
@@ -2599,11 +2599,15 @@ listing of all text entries).
 
 <br>
 
-### Question 1
+### Question 1 {.tabset}
 
 <br>
 
 ##### **To the best of your knowledge, how many days per year have you fished at Diamond Lake in the last five years?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q1, useNA = "always")
@@ -2659,11 +2663,29 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 2
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Question 2 {.tabset}
 
 <br>
 
 ##### **How satisfied were you with your overall angling experience at Diamond Lake in the last five years?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q2, useNA = "always")
@@ -2723,11 +2745,24 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 3
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+### Question 3 {.tabset}
 
 <br>
 
 ##### **How many fish do you typically harvest (keep) per day at Diamond Lake?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q3, useNA = "always")
@@ -2786,11 +2821,25 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 4
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+### Question 4 {.tabset}
 
 <br>
 
 ##### **The current regulation for trout at Diamond Lake allows for harvest of 6 trout per day. In your opinion, this limit is:**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q4, useNA = "always")
@@ -2849,6 +2898,17 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
 ### Question 5 {.tabset}
 
 <br>
@@ -2857,9 +2917,15 @@ tbl %>%
 
 <br>
 
-#### 1 - No Change
+#### 1 - No Change {.tabset}
 
-##### **No Change**
+<br>
+
+###### **No Change**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q5_1, useNA = "always")
@@ -2918,9 +2984,23 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-#### 2 - Reduce the daily creel limit
+##### Res vs. Non-Res
 
-##### **Reduce the daily creel limit to a number less than six fish**
+
+
+
+
+
+
+#### 2 - Reduce the daily creel limit {.tabset}
+
+<br>
+
+###### **Reduce the daily creel limit to a number less than six fish**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q5_2, useNA = "always")
@@ -2979,9 +3059,24 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-#### 3 - Manage Diamond Lake for "trophy" fish
+##### Res vs. Non-Res
 
-##### **Manage Diamond Lake for "trophy" or larger fish even if most of the largest fish caught must be released**
+
+
+
+
+
+
+
+#### 3 - Manage Diamond Lake for "trophy" fish {.tabset}
+
+<br>
+
+###### **Manage Diamond Lake for "trophy" or larger fish even if most of the largest fish caught must be released**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q5_3, useNA = "always")
@@ -3041,9 +3136,25 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-#### 4 - Manage Diamond Lake as artificial flies and lure only
+##### Res vs. Non-Res
 
-##### **Manage Diamond Lake with a tackle restriction that requires artificial flies and lures only (bait is prohibited during the open water and ice fishing seasons)**
+
+
+
+
+
+
+
+
+#### 4 - Manage Diamond Lake as artificial flies and lure only {.tabset}
+
+<br>
+
+###### **Manage Diamond Lake with a tackle restriction that requires artificial flies and lures only (bait is prohibited during the open water and ice fishing seasons)**
+
+<br>
+
+##### All 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q5_4, useNA = "always")
@@ -3103,9 +3214,25 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-#### 5 - Manage Diamond Lake as catch and release only
+##### Res vs. Non-Res
 
-##### **Manage Diamond Lake as a "no kill" fishery (catch and release only)**
+
+
+
+
+
+
+
+
+#### 5 - Manage Diamond Lake as catch and release only {.tabset}
+
+<br>
+
+###### **Manage Diamond Lake as a "no kill" fishery (catch and release only)**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section2Q5_5, useNA = "always")
@@ -3354,34 +3481,29 @@ mapview(states, alpha.regions = 0) +
 
 ```
 
+##### Res vs. Non-Res
 
 
 
 
-### Question 6
+
+
+
+### Question 6 {.tabset}
 
 <br>
 
 ##### **Is there anything that you would like the Department to do that would improve your level of satisfaction at Diamond Lake?**
+
+<br>
+
+#### Resident
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!Section2Q6 == "-99" , !is.na(Section2Q6))
 other <- d %>% filter(Section2Q6 == "-99" | is.na(Section2Q6))
 
-
-# Make Other Table
-other <- other %>% 
-          group_by(Section2Q6) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = " ") 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: 3983).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -3396,17 +3518,42 @@ nonres <- valid %>%
 res %>%
   mutate(Section2Q6 = iconv(Section2Q6, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 225).") %>%
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
+```
+
+#### Non-Resident
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 nonres %>%
   mutate(Section2Q6 = iconv(Section2Q6, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 225).") %>%
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
+
+
+#### No Response
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Make Other Table
+other <- other %>% 
+          group_by(Section2Q6) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: ).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
 
 ## Section 3 - Wheatland Reservoir 3 {.tabset}
 
@@ -3434,11 +3581,15 @@ listing of all text entries).
 
 <br>
 
-### Question 1
+### Question 1 {.tabset}
 
 <br>
 
 ##### **To the best of your knowledge, how many days per year have you fished at Wheatland Reservoir #3 in the last five years?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Q11, useNA = "always")
@@ -3494,11 +3645,24 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 2
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+### Question 2 {.tabset}
 
 <br>
 
 ##### **Which fish do you prefer to catch at Wheatland Reservoir #3?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q2, useNA = "always")
@@ -3553,11 +3717,26 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 3
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
+### Question 3 {.tabset}
 
 <br>
 
 ##### **How satisfied were you with your overall angling experience at Wheatland Reservoir 3 in the last five years?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q3, useNA = "always")
@@ -3616,11 +3795,26 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 4
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
+### Question 4 {.tabset}
 
 <br>
 
 ##### **How many trout do you typically harvest (keep) per day at Wheatland Reservoir 3?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q4, useNA = "always")
@@ -3678,11 +3872,24 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 5
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+### Question 5 {.tabset}
 
 <br>
 
 ##### **The current regulation for trout at Wheatland Reservoir 3 allows for harvest of 6 trout per day. In your opinion, this limit is:**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q5, useNA = "always")
@@ -3740,11 +3947,26 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 6
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
+### Question 6 {.tabset}
 
 <br>
 
 ##### **How many walleye do you typically harvest (keep) per day at Wheatland Reservoir 3?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q6, useNA = "always")
@@ -3802,11 +4024,25 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 7
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+### Question 7 {.tabset}
 
 <br>
 
 ##### **The current regulation for walleye at Wheatland Reservoir #3 allows for harvest of 6 walleye per day. In your opinion, this limit is:**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q7, useNA = "always")
@@ -3864,6 +4100,15 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
 ### Question 8 {.tabset}
 
 <br>
@@ -3872,9 +4117,15 @@ tbl %>%
 
 <br>
 
-#### 1 - Walleye have negatively impacted the trout fishery (Reduce Walleye)
+#### 1 - Walleye have negatively impacted the trout fishery (Reduce Walleye) {.tabset}
 
-##### **Walleye have negatively impacted the trout fishery. Something should be done to reduce the number of walleye.**
+<br>
+
+###### **Walleye have negatively impacted the trout fishery. Something should be done to reduce the number of walleye.**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q8_1, useNA = "always")
@@ -3933,9 +4184,26 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-#### 2 - Manage WR3 primarily as a walleye fishery
+##### Res vs. Non-Res
 
-##### **I like fishing for walleye. The reservoir should be managed primarily as a walleye fishery.**
+
+
+
+
+
+
+
+
+
+#### 2 - Manage WR3 primarily as a walleye fishery {.tabset}
+
+<br>
+
+###### **I like fishing for walleye. The reservoir should be managed primarily as a walleye fishery.**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q8_2, useNA = "always")
@@ -3994,9 +4262,25 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-#### 3 - Enjoy the fishery as is with walleye and trout
+##### Res vs. Non-Res
 
-##### **I enjoy the existing fishery with walleye and trout.**
+
+
+
+
+
+
+
+
+#### 3 - Enjoy the fishery as is with walleye and trout {.tabset}
+
+<br>
+
+###### **I enjoy the existing fishery with walleye and trout.**
+
+<br>
+
+##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section3Q8_3, useNA = "always")
@@ -4055,11 +4339,25 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 9
+##### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+### Question 9 {.tabset}
 
 <br>
 
 ##### **Is there anything that you would like the Wyoming Game and Fish Department to do that would improve your level of satisfaction at Wheatland Reservoir #3?**
+
+<br>
+
+#### Resident
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
@@ -4067,18 +4365,6 @@ valid <- d %>% filter(!Section3Q9 == "-99" , !is.na(Section3Q9))
 other <- d %>% filter(Section3Q9 == "-99" | is.na(Section3Q9))
 
 
-# Make Other Table
-other <- other %>% 
-          group_by(Section3Q9) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = " ") 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: 3983).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -4093,17 +4379,47 @@ nonres <- valid %>%
 res %>%
   mutate(Section3Q9 = iconv(Section3Q9, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 393).") %>%
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+```
+
+#### Non-Resident
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 nonres %>%
   mutate(Section3Q9 = iconv(Section3Q9, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 171).") %>%
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
+
+
+#### No Response 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Make Other Table
+other <- other %>% 
+          group_by(Section3Q9) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: ).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+```
+
+
+
+
+
 
 ## Section 4 - Catfish {.tabset}
 
@@ -4132,11 +4448,15 @@ have the opportunity to catch catfish.**
 
 <br>
 
-### Question 1
+### Question 1 {.tabset}
 
 <br>
 
 ##### **To the best of your knowledge, approximately how many days (total) have you fished for catfish in the Laramie Region in the last five years?**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section4Q2, useNA = "always")
@@ -4192,7 +4512,16 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
-### Question 2
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+### Question 2 {.tabset}
 
 <br>
 
@@ -4200,6 +4529,10 @@ tbl %>%
 
 -   Removed response from people that indicated they did not fish for
     catfish in last 5 years from the previous question
+    
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section4Q3_1, useNA = "always")
@@ -4329,18 +4662,6 @@ valid <- test %>% filter(!Section4Q3_8_TEXT == "-99" , !is.na(Section4Q3_8_TEXT)
 other <- test %>% filter(Section4Q3_8_TEXT == "-99" | is.na(Section4Q3_8_TEXT))
 
 
-# Make Other Table
-other <- other %>% 
-          group_by(Section4Q3_8_TEXT) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = " ") 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q2: Number of skips for those that fished 1 or more days for catfish in last 5 years (n=420).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -4365,13 +4686,42 @@ nonres %>%
       caption = "Q6: Non Resident - Number people that put another water body (Total: 16).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+# Make Other Table
+other <- other %>% 
+          group_by(Section4Q3_8_TEXT) %>% 
+          summarise(Frequency = n(),
+                    'Valid Percent' = " ") 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q2: Number of skips for those that fished 1 or more days for catfish in last 5 years (n=420).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
 ```
 
-### Question 3
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
+### Question 3 {.tabset}
 
 <br>
 
 ##### **Please indicate your level of agreement with this statement: "The opportunity to catch stocked catfish is an added benefit to specific waters in the Laramie Region."**
+
+<br>
+
+#### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section4Q4, useNA = "always")
@@ -4430,31 +4780,38 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+#### Res vs. Non-Res
+
+
+
+
+
+
+
+
+
+
 ## Section 5 - Like's & Dislike's {.tabset}
 
-### Like about Laramie Region
+<br>
+
+<br>
+
+### Like about Laramie Region {.tabset}
 
 <br>
 
 ##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you LIKE about fishing in the Laramie Region?**
+
+<br>
+
+#### Resident
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!LaramieRegionLike == "-99" , !is.na(LaramieRegionLike))
 other <- d %>% filter(LaramieRegionLike == "-99" | is.na(LaramieRegionLike))
 
-
-# Make Other Table
-other <- other %>% 
-          group_by(LaramieRegionLike) %>% 
-          summarise(Frequency = n()) 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: 1891).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -4469,19 +4826,43 @@ nonres <- valid %>%
 res %>%
   mutate(LaramieRegionLike = iconv(LaramieRegionLike, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 1354).") %>%
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
+```
+
+#### Non-Resident
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 nonres %>%
   mutate(LaramieRegionLike = iconv(LaramieRegionLike, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 1155).") %>%
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
 
-```{r echo=FALSE}
+#### No Response
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Make Other Table
+other <- other %>% 
+          group_by(LaramieRegionLike) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: ).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+
+#### Word Cloud (Testing)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 require(tm)
 library(RColorBrewer)
 library(wordcloud2)
@@ -4516,29 +4897,22 @@ freq_test %>%
   scroll_box(width = "100%", height = "600px")
 ```
 
-### Not Like about Laramie Region
+### Not Like about Laramie Region {.tabset}
 
 <br>
 
 ##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you NOT LIKE about fishing in the Laramie Region?**
 
+<br>
+
+#### Resident
+
+<br>
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!LaramieRegionNot == "-99" , !is.na(LaramieRegionNot))
 other <- d %>% filter(LaramieRegionNot == "-99" | is.na(LaramieRegionNot))
-
-
-# Make Other Table
-other <- other %>% 
-          group_by(LaramieRegionNot) %>% 
-          summarise(Frequency = n()) 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: 2198).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -4553,17 +4927,44 @@ nonres <- valid %>%
 res %>%
   mutate(LaramieRegionNot = iconv(LaramieRegionNot, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 1260).") %>%
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
+
+```
+
+#### Non-Resident
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 nonres %>%
   mutate(LaramieRegionNot = iconv(LaramieRegionNot, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 942).") %>%
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
+
+#### No Response
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Make Other Table
+other <- other %>% 
+          group_by(LaramieRegionNot) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: ).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+```
+
+
+#### Word Cloud (Testing)
 
 ```{r echo=FALSE}
 test <- d %>%
@@ -4596,11 +4997,23 @@ freq_test %>%
   scroll_box(width = "100%", height = "600px")
 ```
 
-### Like about provided facilities
+
+
+
+
+
+
+
+
+### Like about provided facilities {.tabset}
 
 <br>
 
 ##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you LIKE about Wyoming Game and Fish Department provided facilities at fishing areas? This includes boat docks, boat ramps, parking lots, and restrooms.**
+
+<br>
+
+#### Resident
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
@@ -4608,17 +5021,6 @@ valid <- d %>% filter(!GenFacilities == "-99" , !is.na(GenFacilities))
 other <- d %>% filter(GenFacilities == "-99" | is.na(GenFacilities))
 
 
-# Make Other Table
-other <- other %>% 
-          group_by(GenFacilities) %>% 
-          summarise(Frequency = n()) 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: 2031).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -4633,17 +5035,42 @@ nonres <- valid %>%
 res %>%
   mutate(GenFacilities = iconv(GenFacilities, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: 1322).") %>%
+      caption = "Q6: Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
+
+```
+
+#### Non-Resident
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 nonres %>%
   mutate(GenFacilities = iconv(GenFacilities, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
-      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: 1047).") %>%
+      caption = "Q6: Non Resident - Number people that provided anwser to this open ended question (Total: ).") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
+
+#### No Response
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Make Other Table
+other <- other %>% 
+          group_by(GenFacilities) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: ).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+```
+
+#### Word Cloud (Testing)
 
 ```{r echo=FALSE}
 test <- d %>%
@@ -4676,29 +5103,21 @@ freq_test %>%
   scroll_box(width = "100%", height = "600px")
 ```
 
-### Not Like about provided facilities
+### Not Like about provided facilities {.tabset}
 
 <br>
 
 ##### **Next, we'd like to hear from you regarding you overall experiences fishing in the Laramie Region: What do you NOT LIKE about Wyoming Game and Fish Department provided facilities at fishing areas? This includes boat docks, boat ramps, parking lots, and restrooms.**
+
+<br>
+
+#### Resident
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!GenFacilities2 == "-99" , !is.na(GenFacilities2))
 other <- d %>% filter(GenFacilities2 == "-99" | is.na(GenFacilities2))
 
-
-# Make Other Table
-other <- other %>% 
-          group_by(GenFacilities2) %>% 
-          summarise(Frequency = n()) 
-# Plot
-other %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: 2706).") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
 
 # Break Up by Residency 
@@ -4717,6 +5136,11 @@ res %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 
+```
+
+#### Non-Resident
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 nonres %>%
   mutate(GenFacilities2 = iconv(GenFacilities2, "latin1", "ASCII", sub="")) %>% # Remove the unreadable characters (ex. It's -> Its)
   kbl(align= c("l","l","l"),
@@ -4724,6 +5148,27 @@ nonres %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F,  position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
+
+#### No Response
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Make Other Table
+other <- other %>% 
+          group_by(GenFacilities2) %>% 
+          summarise(Frequency = n()) 
+# Plot
+other %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Q6: Number of skips or never saw question (Total: 2706).") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+
+```
+
+
+#### Word Cloud (Testing)
 
 ```{r echo=FALSE}
 test <- d %>%
