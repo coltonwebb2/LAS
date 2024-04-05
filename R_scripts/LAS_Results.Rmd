@@ -182,6 +182,51 @@ myPath <- "C:/Users/colwebb/Documents/LaramieAnglerSurvey"
 
 #Transform coordinates to Albers 
 albers.usa <- 5070
+
+# Them for plots
+theme.clean <- function(){
+  theme_bw()+
+    theme(axis.line = element_line(size = 0.5, linetype = "solid",
+                                   colour = "black"),
+          axis.text.x = element_text(size = 14,face = "bold"),
+          axis.text.y = element_text(size = 14, face = "bold"),
+          axis.title.x = element_text(size = 1, vjust = -1, face = "bold"),             
+          axis.title.y = element_text(size = 1, face = "bold"),             
+          # panel.grid.major.x = element_blank(),                                          
+          # panel.grid.minor.x = element_blank(),
+          # panel.grid.minor.y = element_blank(),
+          # panel.grid.major.y = element_blank(),  
+          plot.margin = unit(c(0.9, 1.2, 0.6, 0.0), units = , "cm"),
+          plot.title = element_text(size = 14, face = "bold", vjust = 1, hjust = 0.5),
+          legend.text = element_text(size = 14, face = "plain"),     
+          legend.title = element_text(size = 14),
+          legend.position = "none",
+          legend.key.size = unit(1, "cm"),
+          strip.text = element_text(size = 12),
+          text = element_text(family = "sans", face = "bold"))
+}
+
+theme.clean2 <- function(){
+  theme_bw()+
+    theme(axis.line = element_line(size = 0.5, linetype = "solid",
+                                   colour = "black"),
+          axis.text.x = element_text(size = 14,face = "bold"),
+          axis.text.y = element_text(size = 14, face = "bold"),
+          axis.title.x = element_text(size = 1, vjust = -1, face = "bold"),             
+          axis.title.y = element_text(size = 1, face = "bold"),             
+          # panel.grid.major.x = element_blank(),                                          
+          # panel.grid.minor.x = element_blank(),
+          # panel.grid.minor.y = element_blank(),
+          # panel.grid.major.y = element_blank(),  
+          plot.margin = unit(c(0.9, 1.2, 0.6, 0.0), units = , "cm"),
+          plot.title = element_text(size = 14, face = "bold", vjust = 1, hjust = 0.5),
+          legend.text = element_text(size = 14, face = "plain"),     
+          legend.title = element_blank(),
+          legend.position = "bottom",
+          legend.key.size = unit(1, "cm"),
+          strip.text = element_text(size = 12),
+          text = element_text(family = "sans", face = "bold"))
+}
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -256,8 +301,51 @@ group.colors_RedGreen <- c(Strongly_disagree = "sienna4",
                                      Neutral = "gray",
                               Somewhat_agree = "darkseagreen",
                               Strongly_agree = "darkseagreen4")
+group.colors_RedGreen <- c("sienna4", 
+                           "sienna3",
+                              "gray",
+                              "darkseagreen",
+                               "darkseagreen4")
+```
+
+
+```{r include=FALSE}
+
+barchart_all = function (data, question) 
+{
+  
+data %>% 
+ggplot(aes(x=question, fill=question)) +  
+  geom_bar(aes(x = question,
+               y = after_stat(count/sum(count)))) +
+  
+  # Add Percentage to Bars
+  geom_text(aes(y = ((..count..)/sum(..count..)),
+                alpha = 0.7,
+                label = scales::percent((..count..)/sum(..count..))),
+              stat = "count", vjust = -0.3) +
+  
+  # Make y axis 0% to 100%
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
+  
+  # Remove axis titles
+  ylab("") +
+  xlab("") +
+    
+  # Set theme
+  theme.clean() 
+ 
+ 
+}
+
+
+
 
 ```
+
+
+
+
 
 ## Section 0 - Background & Demographics {.tabset}
 
@@ -741,8 +829,6 @@ tbl %>%
 #### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-#table(d$Section1Q1, useNA = "always")
-
 # Change numbers to words
 d <- d %>% 
       mutate(Section1Q1 = case_when(Section1Q1 == 1 ~ "Yes",
@@ -752,6 +838,21 @@ d <- d %>%
 
 # Order 
 d$Section1Q1 <- factor(d$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
+
+barchart_all(data = valid, question = valid$Section1Q1) +
+  facet_wrap(~"Have you fished in the Laramie Region within the last five years?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B",  "#EBEBE5")) 
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section1Q1, useNA = "always")
 
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
@@ -791,8 +892,54 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+
 
 #### Res vs. Non-Res
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q1 = case_when(Section1Q1 == 1 ~ "Yes",
+                                    Section1Q1 == 2 ~ "No", 
+                                    Section1Q1 == 3 ~ "Don't know/ Not Sure",
+                                    .default = as.character(Section1Q1)))
+
+# Order 
+d$Section1Q1 <- factor(d$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
+
+# Facet by Residency 
+valid %>% 
+ggplot(aes(x=Section1Q1, fill=Section1Q1)) +  
+  geom_bar(aes(x = Section1Q1,
+               y = after_stat(count/sum(count)))) +
+  facet_wrap(~residency) +
+  
+  #Add Percentage to Bars
+  geom_text(aes(y = ((..count..)/sum(..count..)),
+                alpha = 0.7,
+                label = scales::percent((..count..)/sum(..count..))),
+              stat = "count", vjust = -0.3) +
+  
+  # Make y axis 0% to 100%
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
+  
+  # Remove axis titles
+  ylab("") +
+  xlab("") +
+    
+  # Set theme
+  theme.clean() +
+  scale_fill_manual(values = c("#00374D", "#FFC80B",  "#EBEBE5")) 
+
+
+```
+
+<br>
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section1Q1, useNA = "always")
@@ -943,6 +1090,42 @@ tbl %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T)
+
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+
+# Prep the data frame
+test <- tbl %>% 
+  rename(Resident = `Resident Percent`, `Non-Resident` = `Non-Resident Percent`) %>% 
+  filter(!Resident == " ",
+         !` ` == "Total") %>% 
+  pivot_longer(Resident:`Non-Resident`, names_to = "Residency", values_to = "PercentByResidency") %>% 
+  mutate(PercentByResidency = as.numeric(PercentByResidency),
+         PercentByResidency = PercentByResidency/100)
+
+# Order 
+test$` ` <- factor(test$` `, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
+test$Residency <- factor(test$Residency, levels = c("Non-Resident", "Resident"))
+
+
+# Plot
+ggplot(test, aes(fill=Residency, y=PercentByResidency, x=` `)) +
+  geom_bar(position='dodge', stat='identity', alpha = 0.5) +
+  
+  geom_text(aes(label=(PercentByResidency*100)), position=position_dodge(.9), vjust=0) + 
+  
+  # Remove axis titles
+  ylab("") +
+  xlab("") +
+    scale_y_continuous(labels = scales::percent) +
+  # Set theme
+  theme.clean2() +
+  facet_wrap(~"Have you fished in the Laramie Region within the last five years?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) 
+
 ```
 
 
