@@ -175,6 +175,7 @@ require(sf)
 require(mapview)
 require(maptools)
 require(kableExtra)
+require(scales)
 require(tidyverse)
 
 # My working path
@@ -237,16 +238,16 @@ theme.clean2 <- function(){
 # Read Data
 st_layers(paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg")) # look at layers
 
-states <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+sf_states <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
                     layer = "urbnmapr_states") %>% 
           rename(state = state_abbv)  %>% 
           filter(!state %in% c("AK", "HI")) # Remove AK and HI
 
-counties <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+sf_counties <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
                     layer = "urbnmapr_counties") %>% 
           rename(state = state_abbv, counties = county_name)
 
-zipcode <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
+sf_zipcode <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), 
                     layer = "zipcode")
 
 original <- st_read(dsn = paste0(myPath, "/Data/Spatial_Data/Geodatabase/LaramieAnglerSurvey2023.gpkg"), # read in points
@@ -315,31 +316,97 @@ barchart_all = function (data, question)
 {
   
 data %>% 
-ggplot(aes(x=question, fill=question)) +  
-  geom_bar(aes(x = question,
-               y = after_stat(count/sum(count)))) +
-  
-  # Add Percentage to Bars
-  geom_text(aes(y = ((..count..)/sum(..count..)),
-                alpha = 0.7,
-                label = scales::percent((..count..)/sum(..count..))),
-              stat = "count", vjust = -0.3) +
-  
-  # Make y axis 0% to 100%
-  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
-  
-  # Remove axis titles
+  mutate(Percent = (Percent/100)) %>% 
+ggplot(aes(y=Percent, x=question, fill = question)) +
+  geom_bar( stat='identity', alpha = 0.6) +
+  geom_text(aes(label=(Percent*100)), position=position_dodge(.9), vjust=-0.3) + 
   ylab("") +
   xlab("") +
-    
-  # Set theme
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
   theme.clean() 
  
+}
+
+barchart_byres = function (data) 
+{
+  
+data %>% 
+  mutate(Percent = (Percent/100)) %>% 
+ggplot(aes(fill=residency, y=Percent, x=` `)) +
+  geom_bar(position='dodge', stat='identity', alpha = 0.6) +
+  geom_text(aes(label=(Percent*100)), position=position_dodge(.9), vjust=0) + 
+  ylab("") +
+  xlab("") +
+  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
+  theme.clean2()
  
+}
+
+stateMap_continuous = function (data) 
+{
+  
+ggplot() +
+  geom_sf(data = data, aes(fill = Mean), alpha = .5, color = "white")  +
+  #scale_fill_viridis_c(option = "virdis") +
+  geom_sf_text(data, mapping = aes(label = round(count, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Insert Question?",
+           paste("Valid Reponses: ", nrow(dat))) +
+  ggthemes::theme_map() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "right")  #+ 
+  #guides(fill = guide_legend(override.aes = list(alpha = 0.7)))
+}
+
+
+stateMap_discrete = function (data) 
+{
+  
+ggplot() +
+  geom_sf(data = data, aes(fill = Answer), alpha = .5, color = "white") +
+  geom_sf_text(data, mapping = aes(label = round(count, digits = 2)),
+               color = "grey30", size = 4) +
+  ggtitle("Insert Question?",
+           paste("Valid Reponses: ", nrow(dat))) +
+  ggthemes::theme_map() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "right")  + 
+  guides(fill = guide_legend(override.aes = list(alpha = 0.7)))
 }
 
 
 
+zipCOWY_Map_continuous =function (spatial, counties, states) 
+{
+  
+ggplot() +
+  geom_sf(data = states, fill = "grey", alpha = .5, color = "white") +
+  geom_sf(data = counties, fill = "grey", alpha = .5, color = "white") +
+  geom_sf(data = spatial, aes(fill = Mean), alpha = .5)  +
+  #scale_fill_viridis_c(option = "virdis") +
+  ggtitle("Insert Question?",
+           paste("Valid Reponses: ", nrow(dat))) +
+  ggthemes::theme_map() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "right")  #+ 
+  #guides(fill = guide_legend(override.aes = list(alpha = 0.7)))
+}
+
+zipCOWY_Map_discrete =function (spatial, counties, states) 
+{
+  
+ggplot() +
+  geom_sf(data = states, fill = "grey", alpha = .5, color = "white") +
+  geom_sf(data = counties, fill = "grey", alpha = .5, color = "white") +
+  geom_sf(data = spatial, aes(fill = Answer), alpha = .5)  +
+  scale_fill_viridis_c(option = "virdis") +
+  ggtitle("Insert Question?",
+           paste("Valid Reponses: ", nrow(dat))) +
+  ggthemes::theme_map() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "right")  + 
+  guides(fill = guide_legend(override.aes = list(alpha = 0.7)))
+}
 
 ```
 
@@ -478,7 +545,7 @@ dmap <- d %>%
           summarise(count = n())
 
 # Join it by state 
-spatial_states <- left_join(states, dmap, by = "state")
+spatial_states <- left_join(sf_states, dmap, by = "state")
 
 
 # Summarize data I want to portray by number of response for each state. 
@@ -487,7 +554,7 @@ dmap <- d %>%
           summarise(count = n())
 
 # Join it by zip 
-spatial_zip <- left_join(zipcode, dmap, by = "zipcode") %>% 
+spatial_zip <- left_join(sf_zipcode, dmap, by = "zipcode") %>% 
             drop_na(count) %>% 
             filter(!is.na(state))
 
@@ -500,36 +567,13 @@ wy <- spatial_states %>%
           filter(state %in% c("WY"))
 
 
-# Plot  
-  ggplot() +
-  geom_sf(data = spatial_states, aes(fill = count), alpha = .5, color = "white")  +
-  geom_sf_text(spatial_states, mapping = aes(label = count), 
-               color = "black", size = 4) + 
-  scale_fill_viridis_c(option = "virdis") +
-  ggthemes::theme_map() +
-  theme(legend.position="right")
 
- # Plot  
-  ggplot() +
-  geom_sf(data = allStates, aes(fill = count), alpha = .5, color = "white")  +
-  geom_sf_text(allStates, mapping = aes(label = count), 
-               color = "black", size = 4) + 
-  scale_fill_viridis_c(option = "virdis") +
-  geom_sf(data = co, fill = "grey", color = "white") +
-  geom_sf_text(co, mapping = aes(label = count), 
-               color = "black", size = 4) +
-  geom_sf(data = wy, fill = "grey", color = "white") +
-  geom_sf_text(wy, mapping = aes(label = count), 
-               color = "black", size = 4) +
-  ggthemes::theme_map() +
-  theme(legend.position="right")
-  
   # Plot
   ggplot() +
   geom_sf(data = allStates, aes(fill = count), alpha = .5, color = "white")  +
   geom_sf_text(allStates, mapping = aes(label = count), 
                color = "black", size = 4) +
-  scale_fill_viridis_c(option = "virdis") +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 50) + 
   geom_sf(data = co, fill = "tomato2", color = "white") +
   geom_sf_text(co, mapping = aes(label = count), 
                color = "black", size = 4) +
@@ -539,6 +583,18 @@ wy <- spatial_states %>%
   ggthemes::theme_map()  +
   theme(legend.position="right")
 
+  
+    # Plot
+  ggplot() +
+  geom_sf(data = allStates, aes(fill = count), alpha = .5, color = "white")  +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 50) + 
+  geom_sf(data = co, fill = "tomato2", color = "white") +
+  
+  geom_sf(data = wy, fill = "tomato4", color = "white") +
+  
+  geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
+  ggthemes::theme_map()  +
+  theme(legend.position="right")
   
   
   # Plot
@@ -554,12 +610,12 @@ wy <- spatial_states %>%
   theme(legend.position="right")
 
   
-  # Plot
-  ggplot() +
-  geom_sf(data = spatial_states, alpha = 0.7, fill = "#D8CEBA", color = "white")  +
-  geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
-  ggthemes::theme_map()  +
-  theme(legend.position="right")
+  # # Plot
+  # ggplot() +
+  # geom_sf(data = spatial_states, alpha = 0.7, fill = "#D8CEBA", color = "white")  +
+  # geom_sf(data = spatial_zip, fill = "grey25", alpha = 0.2)  +
+  # ggthemes::theme_map()  +
+  # theme(legend.position="right")
 
     
   
@@ -629,7 +685,7 @@ dmap <- dmap %>%
           drop_na()
 
 # Only Counties in WY
-counties_WY <- counties %>% 
+counties_WY <- sf_counties %>% 
                       filter(state == "WY")
 
 # Join it by state 
@@ -645,7 +701,7 @@ dmap <- d %>%
 
 
 # Join it by zip 
-spatial_zip <- left_join(zipcode, dmap, by = "zipcode") %>% 
+spatial_zip <- left_join(sf_zipcode, dmap, by = "zipcode") %>% 
             drop_na(count) %>% 
             filter(!is.na(state))
 
@@ -658,6 +714,14 @@ ggplot() +
   ggthemes::theme_map()+
   theme(legend.position="right")
 
+# Plot
+ggplot() +
+  geom_sf(data = spatial_counties, aes(fill = count), alpha = .5, color = "white")  +
+   scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 600) + 
+  geom_sf_text(spatial_counties, mapping = aes(label = count), 
+               color = "black", size = 4) +
+  ggthemes::theme_map()+
+  theme(legend.position="right")
 
 
 # Plot
@@ -673,9 +737,9 @@ ggplot() +
 ggplot() +
   geom_sf(data = spatial_counties, fill = "grey", alpha = .5, color = "white")  +
   geom_sf(data = spatial_zip,aes(fill = count), alpha = 0.5, color = "white")  +
-   scale_fill_viridis_c(option = "virdis") +
-   geom_sf_text(spatial_zip, mapping = aes(label = count), 
-               color = "black", size = 3) +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 400) + 
+   #geom_sf_text(spatial_zip, mapping = aes(label = count), 
+               #color = "black", size = 3) +
   ggthemes::theme_map()+
   theme(legend.position="right")
 
@@ -720,8 +784,6 @@ tbl %>%
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
   row_spec(nrow(tbl), bold = T) 
 
-valid <- d %>% filter(!county == "-99" , !is.na(county))
-other <- d %>% filter(county == "-99" | is.na(county))
 
 
 ```
@@ -755,8 +817,6 @@ listing of all text entries).
 <br>
 
 ##### **In 2023, did you fish with a resident (1) or non-resident license (2)?**
-
-- This is different than the residency column created by the fee type. This is info provided by the angler which was sometimes different than what their fee type indicated. We used the residency column for the reminder of the survey, not this license type.  
 
 Total sample size is `r nrow(d)`
 
@@ -812,6 +872,9 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+- This is different than the residency column created by the fee type. This is info provided by the angler which was sometimes different than what their fee type indicated. We used the residency column for the reminder of the survey, not this license type.  
+
+
 <br>
 
 <br>
@@ -829,6 +892,8 @@ tbl %>%
 #### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section1Q1, useNA = "always")
+
 # Change numbers to words
 d <- d %>% 
       mutate(Section1Q1 = case_when(Section1Q1 == 1 ~ "Yes",
@@ -838,21 +903,6 @@ d <- d %>%
 
 # Order 
 d$Section1Q1 <- factor(d$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
-
-# Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
-
-barchart_all(data = valid, question = valid$Section1Q1) +
-  facet_wrap(~"Have you fished in the Laramie Region within the last five years?") +
-  scale_fill_manual(values = c("#00374D", "#FFC80B",  "#EBEBE5")) 
-
-```
-
-
-<br>
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-#table(d$Section1Q1, useNA = "always")
 
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
@@ -894,10 +944,6 @@ tbl %>%
 
 <br>
 
-
-
-#### Res vs. Non-Res
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Change numbers to words
 d <- d %>% 
@@ -908,38 +954,100 @@ d <- d %>%
 
 # Order 
 d$Section1Q1 <- factor(d$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
-
 # Filter the valid from the -99 and NA's
 valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
 
-# Facet by Residency 
-valid %>% 
-ggplot(aes(x=Section1Q1, fill=Section1Q1)) +  
-  geom_bar(aes(x = Section1Q1,
-               y = after_stat(count/sum(count)))) +
-  facet_wrap(~residency) +
-  
-  #Add Percentage to Bars
-  geom_text(aes(y = ((..count..)/sum(..count..)),
-                alpha = 0.7,
-                label = scales::percent((..count..)/sum(..count..))),
-              stat = "count", vjust = -0.3) +
-  
-  # Make y axis 0% to 100%
-  scale_y_continuous(labels = scales::percent, limits = c(0,1)) +
-  
-  # Remove axis titles
-  ylab("") +
-  xlab("") +
-    
-  # Set theme
-  theme.clean() +
-  scale_fill_manual(values = c("#00374D", "#FFC80B",  "#EBEBE5")) 
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q1) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+barchart_all(data = valid, question = valid$Section1Q1)+
+  facet_wrap(~"Have you fished in the Laramie Region within the last five years?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B",  "#EBEBE5")) + 
+  labs(caption = paste("Valid Reponses: ", nrow(d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1)))))
+
 
 
 ```
 
+
 <br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section1Q1 == -99, !is.na(Section1Q1)) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section1Q1)) 
+
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Have you fished in the Laramie Region within the last five years?") +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 2) 
+
+# Discrete
+# stateMap_discrete(spatial) +
+#   ggtitle("Have you fished in the Laramie Region within the last five years?") +
+#   scale_fill_manual("",
+#                     values=c("Agree" = "#00374D",
+#                                "Disagree" = "#FFC80B",
+#                                "Neutral" =  "#D8CEBA")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section1Q1))  
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+   labs(title = str_wrap("Have you fished in the Laramie Region within the last five years?", 60)) +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 2) 
+
+# Discrete
+# zipCOWY_Map_discrete(spatial, counties, states) +
+#    labs(title = str_wrap("Have you fished in the Laramie Region within the last five years?", 60)) +
+#   scale_fill_manual("",
+#                     values=c("Agree" = "#00374D",
+#                               "Disagree" = "#FFC80B",
+#                               "Neutral" =  "#D8CEBA")) 
+
+
+```
+
+
+
+#### Res vs. Non-Res
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section1Q1, useNA = "always")
@@ -959,172 +1067,38 @@ d$Section1Q1 <- factor(d$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Su
 valid <- d %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
 other <- d %>% filter(Section1Q1 == "-99" | is.na(Section1Q1))
 
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
 # Make Vaild Table
 valid <- valid %>% 
           group_by(Section1Q1, residency) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+          summarise(Frequency = n()) 
 
-# Make Other Table
-other <- other %>% 
-          group_by(Section1Q1, residency) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = as.numeric(" "))
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
 
 # Join
-tbl <- rbind(valid, other) %>% 
-        rename(" " = Section1Q1)
+tbl <-  valid %>% rename(" " = Section1Q1)
 
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Table : Percent by residency") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
 
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-#table(d$Section1Q1, useNA = "always")
-
-# Change numbers to words
-res <- d %>% 
-      filter(residency == "Resident") %>% 
-      mutate(Section1Q1 = case_when(Section1Q1 == 1 ~ "Yes",
-                                    Section1Q1 == 2 ~ "No", 
-                                    Section1Q1 == 3 ~ "Don't know/ Not Sure",
-                                    .default = as.character(Section1Q1)))
-
-# Order 
-res$Section1Q1 <- factor(res$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
-
-# Filter the valid from the -99 and NA's
-valid <- res %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
-other <- res %>% filter(Section1Q1 == "-99" | is.na(Section1Q1))
-
-# Make Vaild Table
-valid <- valid %>% 
-          group_by(Section1Q1) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
-valid <- valid %>% 
-          add_row("Section1Q1" = "Total", 
-                  Frequency = sum(valid$Frequency),
-                  'Valid Percent' = sum(valid$'Valid Percent'))
-
-# Make Other Table
-other <- other %>% 
-          group_by(Section1Q1) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = " ") 
-other <- other %>% 
-          add_row(Section1Q1 = "Total", 
-                  Frequency = nrow(res),
-                  'Valid Percent' = " ")
-
-# Join
-tbl_res <- rbind(valid, other) %>% 
-        rename(" " = Section1Q1,
-               'Resident Frequency' = Frequency,
-               'Resident Percent' = 'Valid Percent')
-
-
-
-
-
-# Change numbers to words
-nonres <- d %>% 
-      filter(residency == "Non Resident") %>% 
-      mutate(Section1Q1 = case_when(Section1Q1 == 1 ~ "Yes",
-                                    Section1Q1 == 2 ~ "No", 
-                                    Section1Q1 == 3 ~ "Don't know/ Not Sure",
-                                    .default = as.character(Section1Q1)))
-
-# Order 
-nonres$Section1Q1 <- factor(nonres$Section1Q1, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
-
-# Filter the valid from the -99 and NA's
-valid <- nonres %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
-other <- nonres %>% filter(Section1Q1 == "-99" | is.na(Section1Q1))
-
-# Make Vaild Table
-valid <- valid %>% 
-          group_by(Section1Q1) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
-valid <- valid %>% 
-          add_row("Section1Q1" = "Total", 
-                  Frequency = sum(valid$Frequency),
-                  'Valid Percent' = sum(valid$'Valid Percent'))
-
-# Make Other Table
-other <- other %>% 
-          group_by(Section1Q1) %>% 
-          summarise(Frequency = n(),
-                    'Valid Percent' = " ") 
-other <- other %>% 
-          add_row(Section1Q1 = "Total", 
-                  Frequency = nrow(nonres),
-                  'Valid Percent' = " ")
-
-# Join
-tbl_nonres <- rbind(valid, other) %>% 
-                rename(" " = Section1Q1,
-                       'Non-Resident Frequency' = Frequency,
-                       'Non-Resident Percent' = 'Valid Percent')
-
-
-
-tbl <- tbl_res %>% 
-          mutate('Non-Resident Frequency' = tbl_nonres$`Non-Resident Frequency`,
-                 'Non-Resident Percent' = tbl_nonres$`Non-Resident Percent`) %>% 
-          relocate('Non-Resident Frequency', .after = 'Resident Frequency')
-
-
-
-# Plot
-tbl %>% 
-  kbl(align= c("l","c","c"),
-      caption = "Table: Percent of Res vs Non-Res") %>% 
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
-  row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
-  row_spec(nrow(tbl), bold = T)
-
-
-```
+<br>
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-
-# Prep the data frame
-test <- tbl %>% 
-  rename(Resident = `Resident Percent`, `Non-Resident` = `Non-Resident Percent`) %>% 
-  filter(!Resident == " ",
-         !` ` == "Total") %>% 
-  pivot_longer(Resident:`Non-Resident`, names_to = "Residency", values_to = "PercentByResidency") %>% 
-  mutate(PercentByResidency = as.numeric(PercentByResidency),
-         PercentByResidency = PercentByResidency/100)
-
-# Order 
-test$` ` <- factor(test$` `, levels = c("Yes", "No", "Don't know/ Not Sure", "-99", NA))
-test$Residency <- factor(test$Residency, levels = c("Non-Resident", "Resident"))
-
-
-# Plot
-ggplot(test, aes(fill=Residency, y=PercentByResidency, x=` `)) +
-  geom_bar(position='dodge', stat='identity', alpha = 0.5) +
-  
-  geom_text(aes(label=(PercentByResidency*100)), position=position_dodge(.9), vjust=0) + 
-  
-  # Remove axis titles
-  ylab("") +
-  xlab("") +
-    scale_y_continuous(labels = scales::percent) +
-  # Set theme
-  theme.clean2() +
+barchart_byres(data = tbl) +
   facet_wrap(~"Have you fished in the Laramie Region within the last five years?") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) 
+
 
 ```
 
@@ -1201,6 +1175,55 @@ tbl %>%
 #### Res vs. Non-Res
 
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section1Q1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q2 = case_when(Section1Q2 == 1 ~ "Yes",
+                                    Section1Q2 == 2 ~ "No", 
+                                    .default = as.character(Section1Q2)))
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q2 == "-99" , !is.na(Section1Q2))
+other <- d %>% filter(Section1Q2 == "-99" | is.na(Section1Q2))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q2, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section1Q2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent by residency") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Would you like to continue this survey about fishing in the Laramie Region?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) 
+
+
+```
+
 
 
 
@@ -1269,7 +1292,172 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                    Section1Q3 == 2 ~ "1-5 days", 
+                                    Section1Q3 == 3 ~ "6-20 days",
+                                    Section1Q3 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section1Q3))) 
+# Order 
+d$Section1Q3 <- factor(d$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q3 == "-99" , !is.na(Section1Q3))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q3) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+barchart_all(data = valid, question = valid$Section1Q3)+
+  facet_wrap(~"How many days did you fish in the Laramie Region in 2023?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B",  "#EBEBE5", "#364010")) 
+
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section1Q3 == -99, !is.na(Section1Q3)) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section1Q3)) %>%
+          mutate(Answer = case_when(Mean >= 2 ~ "More than 6 days",
+                                    Mean < 2 ~ "Less than 6 days",
+                                    Mean == 1 ~ "None"))
+
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("How many days did you fish in the Laramie Region in 2023?") +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 2.5) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("How many days did you fish in the Laramie Region in 2023?") +
+  scale_fill_manual("",
+                    values=c("More than 6 days" = "#00374D",
+                               "Less than 6 days" = "#FFC80B",
+                               "None" =  "#D8CEBA")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat %>% 
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section1Q3)) %>%
+          mutate(Answer = case_when(Mean >= 2 ~ "More than 6 days",
+                                    Mean < 2 ~ "Less than 6 days",
+                                    Mean == 1 ~ "None"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+   labs(title = str_wrap("How many days did you fish in the Laramie Region in 2023?", 60)) +
+  scale_fill_gradient2(low = "burlywood3",mid = "darkseagreen",high = "steelblue4", midpoint = 2.5) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("How many days did you fish in the Laramie Region in 2023?", 60)) +
+  scale_fill_manual("",
+                    values=c("More than 6 days" = "#00374D",
+                               "Less than 6 days" = "#FFC80B",
+                               "None" =  "#D8CEBA")) 
+
+
+  
+```
+
+
 #### Res vs. Non-Res
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section1Q3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                    Section1Q3 == 2 ~ "1-5 days", 
+                                    Section1Q3 == 3 ~ "6-20 days",
+                                    Section1Q3 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section1Q3))) 
+# Order 
+d$Section1Q3 <- factor(d$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q3 == "-99" , !is.na(Section1Q3))
+other <- d %>% filter(Section1Q3 == "-99" | is.na(Section1Q3))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q3, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section1Q3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"How many days did you fish in the Laramie Region in 2023?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) 
+
+
+```
 
 
 
@@ -1351,12 +1539,185 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q4_1 = case_when(Section1Q4_1 == 1 ~ "Not very important",
+                                      Section1Q4_1 == 2 ~ "Less important", 
+                                      Section1Q4_1 == 3 ~ "Neutral",
+                                      Section1Q4_1 == 4 ~ "Somewhat important",
+                                      Section1Q4_1 == 5 ~ "Very important",
+                                      .default = as.character(Section1Q4_1))) 
+# Order 
+d$Section1Q4_1 <- factor(d$Section1Q4_1, 
+                         levels = c("Not very important", "Less important", 
+                                    "Neutral", "Somewhat important", "Very important",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q4_1 == "-99" , !is.na(Section1Q4_1))
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q4_1) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section1Q4_1)+
+  facet_wrap(~"Importance of fishing for trout") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) 
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section1Q4_1 == -99, !is.na(Section1Q4_1)) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section1Q4_1)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Important",
+                                    Mean < 3 ~ "Not Important",
+                                    Mean == 3 ~ "Neutral"))
+
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Importance of fishing for trout") +
+   scale_fill_gradient2(low = "sienna4",mid = "white",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Importance of fishing for trout") +
+  scale_fill_manual("",
+                    values=c("Important" = "darkseagreen4",
+                               "Not Important" = "sienna4",
+                               "Neutral" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section1Q4_1))  %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Important",
+                                    Mean < 3 ~ "Not Important",
+                                    Mean == 3 ~ "Neutral"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+   labs(title = str_wrap("Importance of fishing for trout", 60)) +
+  scale_fill_gradient2(low = "burlywood3",mid = "white",high = "steelblue4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Importance of fishing for trout", 60)) +
+  scale_fill_manual("",
+                    values=c("Important" = "darkseagreen4",
+                               "Not Important" = "sienna4",
+                               "Neutral" =  "gray")) 
+
+```
+
+
+
 
 ##### Res vs. Non-Res
 
 ###### **Fishing for trout species**
 
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section1Q4_1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section1Q4_1 = case_when(Section1Q4_1 == 1 ~ "Not very important",
+                                      Section1Q4_1 == 2 ~ "Less important", 
+                                      Section1Q4_1 == 3 ~ "Neutral",
+                                      Section1Q4_1 == 4 ~ "Somewhat important",
+                                      Section1Q4_1 == 5 ~ "Very important",
+                                      .default = as.character(Section1Q4_1))) 
+# Order 
+d$Section1Q4_1 <- factor(d$Section1Q4_1, 
+                         levels = c("Not very important", "Less important", 
+                                    "Neutral", "Somewhat important", "Very important",
+                                    "-99", NA))
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section1Q4_1 == "-99" , !is.na(Section1Q4_1))
+other <- d %>% filter(Section1Q4_1 == "-99" | is.na(Section1Q4_1))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section1Q4_1, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section1Q4_1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Importance of fishing for trout") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) 
+
+
+```
 
 
 
@@ -3477,190 +3838,190 @@ tbl %>%
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-# remove NA and -99
-test <- original %>%
-          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
-
-# Summarize
-dat <- test  %>% 
-          group_by(state) %>%
-          summarise(count = n(),
-                    mean = mean(Section2Q5_5))
-
- # Join it by state
- spatial <- left_join(states, dat, by = "state")
-
- 
- # Continuous
-ggplot() +
-  geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
-  scale_fill_viridis_c(option = "viridis") +
-  geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
-               color = "grey30", size = 4) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)", 
-          paste("Valid Reponses: ", nrow(test))) +
-  ggthemes::theme_map()
-
-ggplot() +
-  geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
-  scale_fill_viridis_c(option = "virdis") +
-  geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
-               color = "grey30", size = 4) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-          paste("Valid Reponses: ", nrow(test))) +
-
-  ggthemes::theme_map()
-
-
-
-
-
-
-# Discret
-spatial <- spatial %>%
-  mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
-                                    mean < 3 ~ "Disagree",
-                                    mean == 3 ~ "Neutral"))
-ggplot() +
-  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-  scale_fill_manual("",
-                     values=c("Agree" = "#00374D",
-                              "Disagree" = "#FFC80B",
-                              "Neutral" =  "#D8CEBA")) +
-  geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
-               color = "grey30", size = 4) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-          paste("Valid Reponses: ", nrow(test))) +
-  ggthemes::theme_map()
-
-ggplot() +
-  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-  scale_fill_manual("",
-                     values=c("Agree" = "#00374D",
-                              "Disagree" = "#FFC80B",
-                              "Neutral" =  "#D8CEBA")) +
-  geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
-               color = "grey30", size = 4) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-          paste("Valid Reponses: ", nrow(test))) +
-  ggthemes::theme_map()
-
-
-
-
-# remove NA and -99
-test <- original %>%
-          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
-
-dat <- test  %>% 
-          group_by(zipcode) %>%
-          summarise(count = n(),
-                    mean = mean(Section2Q5_5))
-
-
- # Join it by state
- spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
-            drop_na(count)
- 
- 
-  # Continuous
-ggplot() +
-  geom_sf(data = states, alpha = 0) +
-  geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
-  scale_fill_viridis_c(option = "virdis") +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-          paste("Valid Reponses: ", nrow(test))) +
-  ggthemes::theme_map()
-
-
-
-
-
-
-# Discret
-spatial <- spatial %>%
-  mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
-                                    mean < 3 ~ "Disagree",
-                                    mean == 3 ~ "Neutral"))
-ggplot() +
-  geom_sf(data = states, alpha = 0) +
-  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-  scale_fill_manual("",
-                     values=c("Agree" = "#00374D",
-                              "Disagree" = "#FFC80B",
-                              "Neutral" =  "#D8CEBA")) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-          paste("Valid Reponses: ", nrow(test))) + 
-  ggthemes::theme_map()
-
-
-
-
-
-
-
-
-# remove NA and -99
-test <- original %>%
-          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
-
-
-
-
-# Summarize data I want to portray by number of response for each state. 
-dat <- test %>% 
-          filter(zipcode %in% c(wyCOzip$zip)) %>%  # Only use zip codes from  WY and CO
-          group_by(zipcode) %>% 
-          summarise(count = n(),
-                    mean = mean(Section2Q5_5))
-
-
- # Join it by state
- spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
-            drop_na(count)
-
-
-states <- states %>% filter(state %in% c("WY", "CO"))
-counties <- counties %>% filter(state %in% c("WY")) 
-
-
-# Discret
-spatial <- spatial %>%
-  mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
-                                    mean < 3 ~ "Disagree",
-                                    mean == 3 ~ "Neutral"))
-ggplot() +
-  geom_sf(data = states, alpha = 0) +
-  geom_sf(data = counties, alpha = 0, color = "black") + 
-  geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-  scale_fill_manual("",
-                     values=c("Agree" = "#00374D",
-                              "Disagree" = "#FFC80B",
-                              "Neutral" =  "#D8CEBA")) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery",
-          paste("Valid Reponses: ", nrow(test))) + 
-  ggthemes::theme_map() +
-  theme(legend.position="right")
-
-
-group.colors_WGFD <- c(Disagree = "burlywood3", 
-                     Neutral = "gray",
-                       Agree = "steelblue4")
-
-group.colors_RedGreen <- c(Disagree = "sienna4",
-                         Neutral = "gray",
-                       Agree = "darkseagreen4")
-
-# Make Months leveled in proper order
-spatial$AgreementLevel <- factor(spatial$AgreementLevel , 
-                                    levels= c("Disagree","Neutral", "Agree"))
-
-mapview(states, alpha.regions = 0) +
-  mapview(counties, alpha.regions = 0) +
-  mapview(spatial, zcol = "AgreementLevel", col.regions = group.colors_WGFD) 
-mapview(states, alpha.regions = 0) +
-  mapview(counties, alpha.regions = 0) +
-  mapview(spatial, zcol = "AgreementLevel", col.regions = group.colors_RedGreen) 
+# # remove NA and -99
+# test <- original %>%
+#           filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
+# 
+# # Summarize
+# dat <- test  %>% 
+#           group_by(state) %>%
+#           summarise(count = n(),
+#                     mean = mean(Section2Q5_5))
+# 
+#  # Join it by state
+#  spatial <- left_join(states, dat, by = "state")
+# 
+#  
+#  # Continuous
+# ggplot() +
+#   geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
+#   scale_fill_viridis_c(option = "viridis") +
+#   geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
+#                color = "grey30", size = 4) +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)", 
+#           paste("Valid Reponses: ", nrow(test))) +
+#   ggthemes::theme_map()
+# 
+# ggplot() +
+#   geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
+#   scale_fill_viridis_c(option = "virdis") +
+#   geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
+#                color = "grey30", size = 4) +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+#           paste("Valid Reponses: ", nrow(test))) +
+# 
+#   ggthemes::theme_map()
+# 
+# 
+# 
+# 
+# 
+# 
+# # Discret
+# spatial <- spatial %>%
+#   mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
+#                                     mean < 3 ~ "Disagree",
+#                                     mean == 3 ~ "Neutral"))
+# ggplot() +
+#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+#   scale_fill_manual("",
+#                      values=c("Agree" = "#00374D",
+#                               "Disagree" = "#FFC80B",
+#                               "Neutral" =  "#D8CEBA")) +
+#   geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
+#                color = "grey30", size = 4) +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+#           paste("Valid Reponses: ", nrow(test))) +
+#   ggthemes::theme_map()
+# 
+# ggplot() +
+#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+#   scale_fill_manual("",
+#                      values=c("Agree" = "#00374D",
+#                               "Disagree" = "#FFC80B",
+#                               "Neutral" =  "#D8CEBA")) +
+#   geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
+#                color = "grey30", size = 4) +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+#           paste("Valid Reponses: ", nrow(test))) +
+#   ggthemes::theme_map()
+# 
+# 
+# 
+# 
+# # remove NA and -99
+# test <- original %>%
+#           filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
+# 
+# dat <- test  %>% 
+#           group_by(zipcode) %>%
+#           summarise(count = n(),
+#                     mean = mean(Section2Q5_5))
+# 
+# 
+#  # Join it by state
+#  spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
+#             drop_na(count)
+#  
+#  
+#   # Continuous
+# ggplot() +
+#   geom_sf(data = states, alpha = 0) +
+#   geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
+#   scale_fill_viridis_c(option = "virdis") +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+#           paste("Valid Reponses: ", nrow(test))) +
+#   ggthemes::theme_map()
+# 
+# 
+# 
+# 
+# 
+# 
+# # Discret
+# spatial <- spatial %>%
+#   mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
+#                                     mean < 3 ~ "Disagree",
+#                                     mean == 3 ~ "Neutral"))
+# ggplot() +
+#   geom_sf(data = states, alpha = 0) +
+#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+#   scale_fill_manual("",
+#                      values=c("Agree" = "#00374D",
+#                               "Disagree" = "#FFC80B",
+#                               "Neutral" =  "#D8CEBA")) +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
+#           paste("Valid Reponses: ", nrow(test))) + 
+#   ggthemes::theme_map()
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# # remove NA and -99
+# test <- original %>%
+#           filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
+# 
+# 
+# 
+# 
+# # Summarize data I want to portray by number of response for each state. 
+# dat <- test %>% 
+#           filter(zipcode %in% c(wyCOzip$zip)) %>%  # Only use zip codes from  WY and CO
+#           group_by(zipcode) %>% 
+#           summarise(count = n(),
+#                     mean = mean(Section2Q5_5))
+# 
+# 
+#  # Join it by state
+#  spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
+#             drop_na(count)
+# 
+# 
+# states <- states %>% filter(state %in% c("WY", "CO"))
+# counties <- counties %>% filter(state %in% c("WY")) 
+# 
+# 
+# # Discret
+# spatial <- spatial %>%
+#   mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
+#                                     mean < 3 ~ "Disagree",
+#                                     mean == 3 ~ "Neutral"))
+# ggplot() +
+#   geom_sf(data = states, alpha = 0) +
+#   geom_sf(data = counties, alpha = 0, color = "black") + 
+#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
+#   scale_fill_manual("",
+#                      values=c("Agree" = "#00374D",
+#                               "Disagree" = "#FFC80B",
+#                               "Neutral" =  "#D8CEBA")) +
+#   ggtitle("Manage Diamond Lake for as catch and release only fishery",
+#           paste("Valid Reponses: ", nrow(test))) + 
+#   ggthemes::theme_map() +
+#   theme(legend.position="right")
+# 
+# 
+# group.colors_WGFD <- c(Disagree = "burlywood3", 
+#                      Neutral = "gray",
+#                        Agree = "steelblue4")
+# 
+# group.colors_RedGreen <- c(Disagree = "sienna4",
+#                          Neutral = "gray",
+#                        Agree = "darkseagreen4")
+# 
+# # Make Months leveled in proper order
+# spatial$AgreementLevel <- factor(spatial$AgreementLevel , 
+#                                     levels= c("Disagree","Neutral", "Agree"))
+# 
+# mapview(states, alpha.regions = 0) +
+#   mapview(counties, alpha.regions = 0) +
+#   mapview(spatial, zcol = "AgreementLevel", col.regions = group.colors_WGFD) 
+# mapview(states, alpha.regions = 0) +
+#   mapview(counties, alpha.regions = 0) +
+#   mapview(spatial, zcol = "AgreementLevel", col.regions = group.colors_RedGreen) 
 
 ```
 
