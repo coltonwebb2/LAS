@@ -1182,8 +1182,8 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q1 == "-99" , !is.na(Section1Q1))
-other <- original %>% filter(Section1Q1 == "-99" | is.na(Section1Q1))
+valid <- original %>% filter(!Section1Q1 == -99 , !is.na(Section1Q1))
+
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -1559,8 +1559,8 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q3 == "-99" , !is.na(Section1Q3))
-other <- original %>% filter(Section1Q3 == "-99" | is.na(Section1Q3))
+valid <- original %>% filter(!Section1Q3 == -99 , !is.na(Section1Q3))
+
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -1609,7 +1609,6 @@ ridgeline_byres(valid, valid$Section1Q3, valid$county) +
 ##### All
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-#table(d$Section1Q4_1, useNA = "always")
 
 # Change numbers to words
 d <- d %>% 
@@ -1665,6 +1664,54 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section1Q4_1, useNA = "always")
+
+# # Change numbers to words
+# d <- d %>% 
+#       mutate(Section1Q4_1 = case_when(Section1Q4_1 == 1 ~ "Not very important",
+#                                       Section1Q4_1 == 2 ~ "Less important", 
+#                                       Section1Q4_1 == 3 ~ "Neutral",
+#                                       Section1Q4_1 == 4 ~ "Somewhat important",
+#                                       Section1Q4_1 == 5 ~ "Very important",
+#                                       .default = as.character(Section1Q4_1))) 
+# # Order 
+# d$Section1Q4_1 <- factor(d$Section1Q4_1, 
+#                          levels = c("Not very important", "Less important", 
+#                                     "Neutral", "Somewhat important", "Very important",
+#                                     "-99", NA))
+#   
+# 
+# 
+# # Filter the valid from the -99 and NA's
+# valid <- d %>% filter(!Section1Q4_1 == "-99" , !is.na(Section1Q4_1))
+# other <- d %>% filter(Section1Q4_1 == "-99" | is.na(Section1Q4_1))
+# 
+# # Make Vaild Table
+# valid <- valid %>% 
+#           group_by(Section1Q3, Section1Q4_1) %>% 
+#           summarise(Frequency = n(),
+#                     'Valid Percent' = round((Frequency/nrow(valid)*100), digits = 1)) 
+# valid %>% 
+#   filter(!Section1Q3 == "-99") %>% 
+#   select(!Frequency) %>% 
+#   pivot_wider(names_from = Section1Q4_1, values_from = 'Valid Percent') %>% 
+#   select(Effort = Section1Q3, 
+#          `Not very important`, 
+#          `Less important`, 
+#          `Neutral`,
+#          `Somewhat important`,
+#          `Very important`)
+# 
+# # Plot
+# tbl %>% 
+#   kbl(align= c("l","c","c"),
+#       caption = "Q4-1: Importance of fishing for trout.") %>% 
+#   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+#   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
+#   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
+#   row_spec(nrow(tbl), bold = T)
+```
 <br>
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -1851,8 +1898,8 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_1 == "-99" , !is.na(Section1Q4_1))
-other <- original %>% filter(Section1Q4_1 == "-99" | is.na(Section1Q4_1))
+valid <- original %>% filter(!Section1Q4_1 == -99 , !is.na(Section1Q4_1))
+
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -2147,8 +2194,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_2 == "-99" , !is.na(Section1Q4_2))
-other <- original %>% filter(Section1Q4_2 == "-99" | is.na(Section1Q4_2))
+valid <- original %>% filter(!Section1Q4_2 == -99 , !is.na(Section1Q4_2))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -2445,8 +2491,8 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_3 == "-99" , !is.na(Section1Q4_3))
-other <- original %>% filter(Section1Q4_3 == "-99" | is.na(Section1Q4_3))
+valid <- original %>% filter(!Section1Q4_3 == -99 , !is.na(Section1Q4_3))
+
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -2741,8 +2787,8 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_4 == "-99" , !is.na(Section1Q4_4))
-other <- original %>% filter(Section1Q4_4 == "-99" | is.na(Section1Q4_4))
+valid <- original %>% filter(!Section1Q4_4 == -99 , !is.na(Section1Q4_4))
+
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -3034,8 +3080,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_5 == "-99" , !is.na(Section1Q4_5))
-other <- original %>% filter(Section1Q4_5 == "-99" | is.na(Section1Q4_5))
+valid <- original %>% filter(!Section1Q4_5 == -99 , !is.na(Section1Q4_5))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -3328,8 +3373,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_6 == "-99" , !is.na(Section1Q4_6))
-other <- original %>% filter(Section1Q4_6 == "-99" | is.na(Section1Q4_6))
+valid <- original %>% filter(!Section1Q4_6 == -99 , !is.na(Section1Q4_6))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -3622,8 +3666,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_7 == "-99" , !is.na(Section1Q4_7))
-other <- original %>% filter(Section1Q4_7 == "-99" | is.na(Section1Q4_7))
+valid <- original %>% filter(!Section1Q4_7 == -99 , !is.na(Section1Q4_7))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -3919,8 +3962,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_8 == "-99" , !is.na(Section1Q4_8))
-other <- original %>% filter(Section1Q4_8 == "-99" | is.na(Section1Q4_8))
+valid <- original %>% filter(!Section1Q4_8 == -99 , !is.na(Section1Q4_8))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -4215,8 +4257,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q4_9 == "-99" , !is.na(Section1Q4_9))
-other <- original %>% filter(Section1Q4_9 == "-99" | is.na(Section1Q4_9))
+valid <- original %>% filter(!Section1Q4_9 == -99 , !is.na(Section1Q4_9))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -4492,8 +4533,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q5_1 == "-99" , !is.na(Section1Q5_1))
-other <- original %>% filter(Section1Q5_1 == "-99" | is.na(Section1Q5_1))
+valid <- original %>% filter(!Section1Q5_1 == -99 , !is.na(Section1Q5_1))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -4762,8 +4802,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q5_2 == "-99" , !is.na(Section1Q5_2))
-other <- original %>% filter(Section1Q5_2 == "-99" | is.na(Section1Q5_2))
+valid <- original %>% filter(!Section1Q5_2 == -99 , !is.na(Section1Q5_2))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -5029,8 +5068,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q5_3 == "-99" , !is.na(Section1Q5_3))
-other <- original %>% filter(Section1Q5_3 == "-99" | is.na(Section1Q5_3))
+valid <- original %>% filter(!Section1Q5_3 == -99 , !is.na(Section1Q5_3))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -5298,8 +5336,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q5_4 == "-99" , !is.na(Section1Q5_4))
-other <- original %>% filter(Section1Q5_4 == "-99" | is.na(Section1Q5_4))
+valid <- original %>% filter(!Section1Q5_4 == -99 , !is.na(Section1Q5_4))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -5566,8 +5603,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q5_5 == "-99" , !is.na(Section1Q5_5))
-other <- original %>% filter(Section1Q5_5 == "-99" | is.na(Section1Q5_5))
+valid <- original %>% filter(!Section1Q5_5 == -99 , !is.na(Section1Q5_5))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -5872,8 +5908,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q6_1 == "-99" , !is.na(Section1Q6_1))
-other <- original %>% filter(Section1Q6_1 == "-99" | is.na(Section1Q6_1))
+valid <- original %>% filter(!Section1Q6_1 == -99 , !is.na(Section1Q6_1))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -6169,9 +6204,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q6_2 == "-99" , !is.na(Section1Q6_2))
-other <- original %>% filter(Section1Q6_2 == "-99" | is.na(Section1Q6_2))
-
+valid <- original %>% filter(!Section1Q6_2 == -99 , !is.na(Section1Q6_2))
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
 nonres <- valid %>% filter(residency == "Non Resident")
@@ -6466,8 +6499,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q6_3 == "-99" , !is.na(Section1Q6_3))
-other <- original %>% filter(Section1Q6_3 == "-99" | is.na(Section1Q6_3))
+valid <- original %>% filter(!Section1Q6_3 == -99 , !is.na(Section1Q6_3))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -6759,8 +6791,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q6_4 == "-99" , !is.na(Section1Q6_4))
-other <- original %>% filter(Section1Q6_4 == "-99" | is.na(Section1Q6_4))
+valid <- original %>% filter(!Section1Q6_4 == -99 , !is.na(Section1Q6_4))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -7053,8 +7084,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q6_5 == "-99" , !is.na(Section1Q6_5))
-other <- original %>% filter(Section1Q6_5 == "-99" | is.na(Section1Q6_5))
+valid <- original %>% filter(!Section1Q6_5 == -99 , !is.na(Section1Q6_5))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -7352,8 +7382,7 @@ barchart_byres(data = tbl) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q7 == "-99" , !is.na(Section1Q7))
-other <- original %>% filter(Section1Q7 == "-99" | is.na(Section1Q7))
+valid <- original %>% filter(!Section1Q7 == -99 , !is.na(Section1Q7))
 
 # Make res and non-res sample size
 res <- valid %>% filter(residency == "Resident")
@@ -7485,7 +7514,219 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                    Section2Q1 == 2 ~ "1-5 days", 
+                                    Section2Q1 == 3 ~ "6-20 days",
+                                    Section2Q1 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section2Q1))) 
+# Order 
+d$Section2Q1 <- factor(d$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q1 == "-99" , !is.na(Section2Q1))
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q1) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+barchart_all(data = valid, question = valid$Section2Q1)+
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?") +
+  scale_fill_manual(values = c("#EBEBE5", "#D8CEBA",  "steelblue4", "#00374D")) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q1 == -99, !is.na(Section2Q1),  !Section2Q1 == 1) # REMOVE THE NONE
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q1)) 
+
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+
+stateMap_continuous(spatial) +
+    ggtitle("How many days have you fished at Diamond Lake in the last five years?",
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) + 
+  labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
+# Discrete
+# stateMap_discrete(spatial) +
+#   ggtitle("How many days did you fish in the Laramie Region in 2023?") +
+#   scale_fill_manual("",
+#                     values=c("More than 6 days (Mean >= 2)" = "#00374D",
+#                                "Less than 6 days (Mean < 2)" = "#FFC80B",
+#                                "None (Mean = 1)" =  "#D8CEBA")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat %>% 
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q1))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("How many days have you fished at Diamond Lake in the last five years?",
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
+   labs(title = str_wrap("How many days have you fished at Diamond Lake in the last five years?", 60)) +
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) + 
+  labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
+# Discrete
+# zipCOWY_Map_discrete(spatial, counties, states) +
+#    labs(title = str_wrap("How many days did you fish in the Laramie Region in 2023?", 60)) +
+#   scale_fill_manual("",
+#                     values=c("More than 6 days (Mean >= 2)" = "#00374D",
+#                                "Less than 6 days (Mean < 2)" = "#FFC80B",
+#                                "None (Mean = 1)" =  "#D8CEBA")) 
+ 
+
+
+  
+```
+
+
+
 #### Res vs. Non-Res
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                    Section2Q1 == 2 ~ "1-5 days", 
+                                    Section2Q1 == 3 ~ "6-20 days",
+                                    Section2Q1 == 4 ~ "More than 20 days",
+                                    .default = as.character(Section2Q1))) 
+# Order 
+d$Section2Q1 <- factor(d$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q1 == "-99" , !is.na(Section2Q1))
+other <- d %>% filter(Section2Q1 == "-99" | is.na(Section2Q1))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q1, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q1 == -99 , !is.na(Section2Q1))
+
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99") # Remove people that did not answer the number of days fished
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q1, valid$residency) +
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?")
+
+violin_byres(valid, valid$Section2Q1, valid$county) +
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?")
+
+violin_byres(valid2, valid2$Section2Q1, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (people that did not awnser were removed")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q1, valid$residency) +
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?")
+
+ridgeline_byres(valid, valid$Section2Q1, valid$county) +
+  facet_wrap(~"How many days have you fished at Diamond Lake in the last five years?")
+
+
+
+```
+
 
 
 
@@ -7529,7 +7770,7 @@ d$Section2Q2 <- factor(d$Section2Q2,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q2 == "-99" , !is.na(Section2Q2))
+valid <- d %>% filter(!Section2Q2 == "-99" , !is.na(Section2Q2) , !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q2 == "-99" | is.na(Section2Q2))
 
 # Make Vaild Table
@@ -7567,8 +7808,247 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q2 = case_when(Section2Q2 == 1 ~ "Very dissatisfied",
+                                      Section2Q2 == 2 ~ "Dissatisfied", 
+                                      Section2Q2 == 3 ~ "Neutral",
+                                      Section2Q2 == 4 ~ "Satisfied",
+                                      Section2Q2 == 5 ~ "Very satisfied",
+                                      .default = as.character(Section2Q2))) 
+# Order 
+d$Section2Q2 <- factor(d$Section2Q2, 
+                         levels = c("Very dissatisfied", "Dissatisfied", 
+                                    "Neutral", "Satisfied", "Very satisfied",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q2 == "-99" , !is.na(Section2Q2), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q2) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q2)+
+  facet_wrap(~"Satisfaction with overall angling experience at Diamond Lake?") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q2 == -99, !is.na(Section2Q2), !Section2Q1 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q2)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Satisfied (Mean > 3)",
+                                    Mean < 3 ~ "Dissatisfied (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Satisfaction with overall angling experience at Diamond Lake?",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Satisfaction with overall angling experience at Diamond Lake?") +
+  scale_fill_manual("",
+                    values=c("Satisfied (Mean > 3)" = "darkseagreen4",
+                              "Dissatisfied (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q2))  %>%
+           mutate(Answer = case_when(Mean > 3 ~ "Satisfied (Mean > 3)",
+                                    Mean < 3 ~ "Dissatisfied (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("Satisfaction with overall angling experience at Diamond Lake?",
+          paste("Valid Reponses:", nrow(dat), "  (1-Not very important, 5-Very important)")) +
+   labs(title = str_wrap("Satisfaction with overall angling experience at Diamond Lake?", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Satisfaction with overall angling experience at Diamond Lake?", 60)) +
+  scale_fill_manual("",
+                    values=c("Satisfied (Mean > 3)" = "darkseagreen4",
+                              "Dissatisfied (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+```
+
+
+
 #### Res vs. Non-Res
 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q2 = case_when(Section2Q2 == 1 ~ "Very dissatisfied",
+                                      Section2Q2 == 2 ~ "Dissatisfied", 
+                                      Section2Q2 == 3 ~ "Neutral",
+                                      Section2Q2 == 4 ~ "Satisfied",
+                                      Section2Q2 == 5 ~ "Very satisfied",
+                                      .default = as.character(Section2Q2))) 
+# Order 
+d$Section2Q2 <- factor(d$Section2Q2, 
+                         levels = c("Very dissatisfied", "Dissatisfied", 
+                                    "Neutral", "Satisfied", "Very satisfied",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q2 == "-99" , !is.na(Section2Q2),!Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q2 == "-99" | is.na(Section2Q2), !Section2Q1 == "None (0 days)")
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q2, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Satisfaction with overall angling experience at Diamond Lake?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q2 == -99 , !is.na(Section2Q2), !Section2Q1 == 1)
+
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q2, valid$residency) +
+  facet_wrap(~"Satisfaction with overall angling experience at Diamond Lake?")
+
+violin_byres(valid, valid$Section2Q2, valid$county) +
+  facet_wrap(~"Satisfaction with overall angling experience at Diamond Lake?")
+
+violin_byres(valid2, valid2$Section2Q2, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"Satisfaction with angling experience at Diamond Lake?") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 860)")
+
+violin_byres(valid3, valid3$Section2Q2, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"Satisfaction with angling experience at Diamond Lake?") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 851)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q2, valid$residency) +
+  facet_wrap(~"Satisfaction with overall angling experience at Diamond Lake?")
+
+ridgeline_byres(valid, valid$Section2Q2, valid$county) +
+  facet_wrap(~"Satisfaction with overall angling experience at Diamond Lake?")
+
+
+
+```
 
 
 
@@ -7605,7 +8085,7 @@ d$Section2Q3 <- factor(d$Section2Q3,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q3 == "-99" , !is.na(Section2Q3))
+valid <- d %>% filter(!Section2Q3 == "-99" , !is.na(Section2Q3), !Section2Q1 == "None (0 days)") # Make sure those that did not fish here are not included
 other <- d %>% filter(Section2Q3 == "-99" | is.na(Section2Q3))
 
 # Make Vaild Table
@@ -7643,7 +8123,236 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q3 = case_when(Section2Q3 == 1 ~ "0 fish",
+                                      Section2Q3 == 2 ~ "1 - 2 fish", 
+                                      Section2Q3 == 3 ~ "3 - 5 fish",
+                                      Section2Q3 == 4 ~ "6 fish (daily creel limit)",
+                                      .default = as.character(Section2Q3))) 
+# Order 
+d$Section2Q3 <- factor(d$Section2Q3, 
+                         levels = c("0 fish", "1 - 2 fish", 
+                                    "3 - 5 fish", "6 fish (daily creel limit)",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q3 == "-99" , !is.na(Section2Q3), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q3) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q3)+
+  facet_wrap(~"How many fish do you typically harvest (keep) per day at Diamond Lake?") +
+  scale_fill_manual(values = c("#EBEBE5", "#D8CEBA",  "steelblue4", "#00374D")) + 
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q3 == -99, !is.na(Section2Q3), !Section2Q1 == 1, !Section2Q3 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q3)) 
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("How many fish do you typically harvest (keep) per day at Diamond Lake?",
+          paste("Valid Reponses:", nrow(dat), "  (2-One-two fish, 4- Six fish)")) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) + 
+  labs(caption = paste("Number of people that reportedly harvested 1 or more fish N:", nrow(dat), 
+                       "(Respondants that said 0 fish were not ploted on map)"))
+
+# Discrete
+# stateMap_discrete(spatial) +
+#   ggtitle("Satisfaction with overall angling experience at Diamond Lake?") +
+#   scale_fill_manual("",
+#                     values=c("Satisfied (Mean > 3)" = "darkseagreen4",
+#                               "Dissatisfied (Mean < 3)" = "sienna4",
+#                               "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q3)) 
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("How many fish do you typically harvest (keep) per day at Diamond Lake?",
+          paste("Valid Reponses:", nrow(dat), "  (2-One-two fish, 4- Six fish)")) +
+  labs(title = str_wrap("How many fish do you typically harvest (keep) per day at Diamond Lake?", 60)) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) + 
+  labs(caption = paste("Number of people that reportedly harvested 1 or more fish N:", nrow(dat), 
+                       "(Respondants that said 0 fish were not ploted on map)")) 
+
+```
+
+
+
 #### Res vs. Non-Res
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q3 = case_when(Section2Q3 == 1 ~ "0 fish",
+                                      Section2Q3 == 2 ~ "1 - 2 fish", 
+                                      Section2Q3 == 3 ~ "3 - 5 fish",
+                                      Section2Q3 == 4 ~ "6 fish (daily creel limit)",
+                                      .default = as.character(Section2Q3))) 
+# Order 
+d$Section2Q3 <- factor(d$Section2Q3, 
+                         levels = c("0 fish", "1 - 2 fish", 
+                                    "3 - 5 fish", "6 fish (daily creel limit)",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q3 == "-99" , !is.na(Section2Q3),!Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q3 == "-99" | is.na(Section2Q3), !Section2Q1 == "None (0 days)")
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q3, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"How many fish do you typically harvest (keep) per day at Diamond Lake?") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q3 == -99 , !is.na(Section2Q3), !Section2Q1 == 1)
+        
+
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q3, valid$residency) +
+  facet_wrap(~"How many fish do you typically harvest per day at Diamond Lake?")
+
+violin_byres(valid, valid$Section2Q3, valid$county) +
+  facet_wrap(~"How many fish do you typically harvest per day at Diamond Lake?")
+
+violin_byres(valid2, valid2$Section2Q3, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"How many fish do you typically harvest per day at Diamond Lake?") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 859)")
+
+violin_byres(valid3, valid3$Section2Q3, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"How many fish do you typically harvest per day at Diamond Lake?") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 850)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q3, valid$residency) +
+  facet_wrap(~"How many fish do you typically harvest per day at Diamond Lake?")
+
+ridgeline_byres(valid, valid$Section2Q3, valid$county) +
+  facet_wrap(~"How many fish do you typically harvest per day at Diamond Lake?")
+
+
+
+```
 
 
 
@@ -7682,7 +8391,7 @@ d$Section2Q4 <- factor(d$Section2Q4,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q4 == "-99" , !is.na(Section2Q4), !Section2Q4 == "No opinion")
+valid <- d %>% filter(!Section2Q4 == "-99" , !is.na(Section2Q4), !Section2Q4 == "No opinion", !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q4 == "-99" | is.na(Section2Q4) | Section2Q4 == "No opinion")
 
 # Make Vaild Table
@@ -7720,12 +8429,244 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q4 = case_when(Section2Q4 == 1 ~ "Too restrictive",
+                                      Section2Q4 == 2 ~ "About right", 
+                                      Section2Q4 == 3 ~ "Not restrictive enough",
+                                      Section2Q4 == 4 ~ "No opinion",
+                                      .default = as.character(Section2Q4))) 
+# Order 
+d$Section2Q4 <- factor(d$Section2Q4, 
+                         levels = c("Too restrictive", "About right", 
+                                    "Not restrictive enough", "No opinion",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q4 == "-99" , !is.na(Section2Q4),  !Section2Q4 == "No opinion", !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q4) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q4)+
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
+  scale_fill_manual(values = c("sienna4","gray","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q4 == -99, !is.na(Section2Q4), !Section2Q4 == 4, !Section2Q1 == 1)  # Remove no opions from this question
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q4)) %>%
+          mutate(Answer = case_when(Mean > 2 ~ "Not restrictive enough (Mean > 2)",
+                                    Mean < 2 ~ "Too restrictive (Mean < 2)",
+                                    Mean == 2 ~ "About right (Mean = 2)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("The current regulation for trout harvest at Diamond Lake is:",
+          paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("The current regulation for trout harvest at Diamond Lake is:") +
+  scale_fill_manual("",
+                    values=c("Not restrictive enough (Mean > 2)" = "darkseagreen4",
+                              "Too restrictive (Mean < 2)" = "sienna4",
+                              "About right (Mean = 2)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q4))  %>%
+          mutate(Answer = case_when(Mean > 2 ~ "Not restrictive enough (Mean > 2)",
+                                    Mean < 2 ~ "Too restrictive (Mean < 2)",
+                                    Mean == 2 ~ "About right (Mean = 2)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("The current regulation for trout harvest at Diamond Lake is:",
+          paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
+   labs(title = str_wrap("The current regulation for trout harvest at Diamond Lake is:", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("The current regulation for trout harvest at Diamond Lake is:", 60)) +
+  scale_fill_manual("",
+                    values=c("Not restrictive enough (Mean > 2)" = "darkseagreen4",
+                              "Too restrictive (Mean < 2)" = "sienna4",
+                              "About right (Mean = 2)" =  "gray")) 
+
+```
+
+
+
 #### Res vs. Non-Res
 
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q4, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q4 = case_when(Section2Q4 == 1 ~ "Too restrictive",
+                                      Section2Q4 == 2 ~ "About right", 
+                                      Section2Q4 == 3 ~ "Not restrictive enough",
+                                      Section2Q4 == 4 ~ "No opinion",
+                                      .default = as.character(Section2Q4))) 
+# Order 
+d$Section2Q4 <- factor(d$Section2Q4, 
+                         levels = c("Too restrictive", "About right", 
+                                    "Not restrictive enough", "No opinion",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q4 == "-99" , !is.na(Section2Q4),!Section2Q4 == "No opinion", !Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q4 == "-99" | is.na(Section2Q4), Section2Q4 == "No opinion", Section2Q1 == "None (0 days)")
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q4, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q4)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q4 == -99, !is.na(Section2Q4), !Section2Q4 == 4, !Section2Q1 == 1)
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
 
 
 
+# Violin Plots
+violin_byres(valid, valid$Section2Q4, valid$residency) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+
+violin_byres(valid, valid$Section2Q4, valid$county) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+
+violin_byres(valid2, valid2$Section2Q4, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 860)")
+
+violin_byres(valid3, valid3$Section2Q4, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 851)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q4, valid$residency) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+
+ridgeline_byres(valid, valid$Section2Q4, valid$county) +
+  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+
+
+
+```
 
 
 
@@ -7769,7 +8710,7 @@ d$Section2Q5_1 <- factor(d$Section2Q5_1,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q5_1 == "-99" , !is.na(Section2Q5_1))
+valid <- d %>% filter(!Section2Q5_1 == "-99" , !is.na(Section2Q5_1), !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q5_1 == "-99" | is.na(Section2Q5_1))
 
 # Make Vaild Table
@@ -7806,8 +8747,248 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_1 = case_when(Section2Q5_1 == 1 ~ "Strongly disagree",
+                                      Section2Q5_1 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_1 == 3 ~ "Neutral",
+                                      Section2Q5_1 == 4 ~ "Somewhat agree",
+                                      Section2Q5_1 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_1))) 
+# Order 
+d$Section2Q5_1 <- factor(d$Section2Q5_1, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_1 == "-99" , !is.na(Section2Q5_1), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_1) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q5_1)+
+  facet_wrap(~"Level of agreement for no change of future management strategies") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q5_1 == -99, !is.na(Section2Q5_1), !Section2Q1 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_1)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Level of agreement for no change of future management strategies",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Level of agreement for no change of future management strategies") +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_1))  %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("Level of agreement for no change of future management strategies",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   labs(title = str_wrap("Level of agreement for no change of future management strategies", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Level of agreement for no change of future management strategies", 60)) +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+```
+
+
+
+
 ##### Res vs. Non-Res
 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_1, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_1 = case_when(Section2Q5_1 == 1 ~ "Strongly disagree",
+                                      Section2Q5_1 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_1 == 3 ~ "Neutral",
+                                      Section2Q5_1 == 4 ~ "Somewhat agree",
+                                      Section2Q5_1 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_1))) 
+# Order 
+d$Section2Q5_1 <- factor(d$Section2Q5_1, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_1 == "-99" , !is.na(Section2Q5_1), !Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q5_1 == "-99" | is.na(Section2Q5_1))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_1, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q5_1)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Level of agreement for no change of future management strategies") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q5_1 == -99 , !is.na(Section2Q5_1), !Section2Q1 == 1)
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q5_1, valid$residency) +
+  facet_wrap(~"Level of agreement for no change of future management strategies")
+
+violin_byres(valid, valid$Section2Q5_1, valid$county) +
+  facet_wrap(~"Level of agreement for no change of future management strategies")
+
+
+violin_byres(valid2, valid2$Section2Q5_1, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"Level of agreement for no change of future management strategies") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 805)")
+
+violin_byres(valid3, valid3$Section2Q5_1, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"Level of agreement for no change of future management strategies") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 797)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q5_1, valid$residency) +
+  facet_wrap(~"Level of agreement for no change of future management strategies")
+
+ridgeline_byres(valid, valid$Section2Q5_1, valid$county) +
+  facet_wrap(~"Level of agreement for no change of future management strategies")
+
+
+
+```
 
 
 
@@ -7844,7 +9025,7 @@ d$Section2Q5_2 <- factor(d$Section2Q5_2,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q5_2 == "-99" , !is.na(Section2Q5_2))
+valid <- d %>% filter(!Section2Q5_2 == "-99" , !is.na(Section2Q5_2), !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q5_2 == "-99" | is.na(Section2Q5_2))
 
 # Make Vaild Table
@@ -7881,7 +9062,245 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_2 = case_when(Section2Q5_2 == 1 ~ "Strongly disagree",
+                                      Section2Q5_2 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_2 == 3 ~ "Neutral",
+                                      Section2Q5_2 == 4 ~ "Somewhat agree",
+                                      Section2Q5_2 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_2))) 
+# Order 
+d$Section2Q5_2 <- factor(d$Section2Q5_2, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_2 == "-99" , !is.na(Section2Q5_2), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_2) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q5_2)+
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q5_2 == -99, !is.na(Section2Q5_2), !Section2Q1 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_2)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Level of agreement to reduce the daily creel limit at Diamond Lake",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Level of agreement to reduce the daily creel limit at Diamond Lake") +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_2))  %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("Level of agreement to reduce the daily creel limit at Diamond Lake",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   labs(title = str_wrap("Level of agreement to reduce the daily creel limit at Diamond Lake", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Level of agreement to reduce the daily creel limit at Diamond Lake", 60)) +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+```
+
+
 ##### Res vs. Non-Res
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_2, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_2 = case_when(Section2Q5_2 == 1 ~ "Strongly disagree",
+                                      Section2Q5_2 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_2 == 3 ~ "Neutral",
+                                      Section2Q5_2 == 4 ~ "Somewhat agree",
+                                      Section2Q5_2 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_2))) 
+# Order 
+d$Section2Q5_2 <- factor(d$Section2Q5_2, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_2 == "-99" , !is.na(Section2Q5_2), !Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q5_2 == "-99" | is.na(Section2Q5_2))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_2, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q5_2)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q5_2 == -99 , !is.na(Section2Q5_2), !Section2Q1 == 1)
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q5_2, valid$residency) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake")
+
+violin_byres(valid, valid$Section2Q5_2, valid$county) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake")
+
+
+violin_byres(valid2, valid2$Section2Q5_2, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 848)")
+
+violin_byres(valid3, valid3$Section2Q5_2, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 840)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q5_2, valid$residency) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake")
+
+ridgeline_byres(valid, valid$Section2Q5_2, valid$county) +
+  facet_wrap(~"Level of agreement to reduce the daily creel limit at Diamond Lake")
+
+
+
+```
 
 
 
@@ -7920,7 +9339,7 @@ d$Section2Q5_3 <- factor(d$Section2Q5_3,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q5_3 == "-99" , !is.na(Section2Q5_3))
+valid <- d %>% filter(!Section2Q5_3 == "-99" , !is.na(Section2Q5_3), !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q5_3 == "-99" | is.na(Section2Q5_3))
 
 # Make Vaild Table
@@ -7958,8 +9377,247 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_3 = case_when(Section2Q5_3 == 1 ~ "Strongly disagree",
+                                      Section2Q5_3 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_3 == 3 ~ "Neutral",
+                                      Section2Q5_3 == 4 ~ "Somewhat agree",
+                                      Section2Q5_3 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_3))) 
+# Order 
+d$Section2Q5_3 <- factor(d$Section2Q5_3, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_3 == "-99" , !is.na(Section2Q5_3), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_3) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q5_3)+
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q5_3 == -99, !is.na(Section2Q5_3), !Section2Q1 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_3)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Level of agreement to manage Diamond Lake for “trophy” fish",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Level of agreement to manage Diamond Lake for “trophy” fish") +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_3))  %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("Level of agreement to manage Diamond Lake for “trophy” fish",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   labs(title = str_wrap("Level of agreement to manage Diamond Lake for “trophy” fish", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Level of agreement to manage Diamond Lake for “trophy” fish", 60)) +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+```
+
+
+
+
 ##### Res vs. Non-Res
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_3, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_3 = case_when(Section2Q5_3 == 1 ~ "Strongly disagree",
+                                      Section2Q5_3 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_3 == 3 ~ "Neutral",
+                                      Section2Q5_3 == 4 ~ "Somewhat agree",
+                                      Section2Q5_3 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_3))) 
+# Order 
+d$Section2Q5_3 <- factor(d$Section2Q5_3, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_3 == "-99" , !is.na(Section2Q5_3), !Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q5_3 == "-99" | is.na(Section2Q5_3))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_3, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q5_3)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q5_3 == -99 , !is.na(Section2Q5_3), !Section2Q1 == 1)
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q5_3, valid$residency) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish")
+
+violin_byres(valid, valid$Section2Q5_3, valid$county) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish")
+
+
+violin_byres(valid2, valid2$Section2Q5_3, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 853)")
+
+violin_byres(valid3, valid3$Section2Q5_3, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 845)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q5_3, valid$residency) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish")
+
+ridgeline_byres(valid, valid$Section2Q5_3, valid$county) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake for “trophy” fish")
+
+
+
+```
 
 
 
@@ -7998,7 +9656,7 @@ d$Section2Q5_4 <- factor(d$Section2Q5_4,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q5_4 == "-99" , !is.na(Section2Q5_4))
+valid <- d %>% filter(!Section2Q5_4 == "-99" , !is.na(Section2Q5_4), !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q5_4 == "-99" | is.na(Section2Q5_4))
 
 # Make Vaild Table
@@ -8036,8 +9694,245 @@ tbl %>%
   row_spec(nrow(tbl), bold = T)
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_4 = case_when(Section2Q5_4 == 1 ~ "Strongly disagree",
+                                      Section2Q5_4 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_4 == 3 ~ "Neutral",
+                                      Section2Q5_4 == 4 ~ "Somewhat agree",
+                                      Section2Q5_4 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_4))) 
+# Order 
+d$Section2Q5_4 <- factor(d$Section2Q5_4, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_4 == "-99" , !is.na(Section2Q5_4), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_4) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q5_4)+
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
+
+```
+
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q5_4 == -99, !is.na(Section2Q5_4), !Section2Q1 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_4)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Level of agreement to manage as artificial flies and lure only",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Level of agreement to manage as artificial flies and lure only") +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_4))  %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("Level of agreement to manage as artificial flies and lure only",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   labs(title = str_wrap("Level of agreement to manage as artificial flies and lure only", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Level of agreement to manage as artificial flies and lure only", 60)) +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+```
+
+
 ##### Res vs. Non-Res
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_4, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_4 = case_when(Section2Q5_4 == 1 ~ "Strongly disagree",
+                                      Section2Q5_4 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_4 == 3 ~ "Neutral",
+                                      Section2Q5_4 == 4 ~ "Somewhat agree",
+                                      Section2Q5_4 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_4))) 
+# Order 
+d$Section2Q5_4 <- factor(d$Section2Q5_4, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_4 == "-99" , !is.na(Section2Q5_4), !Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q5_4 == "-99" | is.na(Section2Q5_4))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_4, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q5_4)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q5_4 == -99 , !is.na(Section2Q5_4), !Section2Q1 == 1)
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q5_4, valid$residency) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only")
+
+violin_byres(valid, valid$Section2Q5_4, valid$county) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only")
+
+
+violin_byres(valid2, valid2$Section2Q5_4, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 855)")
+
+violin_byres(valid3, valid3$Section2Q5_4, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 847)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q5_4, valid$residency) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only")
+
+ridgeline_byres(valid, valid$Section2Q5_4, valid$county) +
+  facet_wrap(~"Level of agreement to manage as artificial flies and lure only")
+
+
+
+```
 
 
 
@@ -8076,7 +9971,7 @@ d$Section2Q5_5 <- factor(d$Section2Q5_5,
 
 
 # Filter the valid from the -99 and NA's
-valid <- d %>% filter(!Section2Q5_5 == "-99" , !is.na(Section2Q5_5))
+valid <- d %>% filter(!Section2Q5_5 == "-99" , !is.na(Section2Q5_5), !Section2Q1 == "None (0 days)")
 other <- d %>% filter(Section2Q5_5 == "-99" | is.na(Section2Q5_5))
 
 # Make Vaild Table
@@ -8116,195 +10011,243 @@ tbl %>%
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-# # remove NA and -99
-# test <- original %>%
-#           filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
-# 
-# # Summarize
-# dat <- test  %>% 
-#           group_by(state) %>%
-#           summarise(count = n(),
-#                     mean = mean(Section2Q5_5))
-# 
-#  # Join it by state
-#  spatial <- left_join(states, dat, by = "state")
-# 
-#  
-#  # Continuous
-# ggplot() +
-#   geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
-#   scale_fill_viridis_c(option = "viridis") +
-#   geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
-#                color = "grey30", size = 4) +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)", 
-#           paste("Valid Reponses: ", nrow(test))) +
-#   ggthemes::theme_map()
-# 
-# ggplot() +
-#   geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
-#   scale_fill_viridis_c(option = "virdis") +
-#   geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
-#                color = "grey30", size = 4) +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-#           paste("Valid Reponses: ", nrow(test))) +
-# 
-#   ggthemes::theme_map()
-# 
-# 
-# 
-# 
-# 
-# 
-# # Discret
-# spatial <- spatial %>%
-#   mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
-#                                     mean < 3 ~ "Disagree",
-#                                     mean == 3 ~ "Neutral"))
-# ggplot() +
-#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-#   scale_fill_manual("",
-#                      values=c("Agree" = "#00374D",
-#                               "Disagree" = "#FFC80B",
-#                               "Neutral" =  "#D8CEBA")) +
-#   geom_sf_text(spatial, mapping = aes(label = round(mean, digits = 2)),
-#                color = "grey30", size = 4) +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-#           paste("Valid Reponses: ", nrow(test))) +
-#   ggthemes::theme_map()
-# 
-# ggplot() +
-#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-#   scale_fill_manual("",
-#                      values=c("Agree" = "#00374D",
-#                               "Disagree" = "#FFC80B",
-#                               "Neutral" =  "#D8CEBA")) +
-#   geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
-#                color = "grey30", size = 4) +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-#           paste("Valid Reponses: ", nrow(test))) +
-#   ggthemes::theme_map()
-# 
-# 
-# 
-# 
-# # remove NA and -99
-# test <- original %>%
-#           filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
-# 
-# dat <- test  %>% 
-#           group_by(zipcode) %>%
-#           summarise(count = n(),
-#                     mean = mean(Section2Q5_5))
-# 
-# 
-#  # Join it by state
-#  spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
-#             drop_na(count)
-#  
-#  
-#   # Continuous
-# ggplot() +
-#   geom_sf(data = states, alpha = 0) +
-#   geom_sf(data = spatial, aes(fill = mean), alpha = .5,)  +
-#   scale_fill_viridis_c(option = "virdis") +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-#           paste("Valid Reponses: ", nrow(test))) +
-#   ggthemes::theme_map()
-# 
-# 
-# 
-# 
-# 
-# 
-# # Discret
-# spatial <- spatial %>%
-#   mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
-#                                     mean < 3 ~ "Disagree",
-#                                     mean == 3 ~ "Neutral"))
-# ggplot() +
-#   geom_sf(data = states, alpha = 0) +
-#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-#   scale_fill_manual("",
-#                      values=c("Agree" = "#00374D",
-#                               "Disagree" = "#FFC80B",
-#                               "Neutral" =  "#D8CEBA")) +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-#           paste("Valid Reponses: ", nrow(test))) + 
-#   ggthemes::theme_map()
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# # remove NA and -99
-# test <- original %>%
-#           filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5)) 
-# 
-# 
-# 
-# 
-# # Summarize data I want to portray by number of response for each state. 
-# dat <- test %>% 
-#           filter(zipcode %in% c(wyCOzip$zip)) %>%  # Only use zip codes from  WY and CO
-#           group_by(zipcode) %>% 
-#           summarise(count = n(),
-#                     mean = mean(Section2Q5_5))
-# 
-# 
-#  # Join it by state
-#  spatial <- left_join(zipcode, dat, by = "zipcode") %>% 
-#             drop_na(count)
-# 
-# 
-# states <- states %>% filter(state %in% c("WY", "CO"))
-# counties <- counties %>% filter(state %in% c("WY")) 
-# 
-# 
-# # Discret
-# spatial <- spatial %>%
-#   mutate(AgreementLevel = case_when(mean > 3 ~ "Agree",
-#                                     mean < 3 ~ "Disagree",
-#                                     mean == 3 ~ "Neutral"))
-# ggplot() +
-#   geom_sf(data = states, alpha = 0) +
-#   geom_sf(data = counties, alpha = 0, color = "black") + 
-#   geom_sf(data = spatial, aes(fill = AgreementLevel), alpha = .5,)  +
-#   scale_fill_manual("",
-#                      values=c("Agree" = "#00374D",
-#                               "Disagree" = "#FFC80B",
-#                               "Neutral" =  "#D8CEBA")) +
-#   ggtitle("Manage Diamond Lake for as catch and release only fishery",
-#           paste("Valid Reponses: ", nrow(test))) + 
-#   ggthemes::theme_map() +
-#   theme(legend.position="right")
-# 
-# 
-# group.colors_WGFD <- c(Disagree = "burlywood3", 
-#                      Neutral = "gray",
-#                        Agree = "steelblue4")
-# 
-# group.colors_RedGreen <- c(Disagree = "sienna4",
-#                          Neutral = "gray",
-#                        Agree = "darkseagreen4")
-# 
-# # Make Months leveled in proper order
-# spatial$AgreementLevel <- factor(spatial$AgreementLevel , 
-#                                     levels= c("Disagree","Neutral", "Agree"))
-# 
-# mapview(states, alpha.regions = 0) +
-#   mapview(counties, alpha.regions = 0) +
-#   mapview(spatial, zcol = "AgreementLevel", col.regions = group.colors_WGFD) 
-# mapview(states, alpha.regions = 0) +
-#   mapview(counties, alpha.regions = 0) +
-#   mapview(spatial, zcol = "AgreementLevel", col.regions = group.colors_RedGreen) 
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_5 = case_when(Section2Q5_5 == 1 ~ "Strongly disagree",
+                                      Section2Q5_5 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_5 == 3 ~ "Neutral",
+                                      Section2Q5_5 == 4 ~ "Somewhat agree",
+                                      Section2Q5_5 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_5))) 
+# Order 
+d$Section2Q5_5 <- factor(d$Section2Q5_5, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_5 == "-99" , !is.na(Section2Q5_5), !Section2Q1 == "None (0 days)")
+n <- valid
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_5) %>% 
+          summarise(Frequency = n(),
+                    Percent = round((Frequency/nrow(valid)*100), digits = 1)) 
+
+
+
+barchart_all(data = valid, question = valid$Section2Q5_5)+
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only") +
+  scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Valid Reponses: ", nrow(n)))
+
 
 ```
 
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+####################
+# State Map
+####################
+
+# remove NA and -99
+dat <- original %>%
+          filter(!Section2Q5_5 == -99, !is.na(Section2Q5_5), !Section2Q1 == 1) 
+
+# Summarize
+dat_map <- dat  %>% 
+          group_by(state) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_5)) %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+ # Join it by state
+ spatial <- left_join(sf_states, dat_map, by = "state")
+
+ 
+# Continuous
+stateMap_continuous(spatial) +
+  ggtitle("Level of agreement to manage Diamond Lake as catch and release only",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+stateMap_discrete(spatial) +
+  ggtitle("Level of agreement to manage Diamond Lake as catch and release only") +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+
+
+
+####################
+# CO/WY by Zip Map
+####################
+dat <- dat  %>%
+          filter(zipcode %in% c(wyCOzip$zip))  # Only use zip codes from  WY and CO
+dat_map <- dat  %>%
+          group_by(zipcode) %>%
+          summarise(count = n(),
+                    Mean = mean(Section2Q5_5))  %>%
+          mutate(Answer = case_when(Mean > 3 ~ "Agree (Mean > 3)",
+                                    Mean < 3 ~ "Disagree (Mean < 3)",
+                                    Mean == 3 ~ "Neutral (Mean = 3)"))
+
+
+ # Join it by zip
+ spatial <- left_join(sf_zipcode, dat_map, by = "zipcode") %>%
+            drop_na(count)
+
+states <- sf_states %>% filter(state %in% c("WY", "CO"))
+counties <- sf_counties %>% filter(state %in% c("WY"))
+
+# Continuous
+zipCOWY_Map_continuous(spatial, counties, states) +
+  ggtitle("Level of agreement to manage Diamond Lake as catch and release only",
+          paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
+   labs(title = str_wrap("Level of agreement to manage Diamond Lake as catch and release only", 60)) +
+  scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
+
+# Discrete
+zipCOWY_Map_discrete(spatial, counties, states) +
+   labs(title = str_wrap("Level of agreement to manage Diamond Lake as catch and release only", 60)) +
+  scale_fill_manual("",
+                    values=c("Agree (Mean > 3)" = "darkseagreen4",
+                              "Disagree (Mean < 3)" = "sienna4",
+                              "Neutral (Mean = 3)" =  "gray")) 
+
+```
+
+
+
+
 ##### Res vs. Non-Res
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#table(d$Section2Q5_5, useNA = "always")
+
+# Change numbers to words
+d <- d %>% 
+      mutate(Section2Q5_5 = case_when(Section2Q5_5 == 1 ~ "Strongly disagree",
+                                      Section2Q5_5 == 2 ~ "Somewhat disagree", 
+                                      Section2Q5_5 == 3 ~ "Neutral",
+                                      Section2Q5_5 == 4 ~ "Somewhat agree",
+                                      Section2Q5_5 == 5 ~ "Strongly agree",
+                                      .default = as.character(Section2Q5_5))) 
+# Order 
+d$Section2Q5_5 <- factor(d$Section2Q5_5, 
+                         levels = c("Strongly disagree", "Somewhat disagree", 
+                                    "Neutral", "Somewhat agree", "Strongly agree",
+                                    "-99", NA))
+  
+
+
+# Filter the valid from the -99 and NA's
+valid <- d %>% filter(!Section2Q5_5 == "-99" , !is.na(Section2Q5_5), !Section2Q1 == "None (0 days)")
+other <- d %>% filter(Section2Q5_5 == "-99" | is.na(Section2Q5_5))
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Vaild Table
+valid <- valid %>% 
+          group_by(Section2Q5_5, residency) %>% 
+          summarise(Frequency = n()) 
+
+valid <- valid %>% 
+          mutate(Percent = case_when(residency == "Resident" ~ round((Frequency/nrow(res)*100), digits = 1),
+                                     residency == "Non Resident" ~ round((Frequency/nrow(nonres)*100), digits = 1)))
+
+# Join
+tbl <-  valid %>% rename(" " = Section2Q5_5)
+
+# Plot
+tbl %>% 
+  kbl(align= c("l","c","c"),
+      caption = "Table : Percent of the total sample size") %>% 
+  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
+  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
+```
+
+<br>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+barchart_byres(data = tbl) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only") +
+  scale_fill_manual(values = c("#00374D", "#FFC80B")) +
+  scale_x_discrete(labels = label_wrap(10)) + 
+  labs(caption = paste("Resident Valid Reponses: ", nrow(res),
+                       "    Non Resident Valid Reponses: ", nrow(nonres))) 
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Filter the valid from the -99 and NA's
+valid <- original %>% filter(!Section2Q5_5 == -99 , !is.na(Section2Q5_5), !Section2Q1 == 1)
+
+# Make res and non-res sample size
+res <- valid %>% filter(residency == "Resident")
+nonres <- valid %>% filter(residency == "Non Resident")
+
+# Make Valid 2 and Order
+valid2 <- valid %>%
+            mutate(Section1Q3 = case_when(Section1Q3 == 1 ~ "None (0 days)",
+                                          Section1Q3 == 2 ~ "1-5 days", 
+                                          Section1Q3 == 3 ~ "6-20 days",
+                                          Section1Q3 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section1Q3))) %>% 
+            filter(!Section1Q3 =="-99")
+valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+# Make Valid 3 and Order
+valid3 <- valid %>%
+            mutate(Section2Q1 = case_when(Section2Q1 == 1 ~ "None (0 days)",
+                                          Section2Q1 == 2 ~ "1-5 days", 
+                                          Section2Q1 == 3 ~ "6-20 days",
+                                          Section2Q1 == 4 ~ "More than 20 days",
+                                          .default = as.character(Section2Q1))) %>% 
+            filter(!Section2Q1 =="-99")
+valid3$Section2Q1 <- factor(valid3$Section2Q1, levels = c("None (0 days)", "1-5 days", "6-20 days", "More than 20 days", "-99", NA))
+
+
+
+# Violin Plots
+violin_byres(valid, valid$Section2Q5_5, valid$residency) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only")
+
+violin_byres(valid, valid$Section2Q5_5, valid$county) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only")
+
+
+violin_byres(valid2, valid2$Section2Q5_5, as.factor(valid2$Section1Q3)) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only") +
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 854)")
+
+violin_byres(valid3, valid3$Section2Q5_5, as.factor(valid3$Section2Q1)) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only") +
+  labs(caption = "Effort level based of Section2Q1 - Days fished at Diamond Lake in last five years (n= 846)")
+
+# Ridgeline Plots
+ridgeline_byres(valid, valid$Section2Q5_5, valid$residency) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only")
+
+ridgeline_byres(valid, valid$Section2Q5_5, valid$county) +
+  facet_wrap(~"Level of agreement to manage Diamond Lake as catch and release only")
+
+
+
+```
 
 
 
