@@ -360,6 +360,50 @@ table(res$state, useNA = "always")
 ```
 
 
+##### Change the 6 peoples county to match their resident town
+
+- Using the residency by fee type, we see there are 6 people with NA for the county they are from. 
+
+```{r}
+
+# Filter to Resident by the new residency column
+res <- d %>% 
+           filter(residency ==  "Resident")
+
+# Table to evaluate 
+table(res$county, useNA = "always")
+
+#  Filter to those that are resident and NA for county info
+countyNA_res <- res %>% filter(is.na(county))
+
+
+# Table to view
+countyNA_res %>% 
+select(SurveyID:licensetype) %>%
+kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+  scroll_box(width = "100%", height = "300px")
+
+
+# Correct the county info based on town
+d <- d %>% 
+          mutate(county = case_when(RecipientEmail == "chadsessions2@icloud.com" ~ "ALBANY",
+                                    RecipientEmail == "Kufeldwr@gmail.com" ~ "ALBANY",
+                                    RecipientEmail == "jeremy-mcmahon@hotmail.com" ~ "ALBANY",
+                                    RecipientEmail == "COLOBOWHUNTER@YAHOO.COM" ~ "LARAMIE",
+                                    RecipientEmail == "jlwright73@comcast.net" ~ "LARAMIE",
+                                    RecipientEmail == "G.CREAGER0302@GMAIL.COM" ~ "LARAMIE",
+                                   .default = as.character(county)))
+
+# Filter to Resident by the new residency column
+res <- d %>% 
+           filter(residency ==  "Resident")
+
+# Table to evaluate
+table(res$county, useNA = "always")
+table(d$county, useNA = "always")
+```
+
 
 <br>
 
@@ -395,6 +439,8 @@ kbl() %>%
 - Maybe these people moved to WY recently so they have Non-resident fishing license even though they have a WY address. (I would be in this group for 2024. My address is in Laramie but my fishing license type for 2024 is NFA)
 
 - Since these people are so new, we will count their survey response as Non Resident 
+
+- I think these are those that are other zip codes in WY, ouside of the Laramie Region Counties
 
 
 
@@ -962,19 +1008,7 @@ ggplot() +
 
 
 
-  # Diverging Color Palettes
-require(colorspace)
 
-ggplot() +
-  geom_sf(data = spatial, aes(fill = mean), alpha = .5) +
-  scale_fill_continuous_diverging(palette = "Blue-Red 3", l1 = 30, l2 = 100, p1 = .9, p2 = 1.2)
-  
-  
-  geom_sf_text(spatial, mapping = aes(label = round(count, digits = 2)),
-               color = "grey30", size = 4) +
-  ggtitle("Manage Diamond Lake for as catch and release only fishery (5-Strongly agree, 1- Strongly disagree)",
-          paste("Valid Reponses: ", nrow(test))) +
-  ggthemes::theme_map()
 
 ```
 <br>
