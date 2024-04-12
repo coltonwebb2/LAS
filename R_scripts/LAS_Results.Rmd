@@ -42,7 +42,7 @@ div.main-container {
 
 ![](images/IntroPhoto.JPG)
 
-Last updated: 4/11/2024
+Last updated: 4/12/2024
 
 **Colton Webb**, Fisheries Biologist, Wyoming Game and Fish Department,
 1212 South Adams, Laramie, WY 80070
@@ -1244,7 +1244,7 @@ t <- tbl %>%
 # Plot
 t %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent by residency") %>% 
+      caption = "Table : Percent by county") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -1271,7 +1271,7 @@ t %>%
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # Filter the valid from the -99 and NA's
-valid <- original %>% filter(!Section1Q1 == -99 , !is.na(Section1Q1))
+valid <- original %>% filter(!Section1Q1 == -99 , !is.na(Section1Q1)) 
 
 
 # Make res and non-res sample size
@@ -11264,7 +11264,7 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("Satisfaction with overall angling experience at WR#3 in the last five years?",
           paste("Valid Reponses:", nrow(dat), "  (1-Not very important, 5-Very important)")) +
-   labs(title = str_wrap("Satisfaction with overall angling experience at Diamond Lake?", 60)) +
+   labs(title = str_wrap("Satisfaction with overall angling experience at WR#3 in the last five years?", 60)) +
   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3) 
 
 # Discrete
@@ -11377,11 +11377,11 @@ valid3$Q11 <- factor(valid3$Q11, levels = c("None (0 days)", "1-5 days", "6-20 d
 valid4 <- valid  %>% 
       mutate(Section3Q2 = case_when(Section3Q2 == 1 ~ "Trout",
                                     Section3Q2 == 2 ~ "Walleye", 
-                                    Section3Q2 == 3 ~ "Both trout and walleye equally",
+                                    Section3Q2 == 3 ~ "Both",
                                     .default = as.character(Section3Q2))) %>% 
             filter(!Section3Q2 == "-99")
 # Order 
-valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both trout and walleye equally", "-99", NA))
+valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both", "-99", NA))
    
 
 # Violin Plots
@@ -11706,11 +11706,11 @@ valid3$Q11 <- factor(valid3$Q11, levels = c("None (0 days)", "1-5 days", "6-20 d
 valid4 <- valid  %>% 
       mutate(Section3Q2 = case_when(Section3Q2 == 1 ~ "Trout",
                                     Section3Q2 == 2 ~ "Walleye", 
-                                    Section3Q2 == 3 ~ "Both trout and walleye equally",
+                                    Section3Q2 == 3 ~ "Both",
                                     .default = as.character(Section3Q2))) %>% 
             filter(!Section3Q2 == "-99")
 # Order 
-valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both trout and walleye equally", "-99", NA))
+valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both", "-99", NA))
    
 
 # Violin Plots
@@ -11726,7 +11726,7 @@ violin_byres(valid2, valid2$Section3Q4, as.factor(valid2$Section1Q3)) +
 
 violin_byres(valid3, valid3$Section3Q4, as.factor(valid3$Q11)) +
   facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
-  labs(caption = "Effort level based of Q11 - Days fished at Diamond Lake in last five years (n=1405)")
+  labs(caption = "Effort level based of Q11 - Days fished at WR#3 in last five years (n=1405)")
 
 violin_byres(valid4, valid4$Section3Q4, as.factor(valid4$Section3Q2)) +
   facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
@@ -11933,7 +11933,7 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("The current regulation for trout harvest at WR#3 is:",
           paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
-   labs(title = str_wrap("The current regulation for trout harvest at Diamond Lake is:", 60)) +
+   labs(title = str_wrap("The current regulation for trout harvest at WR#3 is:", 60)) +
   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2) 
 
 # Discrete
@@ -12043,26 +12043,26 @@ valid3$Q11 <- factor(valid3$Q11, levels = c("None (0 days)", "1-5 days", "6-20 d
 valid4 <- valid  %>% 
       mutate(Section3Q2 = case_when(Section3Q2 == 1 ~ "Trout",
                                     Section3Q2 == 2 ~ "Walleye", 
-                                    Section3Q2 == 3 ~ "Both trout and walleye equally",
+                                    Section3Q2 == 3 ~ "Both",
                                     .default = as.character(Section3Q2))) %>% 
             filter(!Section3Q2 == "-99")
 # Order 
-valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both trout and walleye equally", "-99", NA))
+valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both", "-99", NA))
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q5, valid$residency) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:")
 
 violin_byres(valid, valid$Section3Q5, valid$county) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:")
 
 violin_byres(valid2, valid2$Section3Q5, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
   labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n=1206 )")
 
 violin_byres(valid3, valid3$Section3Q5, as.factor(valid3$Q11)) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
-  labs(caption = "Effort level based of Q11 - Days fished at Diamond Lake in last five years (n=1188 )")
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  labs(caption = "Effort level based of Q11 - Days fished at WR#3 in last five years (n=1188 )")
 
 violin_byres(valid4, valid4$Section3Q5, as.factor(valid4$Section3Q2)) +
   facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
@@ -12070,21 +12070,21 @@ violin_byres(valid4, valid4$Section3Q5, as.factor(valid4$Section3Q2)) +
 
 # Ridgeline Plots
 ridgeline_byres(valid, valid$Section3Q5, valid$residency) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:")
 
 ridgeline_byres(valid, valid$Section3Q5, valid$county) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:")
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:")
 
 ridgeline_byres(valid2, valid2$Section3Q5, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
   labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n=1206 )")
 
 ridgeline_byres(valid3, valid3$Section3Q5, as.factor(valid3$Q11)) +
-  facet_wrap(~"The current regulation for trout harvest at Diamond Lake is:") +
-  labs(caption = "Effort level based of Q11 - Days fished at Diamond Lake in last five years (n=1188 )")
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  labs(caption = "Effort level based of Q11 - Days fished at WR#3 in last five years (n=1188 )")
 
 ridgeline_byres(valid4, valid4$Section3Q5, as.factor(valid4$Section3Q2)) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
   labs(caption = "Effort level based of Section3Q2 - Perfered fish spcies (n=1204 )")
 
 ```
@@ -12372,11 +12372,11 @@ valid3$Q11 <- factor(valid3$Q11, levels = c("None (0 days)", "1-5 days", "6-20 d
 valid4 <- valid  %>% 
       mutate(Section3Q2 = case_when(Section3Q2 == 1 ~ "Trout",
                                     Section3Q2 == 2 ~ "Walleye", 
-                                    Section3Q2 == 3 ~ "Both walleye and walleye equally",
+                                    Section3Q2 == 3 ~ "Both",
                                     .default = as.character(Section3Q2))) %>% 
             filter(!Section3Q2 == "-99")
 # Order 
-valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both walleye and walleye equally", "-99", NA))
+valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both", "-99", NA))
    
 
 # Violin Plots
@@ -12711,11 +12711,11 @@ valid3$Q11 <- factor(valid3$Q11, levels = c("None (0 days)", "1-5 days", "6-20 d
 valid4 <- valid  %>% 
       mutate(Section3Q2 = case_when(Section3Q2 == 1 ~ "Trout",
                                     Section3Q2 == 2 ~ "Walleye", 
-                                    Section3Q2 == 3 ~ "Both walleye and walleye equally",
+                                    Section3Q2 == 3 ~ "Both",
                                     .default = as.character(Section3Q2))) %>% 
             filter(!Section3Q2 == "-99")
 # Order 
-valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both walleye and walleye equally", "-99", NA))
+valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "Both", "-99", NA))
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q7, valid$residency) +
@@ -14183,7 +14183,7 @@ violin_byres(valid, valid$Section4Q2, valid$county) +
 
 violin_byres(valid2, valid2$Section4Q2, as.factor(valid2$Section1Q3)) +
   facet_wrap(~"Days fished for catfish in the Laramie Region per year in last 5 years") +
-  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (people that did not awnser were removed")
+  labs(caption = "Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (people that didnt awnser were removed")
 
 # Ridgeline Plots
 ridgeline_byres(valid, valid$Section4Q2, valid$residency) +
@@ -14316,7 +14316,7 @@ all <- rbind(grayrocks, hawk, packers, rock, sloans, wr1, idk, other) %>%
 # Plot
 all %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q2: Where have you fished specifically for catfish in the past 5 years? (Check all that apply). The valid percent is the freq / the number of people that fished 1 or more days for catfish in the last 5 years (n = 489)") %>% 
+      caption = "Q2: Where have you fished specifically for catfish in the past 5 years? (Check all that apply). The valid percent is the freq / the number of people that fished 1 or more days for catfish in the last 5 years (n = 480)") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
@@ -14486,7 +14486,7 @@ other %>%
 
 **Resident**
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section4Q3_1, useNA = "always")
 
 # Remove the People that did not fish for catfish in last 5 years and NA (Did not see question)
@@ -14594,7 +14594,7 @@ all %>%
 
 **Non Resident**
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 #table(d$Section4Q3_1, useNA = "always")
 
 # Remove the People that did not fish for catfish in last 5 years and NA (Did not see question)
