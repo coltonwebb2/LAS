@@ -17,7 +17,7 @@ editor_options:
 ```{js logo-js, echo=FALSE}
 $(document).ready(function() {
   $('#header').parent().prepend('<div id=\"logo\"><img src=\"images/logo.jpg\" style=\"position:absolute; top:0; right:0; padding:0px; height:160px\"></div>');
-  $('#header').css('margin-right', '100px')
+  $('#header').css('margin-right', '80px')
 });
 ```
 
@@ -42,7 +42,7 @@ div.main-container {
 
 ![](images/IntroPhoto.JPG)
 
-Last updated: 11/20/2024
+
 
 **Colton Webb**, Fisheries Biologist, Wyoming Game and Fish Department,
 1212 South Adams, Laramie, WY 80070
@@ -64,6 +64,8 @@ email:
 <br>
 
 *\*Contact Colton Webb (970-692-1749; colton.webb2\@wyo.gov) for any questions about navigating this HTML document.*
+
+Last updated: 11/22/2024
 
 <br>
 
@@ -1070,7 +1072,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table: Have you fished in the Laramie Region within the last five years?") %>% 
+      caption = "Q1: Have you fished in the Laramie Region within the last five years?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
@@ -1226,7 +1228,7 @@ tbl <-  valid %>% rename(" " = Section1Q1)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table: Have you fished in the Laramie Region within the last five years? Percent by residency.") %>% 
+      caption = "Q1: Have you fished in the Laramie Region within the last five years? Percent by residency.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -1258,7 +1260,7 @@ nonres <- valid %>% filter(residency == "Non Resident")
 
 # Violin Plots
 violin_byres(valid, valid$Section1Q1, valid$residency) +
-  facet_wrap(~"Have you fished in the Laramie Region within the last five years?")+
+  facet_wrap(~"Fished in the Laramie Region within the last five years?")+
    labs(caption = paste("1 = Yes      2 = No      3= Not Sure")) 
 
 
@@ -1323,7 +1325,7 @@ valid <- original %>% filter(!Section1Q1 == -99 , !is.na(Section1Q1))
 
 # Violin Plots
 violin_byres(valid, valid$Section1Q1, valid$county) +
-  facet_wrap(~"Have you fished in the Laramie Region within the last five years?") +
+  facet_wrap(~"Fished in the Laramie Region within the last five years?") +
    labs(caption = paste("1 = Yes      2 = No      3= Not Sure")) 
 
 
@@ -1435,7 +1437,7 @@ tbl <-  valid %>% rename(" " = Section1Q2)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent by residency") %>% 
+      caption = "Q2: Would you like to continue this survey about fishing in the Laramie Region?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -1572,7 +1574,7 @@ dat_map <- dat  %>%
 stateMap_continuous(spatial) +
     ggtitle("How many days did you fish in the Laramie Region in 2023?",
           paste("Valid Reponses:", nrow(dat), "  (1-None, 4-More than 20)")) +
-scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "white") 
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") 
 # Discrete
 # stateMap_discrete(spatial) +
 #   ggtitle("How many days did you fish in the Laramie Region in 2023?") +
@@ -1611,7 +1613,7 @@ zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How many days did you fish in the Laramie Region in 2023?",
           paste("Valid Reponses:", nrow(dat), "  (1-None, 4-More than 20)")) +
    labs(title = str_wrap("How many days did you fish in the Laramie Region in 2023?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "white") 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") 
 # Discrete
 # zipCOWY_Map_discrete(spatial, counties, states) +
 #    labs(title = str_wrap("How many days did you fish in the Laramie Region in 2023?", 60)) +
@@ -1666,7 +1668,7 @@ tbl <-  valid %>% rename(" " = Section1Q3)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q3: How many days did you fish in the Laramie Region in 2023?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -2001,7 +2003,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_1)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-1: Importance of fishing for trout.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -2304,7 +2306,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_2)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-2: Importance of fishing for non-trout.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -2607,7 +2609,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_3)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-3: Importance of fishing waters that have regulations restricting harvest, length, and or use of bait/tackle.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -2909,7 +2911,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_4)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-4: Importance of fishing, including ice fishing, using bait other than live minnows.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -3210,7 +3212,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_5)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Importance of fishing with live minnows") %>% 
+      caption = "Q4-5: Importance of fishing with live minnows") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -3508,7 +3510,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_6)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Importance of harvesting a limit of fish") %>% 
+      caption = "Q4-6: Importance of harvesting a limit of fish") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -3811,7 +3813,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_7)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-7: Importance of harvesting enough fish for a meal") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -4111,7 +4113,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_8)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-8: Importance of playing and landing a large fish") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -4410,7 +4412,7 @@ tbl <-  valid %>% rename(" " = Section1Q4_9)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q4-9: Importance of releasing all or most of the fish caugh") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -4614,8 +4616,8 @@ dat_map <- dat  %>%
 # Continuous
 stateMap_continuous(spatial) +
   ggtitle("How often do you fish Mountian Lakes in Snowy Range & Sierra Madres?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 5-More than 20 days)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "white")  + 
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20 days)")) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85")  + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -4643,9 +4645,9 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How often do you fish Mountian Lakes in Snowy Range & Sierra Madres?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 5-More than 20 days))")) +
+          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 4-More than 20 days))")) +
    labs(title = str_wrap("How often do you fish Mountian Lakes in Snowy Range & Sierra Madres?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2,  na.value = "grey90") + 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2,  na.value = "grey85") + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -4693,7 +4695,7 @@ tbl <-  valid %>% rename(" " = Section1Q5_1)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q5-1: How often do you fish  Mountian Lakes in Snowy Range and Sierra Madres?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -4888,8 +4890,8 @@ dat_map <- dat  %>%
 # Continuous
 stateMap_continuous(spatial) +
   ggtitle("How often do you fish Lakes and Reservoirs for trout?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 5-More than 20 days)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2)  + 
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20 days)")) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2)  + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -4917,9 +4919,9 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How often do you fish Lakes and Reservoirs for trout?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 5-More than 20 days))")) +
+          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 4-More than 20 days))")) +
    labs(title = str_wrap("How often do you fish Lakes and Reservoirs for trout?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2) + 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2) + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -4969,7 +4971,7 @@ tbl <-  valid %>% rename(" " = Section1Q5_2)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q5-2: How often do you fish Lakes and Reservoirs for trout?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -5162,8 +5164,8 @@ dat_map <- dat  %>%
 # Continuous
 stateMap_continuous(spatial) +
   ggtitle("How often do you fish lakes and reservoirs for warmwater fish?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 5-More than 20 days)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2)  + 
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20 days)")) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2)  + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -5191,9 +5193,9 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How often do you fish lakes and reservoirs for warmwater fish?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 5-More than 20 days))")) +
+          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 4-More than 20 days))")) +
    labs(title = str_wrap("How often do you fish Lakes and Reservoirs for trout?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2) + 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2) + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -5241,7 +5243,7 @@ tbl <-  valid %>% rename(" " = Section1Q5_3)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q5-3: How often do you fish  Lakes and reservoirs for species like bass, walleye, yellow perch, crappie and catfish?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -5283,7 +5285,7 @@ valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 
 
 # Violin Plots
 violin_byres(valid, valid$Section1Q5_3, valid$residency) +
-  facet_wrap(~"How often do you fish lakes and reservoirs for warmwater fish?")  +
+  facet_wrap(~"Days fishing lakes and reservoirs for warmwater fish?")  +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 
 
@@ -5296,7 +5298,7 @@ violin_byres(valid, valid$Section1Q5_3, valid$residency) +
 
 ```{r echo=FALSE}
 violin_byres(valid, valid$Section1Q5_3, valid$county) +
-  facet_wrap(~"How often do you fish lakes and reservoirs for warmwater fish?")  +
+  facet_wrap(~"Days fishing lakes and reservoirs for warmwater fish?")  +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 ```
 
@@ -5434,8 +5436,8 @@ dat_map <- dat  %>%
 # Continuous
 stateMap_continuous(spatial) +
   ggtitle("How often do you fish rivers and streams?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 5-More than 20 days)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2)  + 
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20 days)")) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2)  + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -5463,9 +5465,9 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How often do you fish rivers and streams?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 5-More than 20 days))")) +
+          paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 4-More than 20 days))")) +
    labs(title = str_wrap("How often do you fish Lakes and Reservoirs for trout?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2) + 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2) + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -5515,7 +5517,7 @@ tbl <-  valid %>% rename(" " = Section1Q5_4)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q5-4: How often do you fish rivers and streams?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -5714,8 +5716,8 @@ dat_map <- dat  %>%
 # Continuous
 stateMap_continuous(spatial) +
   ggtitle("How often do you fish  Pole Mountain beaver ponds?",
-          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 5-More than 20 days)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2)  + 
+          paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20 days)")) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2)  + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -5745,7 +5747,7 @@ zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How often do you fish  Pole Mountain beaver ponds?",
           paste("Valid Reponses:", nrow(dat), "  (2-One to five days, 5-More than 20 days))")) +
    labs(title = str_wrap("How often do you fish Lakes and Reservoirs for trout?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="gray90", midpoint = 2) + 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", na.value="grey85", midpoint = 2) + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -5793,7 +5795,7 @@ tbl <-  valid %>% rename(" " = Section1Q5_5)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q5-5: How often do you fish  Pole Mountain beaver ponds?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -6109,7 +6111,7 @@ tbl <-  valid %>% rename(" " = Section1Q6_1)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q6-1: Level of agreement to manage more waters for general fishing regulations with fewer restrictions on size of fish, tackle, and number of fish.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -6411,7 +6413,7 @@ tbl <-  valid %>% rename(" " = Section1Q6_2)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q6-2: Level of agreement to manage more waters for trophy or larger fish even if most fish must be released.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -6711,7 +6713,7 @@ tbl <-  valid %>% rename(" " = Section1Q6_3)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q6-3: Level of agreement to manage more waters for artificial flies and lures only") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -7010,7 +7012,7 @@ tbl <-  valid %>% rename(" " = Section1Q6_4)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q6-4: Level of agreement to manage more waters as no kill (catch and release only)") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -7309,7 +7311,7 @@ tbl <-  valid %>% rename(" " = Section1Q6_5)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q6-5: Level of agreement to manage more waters for non-trout species, even if trout stocking is eliminated.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -7614,7 +7616,7 @@ tbl <-  valid %>% rename(" " = Section1Q7)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "Q7: Level of agreement that The Wyoming Game and Fish Department does a good job of listening to members of the public and incorporating feedback into fisheries-related decisions in the Laramie Region.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -7624,7 +7626,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"WGFD does a good job of listening to members of the public?") +
+  facet_wrap(~"WGFD does a good job listening to members of the public?") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   scale_x_discrete(labels = label_wrap(10)) + 
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
@@ -7655,7 +7657,7 @@ valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 
 
 # Violin Plots
 violin_byres(valid, valid$Section1Q7, valid$residency) +
-  facet_wrap(~"WGFD does a good job of listening to members of the public?") +
+  facet_wrap(~"WGFD does a good job listening to members of the public?") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 
 
@@ -7667,21 +7669,21 @@ violin_byres(valid, valid$Section1Q7, valid$residency) +
 ```
 
 
-##### County
+#### County
 
 ```{r echo=FALSE}
 violin_byres(valid, valid$Section1Q7, valid$county) +
-  facet_wrap(~"WGFD does a good job of listening to members of the public?") +
+  facet_wrap(~"WGFD does a good job listening to members of the public?") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 
 ```
 
 
-##### Days spent fishing in Laramie Region in 2023
+#### Days spent fishing in Laramie Region in 2023
 
 ```{r echo=FALSE}
 violin_byres(valid2, valid2$Section1Q7, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"WGFD does a good job of listening to members of the public?") +
+  facet_wrap(~"WGFD does a good job listening to members of the public?") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 ```
 
@@ -7773,7 +7775,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q1: How many days per year have you fished at Diamond Lake in the last five years?") %>% 
+      caption = "S2Q1: How many days per year have you fished at Diamond Lake in the last five years?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -7839,7 +7841,7 @@ dat_map <- dat  %>%
 stateMap_continuous(spatial) +
     ggtitle("How many days have you fished at Diamond Lake in the last five years?",
           paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
-scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey90") + 
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 # Discrete
 # stateMap_discrete(spatial) +
@@ -7876,7 +7878,7 @@ zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How many days have you fished at Diamond Lake in the last five years?",
           paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
    labs(title = str_wrap("How many days have you fished at Diamond Lake in the last five years?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey90") + 
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") + 
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 # Discrete
 # zipCOWY_Map_discrete(spatial, counties, states) +
@@ -7934,7 +7936,7 @@ tbl <-  valid %>% rename(" " = Section2Q1)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q1: How many days per year have you fished at Diamond Lake in the last five years?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -7974,7 +7976,7 @@ valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 
 
 # Violin Plots
 violin_byres(valid, valid$Section2Q1, valid$residency) +
-  facet_wrap(~"Days have you fished at Diamond Lake in the last five years?") +
+  facet_wrap(~"Days you fished at Diamond Lake in the last five years?") +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 
 
@@ -7988,7 +7990,7 @@ violin_byres(valid, valid$Section2Q1, valid$residency) +
 ```{r echo=FALSE}
 
 violin_byres(valid, valid$Section2Q1, valid$county) +
-  facet_wrap(~"Days have you fished at Diamond Lake in the last five years?") +
+  facet_wrap(~"Days you fished at Diamond Lake in the last five years?") +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 ```
 
@@ -8073,7 +8075,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q2: How satisfied were you with your overall angling experience at Diamond Lake in the last five years?") %>% 
+      caption = "S2Q2: How satisfied were you with your overall angling experience at Diamond Lake in the last five years?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -8246,7 +8248,7 @@ tbl <-  valid %>% rename(" " = Section2Q2)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q2: How satisfied were you with your overall angling experience at Diamond Lake in the last five years?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -8328,7 +8330,7 @@ violin_byres(valid2, valid2$Section2Q2, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 860)
 
-#### Days spent fishing Diamond Lake in last five year 
+#### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 violin_byres(valid3, valid3$Section2Q2, as.factor(valid3$Section2Q1)) +
@@ -8397,7 +8399,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q3: How many fish do you typically harvest (keep) per day at Diamond Lake?") %>% 
+      caption = "S2Q3: How many fish do you typically harvest (keep) per day at Diamond Lake?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -8468,7 +8470,7 @@ dat_map <- dat  %>%
 stateMap_continuous(spatial) +
   ggtitle("How many fish do you typically harvest (keep) per day at Diamond Lake?",
           paste("Valid Reponses:", nrow(dat), "  (2-One-two fish, 4- Six fish)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey90") + 
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") + 
   labs(caption = paste("Number of people that reportedly harvested 1 or more fish N:", nrow(dat), 
                        "(Respondants that said 0 fish were not ploted on map)"))
 
@@ -8506,7 +8508,7 @@ zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("How many fish do you typically harvest (keep) per day at Diamond Lake?",
           paste("Valid Reponses:", nrow(dat), "  (2-One-two fish, 4- Six fish)")) +
   labs(title = str_wrap("How many fish do you typically harvest (keep) per day at Diamond Lake?", 60)) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey90") + 
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") + 
   labs(caption = paste("Number of people that reportedly harvested 1 or more fish N:", nrow(dat), 
                        "(Respondants that said 0 fish were not ploted on map)")) 
 
@@ -8558,7 +8560,7 @@ tbl <-  valid %>% rename(" " = Section2Q3)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q3: How many fish do you typically harvest (keep) per day at Diamond Lake?") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -8643,7 +8645,7 @@ violin_byres(valid2, valid2$Section2Q3, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 859)
 
-#### Days spent fishing Diamond Lake in last five year 
+#### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 
@@ -8720,7 +8722,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q4: The current regulation for trout at Diamond Lake allows for harvest of 6 trout per day. In your opinion, this limit is: ") %>% 
+      caption = "S2Q4: The current regulation for trout at Diamond Lake allows for harvest of 6 trout per day. In your opinion, this limit is: ") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -8891,7 +8893,7 @@ tbl <-  valid %>% rename(" " = Section2Q4)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q4: The current regulation for trout at Diamond Lake allows for harvest of 6 trout per day. In your opinion, this limit is:") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -8975,7 +8977,7 @@ violin_byres(valid2, valid2$Section2Q4, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 786)
 
-#### Days spent fishing Diamond Lake in last five year 
+#### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 
@@ -9058,7 +9060,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q5_1: Level of agreement for no change of future management strategies at Diamond Lake.") %>% 
+      caption = "S2Q5_1: Level of agreement for no change of future management strategies at Diamond Lake.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
@@ -9231,7 +9233,7 @@ tbl <-  valid %>% rename(" " = Section2Q5_1)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q5_1: Level of agreement for no change of future management strategies at Diamond Lake.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -9311,7 +9313,7 @@ violin_byres(valid2, valid2$Section2Q5_1, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 805)
 
-##### Days spent fishing Diamond Lake in last five year 
+##### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 violin_byres(valid3, valid3$Section2Q5_1, as.factor(valid3$Section2Q1)) +
@@ -9387,7 +9389,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q5_2: Level of agreement to reduce the daily creel limit to a number less than six fish at Diamond Lake.") %>% 
+      caption = "S2Q5_2: Level of agreement to reduce the daily creel limit to a number less than six fish at Diamond Lake.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(nrow(tbl)-nrow(other), bold = T) %>% 
@@ -9557,7 +9559,7 @@ tbl <-  valid %>% rename(" " = Section2Q5_2)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q5_2: Level of agreement to reduce the daily creel limit to a number less than six fish at Diamond Lake.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -9639,7 +9641,7 @@ violin_byres(valid2, valid2$Section2Q5_2, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 848)
 
-##### Days spent fishing Diamond Lake in last five year 
+##### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 violin_byres(valid3, valid3$Section2Q5_2, as.factor(valid3$Section2Q1)) +
@@ -9716,7 +9718,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q5_3: Level of agreement to manage Diamond Lake for “trophy” or larger fish even if most of the largest fish caught must be released.") %>% 
+      caption = "S2Q5_3: Level of agreement to manage Diamond Lake for “trophy” or larger fish even if most of the largest fish caught must be released.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -9889,7 +9891,7 @@ tbl <-  valid %>% rename(" " = Section2Q5_3)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q5_3: Level of agreement to manage Diamond Lake for “trophy” or larger fish even if most of the largest fish caught must be released.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -9969,7 +9971,7 @@ violin_byres(valid2, valid2$Section2Q5_3, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 853)
 
-##### Days spent fishing Diamond Lake in last five year 
+##### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 violin_byres(valid3, valid3$Section2Q5_3, as.factor(valid3$Section2Q1)) +
@@ -10047,7 +10049,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q5_4: Level of agreement to manage Diamond Lake as artificial flies and lure only.") %>% 
+      caption = "S2Q5_4: Level of agreement to manage Diamond Lake as artificial flies and lure only.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -10218,7 +10220,7 @@ tbl <-  valid %>% rename(" " = Section2Q5_4)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q5_4: Level of agreement to manage Diamond Lake as artificial flies and lure only.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -10299,7 +10301,7 @@ violin_byres(valid2, valid2$Section2Q5_4, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 855)
 
-##### Days spent fishing Diamond Lake in last five year 
+##### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 
@@ -10377,7 +10379,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Q5_5: Level of agreement to manage Diamond Lake as catch and release only.") %>% 
+      caption = "S2Q5_5: Level of agreement to manage Diamond Lake as catch and release only.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%  
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>% 
@@ -10548,7 +10550,7 @@ tbl <-  valid %>% rename(" " = Section2Q5_5)
 # Plot
 tbl %>% 
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>% 
+      caption = "S2Q5_5: Level of agreement to manage Diamond Lake as catch and release only.") %>% 
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>% 
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") 
 ```
@@ -10630,7 +10632,7 @@ violin_byres(valid2, valid2$Section2Q5_5, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n= 854)
 
-##### Days spent fishing Diamond Lake in last five year 
+##### Days spent fishing Diamond Lake in last five years 
 
 ```{r echo=FALSE}
 
@@ -10815,7 +10817,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q1: How many days per year have you fished at Wheatland Reservoir 3 in the last five years?") %>%
+      caption = "S3Q1: How many days per year have you fished at Wheatland Reservoir 3 in the last five years?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -10848,7 +10850,7 @@ valid <- valid %>%
                     Percent = round((Frequency/nrow(valid)*100), digits = 1))
 
 barchart_all(data = valid, question = valid$Q11)+
-  facet_wrap(~"How many days per year have you fished WR#3 in the last five years?") +
+  facet_wrap(~"How many days per year have you fished WR3 in the last five years?") +
   scale_fill_manual(values = c("#EBEBE5", "#D8CEBA",  "steelblue4", "#00374D")) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
 
@@ -10879,9 +10881,9 @@ dat_map <- dat  %>%
 
 
 stateMap_continuous(spatial) +
-    ggtitle("How many days per year have you fished WR#3 in the last five years?",
+    ggtitle("How many days per year have you fished WR3 in the last five years?",
           paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
-scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 # Discrete
 # stateMap_discrete(spatial) +
@@ -10915,10 +10917,10 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
-  ggtitle("How many days per year have you fished WR#3 in the last five years?",
+  ggtitle("How many days per year have you fished WR3 in the last five years?",
           paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
-   labs(title = str_wrap("How many days per year have you fished WR#3 in the last five years?", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+   labs(title = str_wrap("How many days per year have you fished WR3 in the last five years?", 60)) +
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 # Discrete
 # zipCOWY_Map_discrete(spatial, counties, states) +
@@ -10974,7 +10976,7 @@ tbl <-  valid %>% rename(" " = Q11)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q1: How many days per year have you fished at Wheatland Reservoir 3 in the last five years?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -10984,7 +10986,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"How many days per year have you fished WR#3 in the last five years?") +
+  facet_wrap(~"How many days per year have you fished WR3 in the last five years?") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
                        "    Non Resident Valid Reponses: ", nrow(nonres)))
@@ -11014,7 +11016,7 @@ valid2$Section1Q3 <- factor(valid2$Section1Q3, levels = c("None (0 days)", "1-5 
 
 # Violin Plots
 violin_byres(valid, valid$Q11, valid$residency) +
-  facet_wrap(~"Days per year you fished WR#3 in the last five years?") +
+  facet_wrap(~"Days per year you fished WR3 in the last five years?") +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 
 
@@ -11022,11 +11024,11 @@ violin_byres(valid, valid$Q11, valid$residency) +
 ```
 
 
-####County
+#### County
 
 ```{r echo=FALSE}
 violin_byres(valid, valid$Q11, valid$county) +
-  facet_wrap(~"Days per year you fished WR#3 in the last five years?") +
+  facet_wrap(~"Days per year you fished WR3 in the last five years?") +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 
 ```
@@ -11037,7 +11039,7 @@ violin_byres(valid, valid$Q11, valid$county) +
 ```{r echo=FALSE}
 
 violin_byres(valid2, valid2$Q11, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"Days per year you fished WR#3 in the last five years?") +
+  facet_wrap(~"Days per year you fished WR3 in the last five years?") +
    labs(caption = paste("1 = None      2 = 1-5 days      3 = 6-20 days      4 = More than 20 days"))
 
 
@@ -11105,7 +11107,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q2: Which fish do you prefer to catch at Wheatland Reservoir #3?") %>%
+      caption = "S3Q2: Which fish do you prefer to catch at Wheatland Reservoir #3?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -11261,7 +11263,7 @@ tbl <-  valid %>% rename(" " = Section3Q2)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q2: Which fish do you prefer to catch at Wheatland Reservoir #3?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -11327,7 +11329,7 @@ violin_byres(valid, valid$Section3Q2, valid$residency) +
 
 ```{r echo=FALSE}
 violin_byres(valid, valid$Section3Q2, valid$county) +
-  facet_wrap(~"Which fish do you prefer to catch at Wheatland Reservoir #3?") +
+  facet_wrap(~"Prefered fish to catch at Wheatland Reservoir #3?") +
    labs(caption = paste("1 = Trout          2 = Walleye         3 = Both equally"))
 
 ```
@@ -11338,8 +11340,8 @@ violin_byres(valid, valid$Section3Q2, valid$county) +
 ```{r echo=FALSE}
  #valid2
 violin_byres(valid2, valid2$Section3Q2, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"Which fish do you prefer to catch at Wheatland Reservoir #3?") +
-   labs(caption = paste("1 = Trout          2 = Walleye         3 = Both equally"))
+  facet_wrap(~"Prefered fish to catch at Wheatland Reservoir #3?") +
+  labs(caption = paste("1 = Trout          2 = Walleye         3 = Both equally"))
 
 ```
 
@@ -11350,8 +11352,8 @@ violin_byres(valid2, valid2$Section3Q2, as.factor(valid2$Section1Q3)) +
 ```{r echo=FALSE}
  #vaild3
 violin_byres(valid3, valid3$Section3Q2, as.factor(valid3$Q11)) +
-  facet_wrap(~"Which fish do you prefer to catch at Wheatland Reservoir #3?") +
-   labs(caption = paste("1 = Trout          2 = Walleye         3 = Both equally"))
+  facet_wrap(~"Prefered fish to catch at Wheatland Reservoir #3?") +
+  labs(caption = paste("1 = Trout          2 = Walleye         3 = Both equally"))
 
 ```
 
@@ -11420,7 +11422,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q3: How satisfied were you with your overall angling experience at Wheatland Reservoir #3 in the last five years?") %>%
+      caption = "S3Q3: How satisfied were you with your overall angling experience at Wheatland Reservoir #3 in the last five years?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -11458,7 +11460,7 @@ valid <- valid %>%
 
 
 barchart_all(data = valid, question = valid$Section3Q3)+
-  facet_wrap(~"Satisfaction with overall angling experience at WR#3 in the last five years?") +
+  facet_wrap(~"Satisfaction with overall angling experience at WR3 in the last five years?") +
   scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
@@ -11493,13 +11495,13 @@ dat_map <- dat  %>%
 
 # Continuous
 # stateMap_continuous(spatial) +
-#   ggtitle("Satisfaction with overall angling experience at WR#3 in the last five years?",
+#   ggtitle("Satisfaction with overall angling experience at WR3 in the last five years?",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
 #    scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3)
 
 # Discrete
 stateMap_discrete(spatial) +
-  ggtitle("Satisfaction with overall angling experience at WR#3 in the last five years?") +
+  ggtitle("Satisfaction with overall angling experience at WR3 in the last five years?") +
   scale_fill_manual("",
                     values=c("Satisfied (Mean > 3)" = "darkseagreen4",
                               "Dissatisfied (Mean < 3)" = "sienna4",
@@ -11531,14 +11533,14 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 # zipCOWY_Map_continuous(spatial, counties, states) +
-#   ggtitle("Satisfaction with overall angling experience at WR#3 in the last five years?",
+#   ggtitle("Satisfaction with overall angling experience at WR3 in the last five years?",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Not very important, 5-Very important)")) +
-#    labs(title = str_wrap("Satisfaction with overall angling experience at WR#3 in the last five years?", 60)) +
+#    labs(title = str_wrap("Satisfaction with overall angling experience at WR3 in the last five years?", 60)) +
 #   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3)
 
 # Discrete
 zipCOWY_Map_discrete(spatial, counties, states) +
-   labs(title = str_wrap("Satisfaction with overall angling experience at WR#3 in the last five years?", 60)) +
+   labs(title = str_wrap("Satisfaction with overall angling experience at WR3 in the last five years?", 60)) +
   scale_fill_manual("",
                     values=c("Satisfied (Mean > 3)" = "darkseagreen4",
                               "Dissatisfied (Mean < 3)" = "sienna4",
@@ -11593,7 +11595,7 @@ tbl <-  valid %>% rename(" " = Section3Q3)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q3: How satisfied were you with your overall angling experience at Wheatland Reservoir #3 in the last five years?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -11775,7 +11777,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q4: How many trout do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>%
+      caption = "S3Q4: How many trout do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -11812,7 +11814,7 @@ valid <- valid %>%
 
 
 barchart_all(data = valid, question = valid$Section3Q4)+
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3?") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3?") +
   scale_fill_manual(values = c("#EBEBE5", "#D8CEBA",  "steelblue4", "#00374D")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
@@ -11844,9 +11846,9 @@ dat_map <- dat  %>%
 
 # Continuous
 stateMap_continuous(spatial) +
-  ggtitle("How many trout do you typically harvest per day at WR#3",
+  ggtitle("How many trout do you typically harvest per day at WR3",
           paste("Valid Reponses:", nrow(dat), "  (2-One-two trout, 4- Six trout)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Number of people that reportedly harvested 1 or more fish N:", nrow(dat),
                        "(Respondants that said 0 fish were not ploted on map)"))
 
@@ -11881,10 +11883,10 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
-  ggtitle("How many trout do you typically harvest per day at WR#3",
+  ggtitle("How many trout do you typically harvest per day at WR3",
           paste("Valid Reponses:", nrow(dat), "  (2-One-two trout, 4- Six trout)")) +
-  labs(title = str_wrap("How many trout do you typically harvest per day at WR#3", 60)) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+  labs(title = str_wrap("How many trout do you typically harvest per day at WR3", 60)) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Number of People that reportedly harvested 1 or more fish N:", nrow(dat),
                        "(Respondants that said 0 fish were not ploted on map)"))
 
@@ -11936,7 +11938,7 @@ tbl <-  valid %>% rename(" " = Section3Q4)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q4: How many trout do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -11946,7 +11948,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
@@ -11999,7 +12001,7 @@ valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "B
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q4, valid$residency) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 
 
@@ -12011,7 +12013,7 @@ violin_byres(valid, valid$Section3Q4, valid$residency) +
 
 ```{r echo=FALSE}
 violin_byres(valid, valid$Section3Q4, valid$county) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 
 ```
@@ -12022,7 +12024,7 @@ violin_byres(valid, valid$Section3Q4, valid$county) +
 ```{r echo=FALSE}
  #valid2
 violin_byres(valid2, valid2$Section3Q4, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12033,7 +12035,7 @@ violin_byres(valid2, valid2$Section3Q4, as.factor(valid2$Section1Q3)) +
 ```{r echo=FALSE}
  #valid3
 violin_byres(valid3, valid3$Section3Q4, as.factor(valid3$Q11)) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12046,7 +12048,7 @@ violin_byres(valid3, valid3$Section3Q4, as.factor(valid3$Q11)) +
 ```{r echo=FALSE}
  #valid4
 violin_byres(valid4, valid4$Section3Q4, as.factor(valid4$Section3Q2)) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many trout do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12115,7 +12117,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q5: Opinion that the current regulation for trout (6 trout per day) is: ") %>%
+      caption = "S3Q5: Opinion that the current regulation for trout (6 trout per day) is: ") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -12152,7 +12154,7 @@ valid <- valid %>%
 
 
 barchart_all(data = valid, question = valid$Section3Q5)+
-  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
   scale_fill_manual(values = c("sienna4","gray","darkseagreen4")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
@@ -12187,13 +12189,13 @@ dat_map <- dat  %>%
 
 # Continuous
 # stateMap_continuous(spatial) +
-#   ggtitle("The current regulation for trout harvest at WR#3 is::",
+#   ggtitle("The current regulation for trout harvest at WR3 is::",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
 #    scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2)
 
 # Discrete
 stateMap_discrete(spatial) +
-  ggtitle("The current regulation for trout harvest at WR#3 is:") +
+  ggtitle("The current regulation for trout harvest at WR3 is:") +
   scale_fill_manual("",
                     values=c("Not restrictive enough (Mean > 2)" = "darkseagreen4",
                               "Too restrictive (Mean < 2)" = "sienna4",
@@ -12225,14 +12227,14 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 # zipCOWY_Map_continuous(spatial, counties, states) +
-#   ggtitle("The current regulation for trout harvest at WR#3 is:",
+#   ggtitle("The current regulation for trout harvest at WR3 is:",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
-#    labs(title = str_wrap("The current regulation for trout harvest at WR#3 is:", 60)) +
+#    labs(title = str_wrap("The current regulation for trout harvest at WR3 is:", 60)) +
 #   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2)
 
 # Discrete
 zipCOWY_Map_discrete(spatial, counties, states) +
-   labs(title = str_wrap("The current regulation for trout harvest at WR#3 is:", 60)) +
+   labs(title = str_wrap("The current regulation for trout harvest at WR3 is:", 60)) +
   scale_fill_manual("",
                     values=c("Not restrictive enough (Mean > 2)" = "darkseagreen4",
                               "Too restrictive (Mean < 2)" = "sienna4",
@@ -12285,7 +12287,7 @@ tbl <-  valid %>% rename(" " = Section3Q5)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q5: Opinion that the current regulation for trout (6 trout per day) is: ") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -12295,7 +12297,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
@@ -12345,7 +12347,7 @@ valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "B
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q5, valid$residency) +
-  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 
 
@@ -12357,7 +12359,7 @@ violin_byres(valid, valid$Section3Q5, valid$residency) +
 
 ```{r echo=FALSE}
 violin_byres(valid, valid$Section3Q5, valid$county) +
-  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 
 ```
@@ -12368,7 +12370,7 @@ violin_byres(valid, valid$Section3Q5, valid$county) +
 ```{r echo=FALSE}
  #valid2
 violin_byres(valid2, valid2$Section3Q5, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 ```
 
@@ -12379,7 +12381,7 @@ violin_byres(valid2, valid2$Section3Q5, as.factor(valid2$Section1Q3)) +
 ```{r echo=FALSE}
  #valid3
 violin_byres(valid3, valid3$Section3Q5, as.factor(valid3$Q11)) +
-  facet_wrap(~"The current regulation for trout harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 ```
 
@@ -12393,7 +12395,7 @@ violin_byres(valid3, valid3$Section3Q5, as.factor(valid3$Q11)) +
  #valid4
 
 violin_byres(valid4, valid4$Section3Q5, as.factor(valid4$Section3Q2)) +
-  facet_wrap(~"How many trout do you typically harvest per day at WR#3") +
+  facet_wrap(~"The current regulation for trout harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 ```
 
@@ -12465,7 +12467,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q6: How many walleye do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>%
+      caption = "S3Q6: How many walleye do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -12502,7 +12504,7 @@ valid <- valid %>%
 
 
 barchart_all(data = valid, question = valid$Section3Q6)+
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3?") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3?") +
   scale_fill_manual(values = c("#EBEBE5", "#D8CEBA",  "steelblue4", "#00374D")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
@@ -12534,9 +12536,9 @@ dat_map <- dat  %>%
 
 # Continuous
 stateMap_continuous(spatial) +
-  ggtitle("How many walleye do you typically harvest per day at WR#3",
+  ggtitle("How many walleye do you typically harvest per day at WR3",
           paste("Valid Reponses:", nrow(dat), "  (2-One-two walleye, 4- Six walleye)")) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey90") +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Number of people that reportedly harvested 1 or more fish N:", nrow(dat),
                        "(Respondants that said 0 fish were not ploted on map)"))
 
@@ -12571,10 +12573,10 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 zipCOWY_Map_continuous(spatial, counties, states) +
-  ggtitle("How many walleye do you typically harvest per day at WR#3",
+  ggtitle("How many walleye do you typically harvest per day at WR3",
           paste("Valid Reponses:", nrow(dat), "  (2-One-two walleye, 4- Six walleye)")) +
-  labs(title = str_wrap("How many walleye do you typically harvest per day at WR#3", 60)) +
-   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey90") +
+  labs(title = str_wrap("How many walleye do you typically harvest per day at WR3", 60)) +
+   scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Number of People that reportedly harvested 1 or more fish N:", nrow(dat),
                        "(Respondants that said 0 fish were not ploted on map)"))
 
@@ -12626,7 +12628,7 @@ tbl <-  valid %>% rename(" " = Section3Q6)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q6: How many walleye do you typically harvest (keep) per day at Wheatland Reservoir 3?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -12636,7 +12638,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
@@ -12689,7 +12691,7 @@ valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "B
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q6, valid$residency) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 
 
@@ -12702,7 +12704,7 @@ violin_byres(valid, valid$Section3Q6, valid$residency) +
 ```{r echo=FALSE}
 
 violin_byres(valid, valid$Section3Q6, valid$county) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12713,7 +12715,7 @@ violin_byres(valid, valid$Section3Q6, valid$county) +
  #valid2
 
 violin_byres(valid2, valid2$Section3Q6, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12724,7 +12726,7 @@ violin_byres(valid2, valid2$Section3Q6, as.factor(valid2$Section1Q3)) +
 ```{r echo=FALSE}
  #valid3
 violin_byres(valid3, valid3$Section3Q6, as.factor(valid3$Q11)) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12737,7 +12739,7 @@ violin_byres(valid3, valid3$Section3Q6, as.factor(valid3$Q11)) +
 ```{r echo=FALSE}
  #valid4
 violin_byres(valid4, valid4$Section3Q6, as.factor(valid4$Section3Q2)) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"How many walleye do you typically harvest per day at WR3") +
    labs(caption = paste("1 = 0 Fish           2 = 1-2 Fish           3 = 3-5 Fish           4 = 6 Fish"))
 ```
 
@@ -12808,7 +12810,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q7: Opinion that the current regulation for walleye (6 walleye per day) is: ") %>%
+      caption = "S3Q7: Opinion that the current regulation for walleye (6 walleye per day) is: ") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -12845,7 +12847,7 @@ valid <- valid %>%
 
 
 barchart_all(data = valid, question = valid$Section3Q7)+
-  facet_wrap(~"The current regulation for walleye harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is:") +
   scale_fill_manual(values = c("sienna4","gray","darkseagreen4")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
@@ -12880,13 +12882,13 @@ dat_map <- dat  %>%
 
 # Continuous
 # stateMap_continuous(spatial) +
-#   ggtitle("The current regulation for walleye harvest at WR#3 is::",
+#   ggtitle("The current regulation for walleye harvest at WR3 is::",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
 #    scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2)
 
 # Discrete
 stateMap_discrete(spatial) +
-  ggtitle("The current regulation for walleye harvest at WR#3 is:") +
+  ggtitle("The current regulation for walleye harvest at WR3 is:") +
   scale_fill_manual("",
                     values=c("Not restrictive enough (Mean > 2)" = "darkseagreen4",
                               "Too restrictive (Mean < 2)" = "sienna4",
@@ -12918,14 +12920,14 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 # zipCOWY_Map_continuous(spatial, counties, states) +
-#   ggtitle("The current regulation for walleye harvest at WR#3 is:",
+#   ggtitle("The current regulation for walleye harvest at WR3 is:",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Too restrictivee, 3-Not restrictive enough)")) +
-#    labs(title = str_wrap("The current regulation for walleye harvest at WR#3 Lake is:", 60)) +
+#    labs(title = str_wrap("The current regulation for walleye harvest at WR3 Lake is:", 60)) +
 #   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 2)
 
 # Discrete
 zipCOWY_Map_discrete(spatial, counties, states) +
-   labs(title = str_wrap("The current regulation for walleye harvest at WR#3 is:", 60)) +
+   labs(title = str_wrap("The current regulation for walleye harvest at WR3 is:", 60)) +
   scale_fill_manual("",
                     values=c("Not restrictive enough (Mean > 2)" = "darkseagreen4",
                               "Too restrictive (Mean < 2)" = "sienna4",
@@ -12977,7 +12979,7 @@ tbl <-  valid %>% rename(" " = Section3Q7)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q7: Opinion that the current regulation for walleye (6 walleye per day) is: ") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -12987,7 +12989,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"The current regulation for walleye harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is:") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
@@ -13037,7 +13039,7 @@ valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "B
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q7, valid$residency) +
-  facet_wrap(~"The current regulation for walleye harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 
 
@@ -13050,7 +13052,7 @@ violin_byres(valid, valid$Section3Q7, valid$residency) +
 ```{r echo=FALSE}
 
 violin_byres(valid, valid$Section3Q7, valid$county) +
-  facet_wrap(~"The current regulation for walleye harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 ```
 
@@ -13060,7 +13062,7 @@ violin_byres(valid, valid$Section3Q7, valid$county) +
 ```{r echo=FALSE}
  #valid2
 violin_byres(valid2, valid2$Section3Q7, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"The current regulation for walleye harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 ```
 
@@ -13071,7 +13073,7 @@ violin_byres(valid2, valid2$Section3Q7, as.factor(valid2$Section1Q3)) +
 ```{r echo=FALSE}
  #valid3
 violin_byres(valid3, valid3$Section3Q7, as.factor(valid3$Q11)) +
-  facet_wrap(~"The current regulation for walleye harvest at WR#3 is:") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is:") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 
 ```
@@ -13085,7 +13087,7 @@ violin_byres(valid3, valid3$Section3Q7, as.factor(valid3$Q11)) +
 ```{r echo=FALSE}
  #valid4
 violin_byres(valid4, valid4$Section3Q7, as.factor(valid4$Section3Q2)) +
-  facet_wrap(~"How many walleye do you typically harvest per day at WR#3") +
+  facet_wrap(~"The current regulation for walleye harvest at WR3 is") +
    labs(caption = paste("1 = Too restrictive           2 = About right           3 = Not restrictive enough"))
 
 ```
@@ -13167,7 +13169,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q5_1: Level of agreement that walleye have negatively impacted the trout fishery (Reduce Walleye)") %>%
+      caption = "S3Q5_1: Level of agreement that walleye have negatively impacted the trout fishery (Reduce Walleye)") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(nrow(tbl)-nrow(other), bold = T) %>%
@@ -13338,7 +13340,7 @@ tbl <-  valid %>% rename(" " = Section3Q8_1)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q5_1: Level of agreement that walleye have negatively impacted the trout fishery (Reduce Walleye)") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -13526,7 +13528,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q5_2: Level of agreement to manage Wheatland Reservoir 3 as primarily a walleye fishery.") %>%
+      caption = "S3Q5_2: Level of agreement to manage Wheatland Reservoir 3 as primarily a walleye fishery.") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(nrow(tbl)-nrow(other), bold = T) %>%
@@ -13697,7 +13699,7 @@ tbl <-  valid %>% rename(" " = Section3Q8_2)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q5_2: Level of agreement to manage Wheatland Reservoir 3 as primarily a walleye fishery") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -13882,7 +13884,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q5_2: Level of agreement that they enjoy the existing fishery with walleye and trout.") %>%
+      caption = "S3Q5_3: Level of agreement that they enjoy the existing fishery with walleye and trout.") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(nrow(tbl)-nrow(other), bold = T) %>%
@@ -13919,7 +13921,7 @@ valid <- valid %>%
 
 
 barchart_all(data = valid, question = valid$Section3Q8_3)+
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
   scale_fill_manual(values = c("sienna4","sienna3","gray","darkseagreen","darkseagreen4")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Valid Reponses: ", nrow(n)))
@@ -13953,13 +13955,13 @@ dat_map <- dat  %>%
 
 # Continuous
 # stateMap_continuous(spatial) +
-#   ggtitle("Enjoy the existing fishery at WR#3 with walleye and trout",
+#   ggtitle("Enjoy the existing fishery at WR3 with walleye and trout",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
 #    scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3)
 
 # Discrete
 stateMap_discrete(spatial) +
-  ggtitle("Enjoy the existing fishery at WR#3 with walleye and trout") +
+  ggtitle("Enjoy the existing fishery at WR3 with walleye and trout") +
   scale_fill_manual("",
                     values=c("Agree (Mean > 3)" = "darkseagreen4",
                               "Disagree (Mean < 3)" = "sienna4",
@@ -13991,14 +13993,14 @@ counties <- sf_counties %>% filter(state %in% c("WY"))
 
 # Continuous
 # zipCOWY_Map_continuous(spatial, counties, states) +
-#   ggtitle("Enjoy the existing fishery at WR#3 with walleye and trout",
+#   ggtitle("Enjoy the existing fishery at WR3 with walleye and trout",
 #           paste("Valid Reponses:", nrow(dat), "  (1-Strongly disagree, 5-Strongly agree)")) +
-#    labs(title = str_wrap("Enjoy the existing fishery at WR#3 with walleye and trout", 60)) +
+#    labs(title = str_wrap("Enjoy the existing fishery at WR3 with walleye and trout", 60)) +
 #   scale_fill_gradient2(low = "sienna4",mid = "gray",high = "darkseagreen4", midpoint = 3)
 
 # Discrete
 zipCOWY_Map_discrete(spatial, counties, states) +
-   labs(title = str_wrap("Enjoy the existing fishery at WR#3 with walleye and trout", 60)) +
+   labs(title = str_wrap("Enjoy the existing fishery at WR3 with walleye and trout", 60)) +
   scale_fill_manual("",
                     values=c("Agree (Mean > 3)" = "darkseagreen4",
                               "Disagree (Mean < 3)" = "sienna4",
@@ -14053,7 +14055,7 @@ tbl <-  valid %>% rename(" " = Section3Q8_3)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S3Q5_3: Level of agreement that they enjoy the existing fishery with walleye and trout.") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -14063,7 +14065,7 @@ tbl %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 barchart_byres(data = tbl) +
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
   scale_fill_manual(values = c("#00374D", "#FFC80B")) +
   scale_x_discrete(labels = label_wrap(10)) +
   labs(caption = paste("Resident Valid Reponses: ", nrow(res),
@@ -14115,7 +14117,7 @@ valid4$Section3Q2 <- factor(valid4$Section3Q2, levels = c("Trout", "Walleye", "B
 
 # Violin Plots
 violin_byres(valid, valid$Section3Q8_3, valid$residency) +
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 
 
@@ -14129,7 +14131,7 @@ violin_byres(valid, valid$Section3Q8_3, valid$residency) +
 ```{r echo=FALSE}
 
 violin_byres(valid, valid$Section3Q8_3, valid$county) +
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 
 ```
@@ -14141,7 +14143,7 @@ violin_byres(valid, valid$Section3Q8_3, valid$county) +
  #valid2
 
 violin_byres(valid2, valid2$Section3Q8_3, as.factor(valid2$Section1Q3)) +
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 ```
 
@@ -14153,7 +14155,7 @@ violin_byres(valid2, valid2$Section3Q8_3, as.factor(valid2$Section1Q3)) +
  #valid3
 
 violin_byres(valid3, valid3$Section3Q8_3, as.factor(valid3$Q11)) +
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 ```
 
@@ -14166,7 +14168,7 @@ violin_byres(valid3, valid3$Section3Q8_3, as.factor(valid3$Q11)) +
 ```{r echo=FALSE}
  #valid4
 violin_byres(valid4, valid4$Section3Q8_3, as.factor(valid4$Section3Q2)) +
-  facet_wrap(~"Enjoy the existing fishery at WR#3 with walleye and trout") +
+  facet_wrap(~"Enjoy the existing fishery at WR3 with walleye and trout") +
    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
 ```
 
@@ -14354,7 +14356,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q1: How many days per year have you fished for catfish in the Laramie Region in the last five years?") %>%
+      caption = "S4Q1: How many days per year have you fished for catfish in the Laramie Region in the last five years?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -14420,7 +14422,7 @@ dat_map <- dat  %>%
 stateMap_continuous(spatial) +
     ggtitle("Days fished for catfish in the Laramie Region per year in last 5 years",
           paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
-scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 # Discrete
 # stateMap_discrete(spatial) +
@@ -14457,7 +14459,7 @@ zipCOWY_Map_continuous(spatial, counties, states) +
   ggtitle("Days fished for catfish in the Laramie Region per year in last 5 years",
           paste("Valid Reponses:", nrow(dat), "  (2-One-five days, 4-More than 20)")) +
    labs(title = str_wrap("Days fished for catfish in the Laramie Region per year in last 5 years", 60)) +
-  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+  scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 # Discrete
 # zipCOWY_Map_discrete(spatial, counties, states) +
@@ -14513,7 +14515,7 @@ tbl <-  valid %>% rename(" " = Section4Q2)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S4Q1: How many days per year have you fished for catfish in the Laramie Region in the last five years?") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -14798,7 +14800,7 @@ ggplot() +
   ggthemes::theme_map() +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "right") +
-scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -14832,7 +14834,7 @@ ggplot() +
         legend.position = "right") +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "right") +
-scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2) +
+scale_fill_gradient2(low = "#EBEBE5",mid = "#D8CEBA",high = "#00374D", midpoint = 2, na.value = "grey85") +
   labs(caption = paste("Those that awnsered none (0 days) were removed from plot"))
 
 
@@ -15209,7 +15211,7 @@ tbl <- rbind(valid, other) %>%
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Q3: Indicate your level of agreement that the opportunity to catch stocked catfish is an added benefit to specific waters in the Laramie Region.") %>%
+      caption = "S4Q3: Indicate your level of agreement that the opportunity to catch stocked catfish is an added benefit to specific waters in the Laramie Region.") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
@@ -15381,7 +15383,7 @@ tbl <-  valid %>% rename(" " = Section4Q4)
 # Plot
 tbl %>%
   kbl(align= c("l","c","c"),
-      caption = "Table : Percent of the total sample size") %>%
+      caption = "S4Q3: Indicate your level of agreement that the opportunity to catch stocked catfish is an added benefit to specific waters in the Laramie Region.") %>%
   kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
   row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
 ```
@@ -15469,16 +15471,16 @@ violin_byres(valid2, valid2$Section4Q4, as.factor(valid2$Section1Q3)) +
 
 - Effort level based of Section1Q3 - Days fished in Laramie Region in 2023 (n=4142)
 
-#### Days spent fishing WR3 in last five years 
+<!-- #### Days spent fishing WR3 in last five years  -->
 
-```{r echo=FALSE}
- #valid3
-violin_byres(valid3, valid3$Section4Q4, as.factor(valid3$Section4Q2)) +
-  facet_wrap(~"Stocked catfish is an added benefit in the Laramie Region?") +
-   labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree"))
-```
+<!-- ```{r echo=FALSE} -->
+<!--  #valid3 -->
+<!-- violin_byres(valid3, valid3$Section4Q4, as.factor(valid3$Section4Q2)) + -->
+<!--   facet_wrap(~"Stocked catfish is an added benefit in the Laramie Region?") + -->
+<!--    labs(caption = paste("1 = Strongly disagree           3 = Neutral           5 = Strongly agree")) -->
+<!-- ``` -->
 
-- Effort level based of Section4Q2 - Days fished for Catfish in last five years (n=4147)
+<!-- - Effort level based of Section4Q2 - Days fished for Catfish in last five years (n=4147) -->
 
 
 
@@ -15551,10 +15553,9 @@ other <- other %>%
 # Plot
 other %>%
   kbl(align= c("l","c","c"),
-      caption = "Q6: Number of skips or never saw question (Total: ).") %>%
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+      caption = "Q6: Number of skips or never saw question (Total: ).")   %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  scroll_box(width = "100%", height = "600px") 
 ```
 
 
@@ -15654,10 +15655,9 @@ other <- other %>%
 # Plot
 other %>%
   kbl(align= c("l","c","c"),
-      caption = "Number of skips or never saw question (Total: ).") %>%
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+      caption = "Number of skips or never saw question (Total: ).")  %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  scroll_box(width = "100%", height = "600px") 
 
 ```
 
@@ -15762,10 +15762,9 @@ other <- other %>%
 # Plot
 other %>%
   kbl(align= c("l","c","c"),
-      caption = "Number of skips or never saw question (Total: ).") %>%
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+      caption = "Number of skips or never saw question (Total: ).")  %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  scroll_box(width = "100%", height = "600px") 
 ```
 
 <!-- #### Word Cloud (Testing) -->
@@ -15859,9 +15858,8 @@ other <- other %>%
 other %>%
   kbl(align= c("l","c","c"),
       caption = "Number of skips or never saw question (Total: 2675).") %>%
-  kable_classic("striped", stripe_color = "F2F4F4",  html_font = "Times New Roman", full_width = F, position = "left") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid") %>%
-  row_spec(0, bold = T, extra_css = "border-top: 1.5px solid")
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  scroll_box(width = "100%", height = "600px") 
 
 ```
 
@@ -15909,7 +15907,7 @@ other %>%
 
 
 
-```{r}
+```{r echo=FALSE}
 #write.csv(d, paste0(myPath,"/Data/LaramieAnglerSurveyData_Final_CharacterVersion.csv" ))
 ```
 
